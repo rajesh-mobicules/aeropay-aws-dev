@@ -11,12 +11,26 @@ export default new Router({
     {
       name: 'Home',
       path: '/',
+      meta: {auth: true},
       component: require('../views/Home')
     },
     {
       name: 'Login',
       path: '/login',
+      meta: {auth: false},
       component: require('../views/auth/Login')
+    },
+    {
+      name: 'Register',
+      path: '/register',
+      meta: {auth: false},
+      component: require('../views/auth/Register')
+    },
+    {
+      name: 'Iav',
+      path: '/iav',
+      meta: {auth: false},
+      component: require('../views/iav')
     },
     ...generateRoutesFromMenu(menuModule.state.items),
     {

@@ -381,7 +381,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~bulma/sass/utilities/mixins';
+// @import '~bulma/sass/utilities/mixins';
 
 .button {
   margin: 5px 0 0;
@@ -391,15 +391,15 @@ export default {
   margin: inherit;
 }
 
-.control.has-addons {
-  @include mobile() {
-    input {
-      width: 100%;
-    }
+// .control.has-addons {
+//   @include mobile() {
+//     input {
+//       width: 100%;
+//     }
 
-    input.is-expanded {
-      flex-shrink: 1;
-    }
-  }
-}
+//     input.is-expanded {
+//       flex-shrink: 1;
+//     }
+//   }
+// }
 </style>

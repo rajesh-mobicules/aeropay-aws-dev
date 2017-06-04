@@ -6,7 +6,8 @@ export default {
   meta: {
     icon: 'fa-bar-chart-o',
     expanded: false,
-    link: 'charts/index.vue'
+    link: 'charts/index.vue',
+    auth: true
   },
   component: lazyLoading('charts', true),
 

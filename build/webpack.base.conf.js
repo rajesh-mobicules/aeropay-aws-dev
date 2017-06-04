@@ -29,6 +29,8 @@ module.exports = {
     alias: {
       // https://github.com/vuejs/vue/wiki/Vue-2.0-RC-Starter-Resources
       // vue: 'vue/dist/vue',
+      api: path.resolve(__dirname, '../client/api'),
+      utils: path.resolve(__dirname, '../client/utils'),
       package: path.resolve(__dirname, '../package.json'),
       src: path.resolve(__dirname, '../client'),
       assets: path.resolve(__dirname, '../client/assets'),

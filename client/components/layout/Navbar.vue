@@ -18,8 +18,8 @@
           </a>
         </div>
         <div class="nav-right is-flex">
-          <router-link v-if="!$auth.check()" to="/login" class="nav-item">Login</router-link>
-          <a v-if="$auth.check()" @click="logout" class="nav-item">Logout</a>
+          <router-link v-if="!checkAuth" to="/login" class="nav-item">Login</router-link>
+          <a v-if="checkAuth" @click="logoutClick" class="nav-item">Logout</a>
         </div>
       </nav>
     </div>
@@ -42,22 +42,24 @@ export default {
 
   computed: mapGetters({
     pkginfo: 'pkg',
-    sidebar: 'sidebar'
+    sidebar: 'sidebar',
+    checkAuth: 'checkAuth'
   }),
 
   methods: {
     ...mapActions([
-      'toggleSidebar'
+      'toggleSidebar',
+      'logout'
     ]),
-    logout () {
-      this.$auth.logout({
-        redirect: 'Home',
-        makeRequest: false
-        // params: {},
-        // success: function () {},
-        // error: function () {},
-        // etc...
-      })
+    logoutClick () {
+      this.isLoading = true
+      this.logout()
+        .then(() => {
+          this.$router.push({ path: '/login' })
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

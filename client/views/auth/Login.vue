@@ -1,91 +1,113 @@
 <template>
-<div class="content has-text-centered">
-  <h1 class="is-title is-bold">Login</h1>
-
-  <div class="columns is-vcentered">
-    <div class="column is-6 is-offset-3">
-      <div class="box">
-        <div v-show="error" style="color:red; word-wrap:break-word;">{{ error }}</div>
-        <form v-on:submit.prevent="login">
-          <label class="label">Email</label>
-          <p class="control">
-            <input v-model="data.body.username" class="input" type="text" placeholder="email@example.org">
-          </p>
-          <label class="label">Password</label>
-          <p class="control">
-            <input v-model="data.body.password" class="input" type="password" placeholder="password">
-          </p>
-
+  <div id='app-login'>
+    <h2 class='has-text-centered title column'>Please login</h2>
+    <div class='columns'>
+      <div class="box column is-6 is-offset-3">
+        <form @submit.prevent="loginClick">
+          <div class="field">
+            <label class="label">Username</label>
+            <p class="control has-icons-left has-icons-right">
+              <input class="input" type="text"
+              placeholder="example@gmail.com" v-model="data.body.email"
+              @blur="evaluateUser"
+              :class="{ 'is-danger' : hasUsernameWarning }"
+              >
+              <span class="icon is-small is-left">
+                <i class="fa fa-user"></i>
+              </span>
+              <span class="icon is-small is-right" v-show="data.body.email">
+                <i class="fa fa-check"></i>
+              </span>
+            </p>
+            <p class="help is-danger" v-show="hasUsernameWarning">You must enter a username</p>
+            <label class="label">Password</label>
+            <p class="control has-icons-left">
+              <input class="input" type="password"
+              placeholder="password" v-model="data.body.password"
+              @blur="evaluatePass"
+              :class="{ 'is-danger' : hasPassWarning }"
+              >
+              <span class="icon is-small is-left">
+                <i class="fa fa-key"></i>
+              </span>
+            </p>
+            <p class="help is-danger" v-show="hasPassWarning">You must enter a password</p>
+            <br>
+          </div>
           <p class="control">
             <label class="checkbox">
               <input type="checkbox" v-model="data.rememberMe">
               Remember me
             </label>
           </p>
-
-          <hr>
-          <p class="control">
-            <button type="submit" class="button is-primary">Login</button>
-            <button class="button is-default">Cancel</button>
+          <br>
+          <input type="submit" v-show="false" class="submit">
+          <p class="has-text-centered">
+            <a class="signin-button button is-primary" id="submit" type="submit" value="Sign in"
+               @click="loginClick" :disabled="disabled"
+               :class = "{'is-loading' : isLoading}"
+            >
+              Login
+            </a>
           </p>
         </form>
       </div>
     </div>
+    <br>
+    <br>
+    <div class="columns">
+      <div class="box has-text-centered column is-6 is-offset-3">
+        New to AreoPayments? <router-link to="/register">Create an account.</router-link>
+      </div>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
+// import { awsAuthenticate } from '../../utils/aws_functions'
+import { mapActions } from 'vuex'
 export default {
-
   data () {
     return {
       data: {
         body: {
-          username: null,
-          password: null
+          email: '',
+          password: ''
         },
         rememberMe: false
       },
-      error: null
+      error: null,
+      isLoading: false,
+      hasUsernameWarning: false,
+      hasPassWarning: false
     }
-  },
-  mounted () {
-    if (this.$auth.redirect()) {
-      console.log('Redirect from: ' + this.$auth.redirect().from.name)
-    }
-    // Can set query parameter here for auth redirect or just do it silently in login redirect.
   },
   methods: {
-    login () {
-      var redirect = this.$auth.redirect()
-      this.$auth.login({
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: this.data.body,
-        rememberMe: this.data.rememberMe,
-        redirect: {name: redirect ? redirect.from.name : 'Home'},
-        success (res) {
-          console.log('Auth Success')
-          // console.log('Token: ' + this.$auth.token())
-          // console.log(res)
-        },
-        error (err) {
-          if (err.response) {
-            // The request was made, but the server responded with a status code
-            // that falls out of the range of 2xx
-            // console.log(err.response.status)
-            // console.log(err.response.data)
-            // console.log(err.response.headers)
-            this.error = err.response.data
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', err.message)
-          }
-          console.log(err.config)
-        }
-      })
+    ...mapActions(['cognitoLogin']),
+    loginClick () {
+      if (!this.disabled) {
+        this.isLoading = true
+        this.cognitoLogin(this.data.body)
+          .then(() => {
+            this.isLoading = false
+            this.$router.push({ path: '/' })
+          })
+          .catch(err => {
+            this.err = err
+            this.isLoading = false
+          })
+      }
+    },
+    evaluateUser () {
+      this.hasUsernameWarning = this.data.body.username === ''
+    },
+    evaluatePass () {
+      this.hasPassWarning = this.data.body.password === ''
+    }
+  },
+  computed: {
+    disabled () {
+      return this.data.body.username === '' || this.data.body.password === ''
     }
   }
   // filters: {
@@ -101,5 +123,8 @@ export default {
 <style lang="scss" scoped>
 .is-title {
     text-transform: capitalize;
+}
+#submit {
+  width: 200px;
 }
 </style>

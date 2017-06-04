@@ -33,12 +33,13 @@
     "test": "echo lol"
   },
   "dependencies": {
-    "@websanova/vue-auth": "^2.8.2-beta",
+    "amazon-cognito-identity-js": "^1.16.0",
     "animate.css": "3.5.2",
     "animejs": "^2.0.1",
     "axios": "^0.15.3",
-    "bulma": "^0.3.2",
+    "bulma": "^0.4.1",
     "font-awesome": "4.7.0",
+    "jwt-decode": "^2.2.0",
     "mdi": "^1.8.36",
     "plotly.js": "^1.24.2",
     "vue": "^2.2.2",
@@ -65,6 +66,7 @@
     "vue-bulma-tabs": "^1.1.2",
     "vue-bulma-tooltip": "^1.0.3",
     "vue-cleave": "1.1.1",
+    "vue-cognito-auth": "^2.11.0-beta",
     "vue-lory": "0.0.4",
     "vue-nprogress": "0.1.5",
     "vue-peity": "0.5.0",

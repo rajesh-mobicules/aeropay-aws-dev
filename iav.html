@@ -1,0 +1,48 @@
+<html>
+<head>
+    <script src="https://cdn.dwolla.com/1/dwolla.js"></script>
+    <!-- jQuery is used for example purposes -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body onload="$('#start').trigger('click');">
+<div id="controls" style="visibility: hidden">
+    <input type="button" id="start" value="Start">
+</div>
+<div id="iavContainer"></div>
+
+
+<script type="text/javascript">
+    $('#start').click(function() {
+          var iavToken = '<IAV_TOKEN>';
+          dwolla.configure('sandbox');
+          dwolla.iav.start(iavToken, {
+               container: 'iavContainer',
+               stylesheets: [
+                             'http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext',
+                             'http://myapp.com/iav/customStylesheet.css'
+                             ],
+               microDeposits: false,
+               fallbackToMicroDeposits: true
+               },
+               function(err, res) {
+               console.log('Error: ' + JSON.stringify(err) + ' -- Response: ' + JSON.stringify(res));
+               if (res) {
+                   if ('_links' in res) {
+                       var links = res['_links']
+                       if ('funding-source' in links) {
+                           var fundingSource = links['funding-source'];
+                           if ('href' in fundingSource) {
+                               var href = fundingSource['href'];
+                               var hArray = href.split('/');
+                               var fundingSourceId = hArray[hArray.length - 1];
+                               aeroPayUrl = 'aeropay://fundingSource/' + fundingSourceId;
+                               window.location.href = aeroPayUrl;
+                           }
+                       }
+                   }
+               }
+            });
+    });
+</script>
+</body>
+</html>

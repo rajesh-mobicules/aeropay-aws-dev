@@ -24,14 +24,14 @@
 </script>
 
 <style lang="scss">
-  @import '~bulma/sass/utilities/mixins';
+  // @import '~bulma/sass/utilities/mixins';
 
   .footer {
     margin-left: 180px;
 
-    @include mobile() {
-      margin-left: 0;
-    }
+    // @include mobile() {
+    //   margin-left: 0;
+    // }
     
 
   }
