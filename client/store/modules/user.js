@@ -8,8 +8,7 @@ const user = {
     accessToken: window.localStorage.getItem('accessToken'),
     idToken: window.localStorage.getItem('idToken'),
     refreshToken: window.localStorage.getItem('refreshToken'),
-    accountAdded: false,
-    iavToken: ''
+    accountAdded: false
   },
   mutations: {
     SET_EMAIL: (state, email) => {
@@ -24,9 +23,6 @@ const user = {
     DELETE_TOKEN: (state, token) => {
       state[token] = null
       window.localStorage.removeItem(token)
-    },
-    SET_IAV: (state, iavToken) => {
-      state.iavToken = iavToken
     },
     updateEmail: (state, value) => {
       state.email = value

@@ -26,6 +26,23 @@ export function registerMerchant (formData, idToken) {
   })
 }
 
+export function dwollaIav (iavToken) {
+  const dwolla = window.dwolla
+  // var iavToken = 'bL5MU6FIRmZ8XEuQmYXjaxYMqf8mbfFrecvch4dYQttRUIwikA'
+  dwolla.configure('sandbox')
+  dwolla.iav.start(iavToken, {
+    container: 'iavContainer',
+    stylesheets: [
+      'http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext'
+      // 'http://myapp.com/iav/someStylesheet.css'
+    ],
+    microDeposits: false,
+    fallbackToMicroDeposits: false
+  }, function (err, res) {
+    console.log('Error: ' + JSON.stringify(err) + ' -- Response: ' + JSON.stringify(res))
+  })
+}
+
 export function refreshIav (idToken) {
   const url = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/dev/iavTokenForMerchant'
   const config = {
@@ -36,7 +53,15 @@ export function refreshIav (idToken) {
   }
   return new Promise((resolve, reject) => {
     axios.get(url, config)
-      .then(iavToken => resolve(iavToken))
-      .catch(err => reject(err))
+      .then(res => {
+        if ('iavToken' in res.data) {
+          resolve(res.data.iavToken)
+        } else {
+          reject(res.data.message)
+        }
+      })
+      .catch(err => {
+        reject(err)
+      })
   })
 }

@@ -14,8 +14,6 @@ const email = state => {
   const decoded = jwtDecode(state.user.accessToken)
   return decoded.username
 }
-const iavToken = state => state.user.iavToken
-
 const checkAuth = state => {
   const jwt = state.user.accessToken
   if (jwt === null || jwt === '') return false
@@ -39,7 +37,6 @@ export {
   menuitems,
   accessToken,
   idToken,
-  iavToken,
   refreshToken,
   email,
   checkAuth,

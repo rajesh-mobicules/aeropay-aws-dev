@@ -131,6 +131,7 @@
         <p class="control">
           <input type="text" name="ein" class="input" v-model="form.ein">
         </p>
+        <span>12-1234567</span>
       </div>
       <div class="field">
         <label class="label">Doing Business As?</label>
@@ -198,7 +199,7 @@
 <script>
   import { Form } from '../../utils/Form'
   import { awsRegister } from '../../utils/aws_functions'
-  import { mapActions, mapMutations } from 'vuex'
+  import { mapActions } from 'vuex'
   export default {
     name: 'register-app',
     data () {
@@ -243,7 +244,6 @@
     },
     methods: {
       ...mapActions(['loginAndRegMerchant']),
-      ...mapMutations(['SET_IAV']),
       onSubmit () {
         if (this.form.password !== this.form.password_confirmation) {
           this.errors.password_confirmation = true
@@ -261,8 +261,6 @@
       resolveData (data) {
         this.isLoading = false
         this.registerSuccess = true
-        console.log(data.iavToken)
-        this.SET_IAV(data.iavToken)
       },
       onSuccess (response) {
         console.log(response)

@@ -121,10 +121,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.is-title {
-    text-transform: capitalize;
-}
-#submit {
-  width: 200px;
-}
+  .is-title {
+      text-transform: capitalize;
+  }
+  #submit {
+    width: 200px;
+  }
 </style>

@@ -18,6 +18,11 @@
         <div class="has-text-centered">
           <a class="button is-primary" @click="updateProfile">Update Profile</a>
         </div>
+        <br>
+        <br>
+        <div class="has-text-centered">
+          <router-link to="/iav" class="button is-primary" >Change or Add Bank Account</router-link>
+        </div>
       </div>
     </div>
   </div>
