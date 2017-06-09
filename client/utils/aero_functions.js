@@ -34,7 +34,9 @@ export function refreshIav (idToken) {
       'Content-Type': 'application/json'
     }
   }
-  return axios.get(url, config)
-    .then(iavToken => iavToken)
-    .catch(err => err)
+  return new Promise((resolve, reject) => {
+    axios.get(url, config)
+      .then(iavToken => resolve(iavToken))
+      .catch(err => reject(err))
+  })
 }
