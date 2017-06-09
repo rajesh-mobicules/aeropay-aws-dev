@@ -25,3 +25,16 @@ export function registerMerchant (formData, idToken) {
       })
   })
 }
+
+export function refreshIav (idToken) {
+  const url = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/dev/iavTokenForMerchant'
+  const config = {
+    headers: {
+      'requestAuthorization': idToken,
+      'Content-Type': 'application/json'
+    }
+  }
+  return axios.get(url, config)
+    .then(iavToken => iavToken)
+    .catch(err => err)
+}
