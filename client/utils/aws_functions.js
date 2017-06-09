@@ -1,7 +1,8 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
 const POOLDATA = {
-  UserPoolId: 'us-east-1_nhF9sTRVD', // Your user pool id here
+  UserPoolId: 'us-east-1_nhF9sTRVD', // dev pool
+  // UserPoolId: 'us-east-1_fWjpODvHX', // prod pool
   ClientId: '3drob3qfmheloo0790eobjgc5g' // Your client id here
 }
 

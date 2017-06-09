@@ -8,7 +8,12 @@ const menuitems = state => state.menu.items
 const accessToken = state => state.user.accessToken
 const idToken = state => state.user.idToken
 const refreshToken = state => state.user.refreshToken
-const email = state => state.user.email
+const email = state => {
+  const jwt = state.user.accessToken
+  if (jwt === null || jwt === '') return ''
+  const decoded = jwtDecode(state.user.accessToken)
+  return decoded.username
+}
 const iavToken = state => state.user.iavToken
 
 const checkAuth = state => {

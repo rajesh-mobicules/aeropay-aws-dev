@@ -27,6 +27,9 @@ const user = {
     },
     SET_IAV: (state, iavToken) => {
       state.iavToken = iavToken
+    },
+    updateEmail: (state, value) => {
+      state.email = value
     }
   },
 
