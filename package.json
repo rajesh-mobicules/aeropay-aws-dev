@@ -31,7 +31,7 @@
     "lint": "eslint --ext .js .vue client/*",
     "lint:fix": "eslint --fix --ext .js .vue electron.js client/* build/* config/*",
     "test": "echo lol",
-    "deploy": "git subtree push — prefix dist heroku master"
+    "deploy": "git subtree push --prefix dist heroku master"
   },
   "dependencies": {
     "amazon-cognito-identity-js": "^1.16.0",
