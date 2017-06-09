@@ -4,16 +4,16 @@
     <!-- jQuery is used for example purposes -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
-<body onload="$('#start').trigger('click');">
-<div id="controls" style="visibility: hidden">
-    <input type="button" id="start" value="Start">
+<body>
+<div id="mainContainer">
+    <input type="button" id="start" value="Add Bank">
 </div>
 <div id="iavContainer"></div>
 
 
 <script type="text/javascript">
     $('#start').click(function() {
-          var iavToken = '<IAV_TOKEN>';
+          var iavToken = 'VFNcV9iyvbiWbAHxdgHt8yYVKXAvHgSVMKyWJzqwgQiCx1rB0V';
           dwolla.configure('sandbox');
           dwolla.iav.start(iavToken, {
                container: 'iavContainer',
@@ -26,23 +26,11 @@
                },
                function(err, res) {
                console.log('Error: ' + JSON.stringify(err) + ' -- Response: ' + JSON.stringify(res));
-               if (res) {
-                   if ('_links' in res) {
-                       var links = res['_links']
-                       if ('funding-source' in links) {
-                           var fundingSource = links['funding-source'];
-                           if ('href' in fundingSource) {
-                               var href = fundingSource['href'];
-                               var hArray = href.split('/');
-                               var fundingSourceId = hArray[hArray.length - 1];
-                               aeroPayUrl = 'aeropay://fundingSource/' + fundingSourceId;
-                               window.location.href = aeroPayUrl;
-                           }
-                       }
-                   }
-               }
             });
     });
 </script>
 </body>
+
+
+
 </html>

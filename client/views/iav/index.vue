@@ -15,9 +15,9 @@
     methods: {
       addBank () {
         const dwolla = window.dwolla
-        // var iavToken = '4adF858jPeQ9RnojMHdqSD2KwsvmhO7Ti7cI5woOiBGCpH5krY'
+        var iavToken = 'Iw7Ytplr4lWJYpjffD8arqLSqXM6PuhTyowYR0iXFS7hg0ETqK'
         dwolla.configure('sandbox')
-        dwolla.iav.start('lr0Ax1zwIpeXXt8sJDiVXjPbwEeGO6QKFWBIaKvnFG0Sm2j7vL', {
+        dwolla.iav.start(iavToken, {
           container: 'iavContainer',
           stylesheets: [
             'http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext',
