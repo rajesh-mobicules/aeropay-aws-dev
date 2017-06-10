@@ -1,6 +1,10 @@
 <template>
   <div>
     <div id="iavContainer"></div>
+
+    <div class="has-text-centered">
+      <router-link to="/profile" v-show="showIavProfileButton" class="button is-primary">Go To Profile</router-link>
+    </div>
   </div>
 </template>
 
@@ -10,26 +14,29 @@
   export default {
     name: 'iav-page',
     mounted () {
+      this.SET_IAV_BUTTON(false)
       refreshIav(this.idToken)
         .then(iavToken => {
-          dwollaIav(iavToken)
+          dwollaIav(iavToken, this.SET_FUNDING_SOURCE, this.SET_IAV_BUTTON)
         })
         .catch(err => {
-          dwollaIav(err)
+          console.log(err)
+          dwollaIav(err, this.SET_FUNDING_SOURCE, this.SET_IAV_BUTTON)
         })
     },
     methods: {
-      ...mapMutations({
-        SET_IAV: 'user/SET_IAV'
-      })
+      ...mapMutations([
+        'SET_FUNDING_SOURCE',
+        'SET_IAV_BUTTON'
+      ])
     },
     computed: {
-      ...mapGetters(['iavToken', 'idToken'])
+      ...mapGetters(['showIavProfileButton', 'idToken', 'fundingSource'])
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style>
   /* Implement Dwolla's styles */
   .dwolla-iav-text-box,
   .dwolla-iav-button,

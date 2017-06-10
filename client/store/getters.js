@@ -8,6 +8,7 @@ const menuitems = state => state.menu.items
 const accessToken = state => state.user.accessToken
 const idToken = state => state.user.idToken
 const refreshToken = state => state.user.refreshToken
+const fundingSource = state => state.user.fundingSource
 const email = state => {
   const jwt = state.user.accessToken
   if (jwt === null || jwt === '') return ''
@@ -23,7 +24,7 @@ const checkAuth = state => {
   }
   return true
 }
-
+const showIavProfileButton = state => state.user.showIavProfileButton
 const componententry = state => {
   return state.menu.items.filter(c => c.meta && c.meta.label === 'Components')[0]
 }
@@ -34,10 +35,12 @@ export {
   device,
   sidebar,
   effect,
+  fundingSource,
   menuitems,
   accessToken,
   idToken,
   refreshToken,
+  showIavProfileButton,
   email,
   checkAuth,
   componententry

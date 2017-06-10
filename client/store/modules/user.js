@@ -8,7 +8,9 @@ const user = {
     accessToken: window.localStorage.getItem('accessToken'),
     idToken: window.localStorage.getItem('idToken'),
     refreshToken: window.localStorage.getItem('refreshToken'),
-    accountAdded: false
+    accountAdded: false,
+    fundingSource: null,
+    showIavProfileButton: false
   },
   mutations: {
     SET_EMAIL: (state, email) => {
@@ -24,8 +26,11 @@ const user = {
       state[token] = null
       window.localStorage.removeItem(token)
     },
-    updateEmail: (state, value) => {
-      state.email = value
+    SET_FUNDING_SOURCE: (state, source) => {
+      state.fundingSource = source
+    },
+    SET_IAV_BUTTON: (state, status) => {
+      state.showIavProfileButton = status
     }
   },
 
@@ -51,7 +56,9 @@ const user = {
       return new Promise((resolve, reject) => {
         awsAuthenticate({email, password})
           .then(tokens => {
-            console.log(tokens.idToken)
+            // console.log(tokens.idToken)
+            commit('SET_TOKEN', tokens)
+            commit('SET_EMAIL', email)
             registerMerchant(userInfo.data(), tokens.idToken)
               .then(res => {
                 resolve(res)
@@ -70,6 +77,7 @@ const user = {
         commit('DELETE_TOKEN', 'accessToken')
         commit('DELETE_TOKEN', 'idToken')
         commit('DELETE_TOKEN', 'refreshToken')
+        commit('SET_FUNDING_SOURCE', null)
         // window.localStorage.removeItem('JWT')
         resolve()
       })

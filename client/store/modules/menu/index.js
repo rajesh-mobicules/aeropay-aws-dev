@@ -1,10 +1,6 @@
 import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
-import charts from './charts'
-import uifeatures from './uifeatures'
-import components from './components'
-import tables from './tables'
-
+import transactions from './transactions'
 // show: meta.label -> name
 // name: component name
 // meta.label: display label
@@ -21,20 +17,27 @@ const state = {
       },
       component: lazyLoading('dashboard', true)
     },
+    transactions,
     {
-      name: 'Axios',
-      path: '/axiosDemo',
+      name: 'Customers',
+      path: '/customers',
+      meta: {
+        icon: 'fa-address-card-o',
+        link: 'customers/index.vue',
+        auth: true
+      },
+      component: lazyLoading('customers', true)
+    },
+    {
+      name: 'Profile',
+      path: '/profile',
       meta: {
         auth: true,
-        icon: 'fa-rocket',
-        link: 'axios/index.vue'
+        icon: 'fa-user-circle',
+        link: 'profile/index.vue'
       },
-      component: lazyLoading('axios', true)
-    },
-    charts,
-    uifeatures,
-    components,
-    tables
+      component: lazyLoading('profile', true)
+    }
   ]
 }
 

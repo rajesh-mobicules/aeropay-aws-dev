@@ -26,7 +26,7 @@ export function registerMerchant (formData, idToken) {
   })
 }
 
-export function dwollaIav (iavToken) {
+export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON) {
   const dwolla = window.dwolla
   // var iavToken = 'bL5MU6FIRmZ8XEuQmYXjaxYMqf8mbfFrecvch4dYQttRUIwikA'
   dwolla.configure('sandbox')
@@ -37,9 +37,30 @@ export function dwollaIav (iavToken) {
       // 'http://myapp.com/iav/someStylesheet.css'
     ],
     microDeposits: false,
-    fallbackToMicroDeposits: false
+    fallbackToMicroDeposits: false,
+    subscriber: ({ currentPage, error }) => {
+      // console.log('currentPage:', currentPage, 'error:', JSON.stringify(error))
+    }
   }, function (err, res) {
     console.log('Error: ' + JSON.stringify(err) + ' -- Response: ' + JSON.stringify(res))
+    if (res) {
+      if ('_links' in res) {
+        var links = res['_links']
+        if ('funding-source' in links) {
+          var fundingSource = links['funding-source']
+          if ('href' in fundingSource) {
+            var href = fundingSource['href']
+            var hArray = href.split('/')
+            var fundingSourceId = hArray[hArray.length - 1]
+            const aeroPayUrl = 'aeropay://fundingSource/' + fundingSourceId
+            SET_FUNDING_SOURCE(fundingSourceId)
+            SET_IAV_BUTTON(true)
+            console.log(aeroPayUrl)
+            // window.location.href = aeroPayUrl
+          }
+        }
+      }
+    }
   })
 }
 
@@ -61,6 +82,7 @@ export function refreshIav (idToken) {
         }
       })
       .catch(err => {
+        console.log(err)
         reject(err)
       })
   })
