@@ -27,6 +27,9 @@ router.beforeEach((route, redirect, next) => {
   if (state.app.device.isMobile && state.app.sidebar.opened) {
     store.commit(TOGGLE_SIDEBAR, false)
   }
+  if (route.path === '/login' || route.path === '/register') {
+    store.commit(TOGGLE_SIDEBAR, false)
+  }
   next()
 })
 

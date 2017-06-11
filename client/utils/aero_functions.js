@@ -75,10 +75,10 @@ export function refreshIav (idToken) {
   return new Promise((resolve, reject) => {
     axios.get(url, config)
       .then(res => {
-        if ('iavToken' in res.data) {
+        if (res.data !== null && typeof res.data === 'object' && 'iavToken' in res.data) {
           resolve(res.data.iavToken)
         } else {
-          reject(res.data.message)
+          reject(res.data.message ? res.data.message : '')
         }
       })
       .catch(err => {
