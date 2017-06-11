@@ -29,6 +29,8 @@ router.beforeEach((route, redirect, next) => {
   }
   if (route.path === '/login' || route.path === '/register') {
     store.commit(TOGGLE_SIDEBAR, false)
+  } else {
+    store.commit(TOGGLE_SIDEBAR, true)
   }
   next()
 })
