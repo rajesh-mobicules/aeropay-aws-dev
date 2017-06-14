@@ -1,10 +1,13 @@
 {
- "name": "blog",
+ "name": "aeropay",
  "version": "1.0.0",
- "description": "personalblog",
- "author": "Awesome Author",
+ "description": "aeropayment webapp",
+ "author": "Qunhao Song",
  "private": true,
  "scripts": {
-   "postinstall": "npm install express"
+  "start": "node server.js"
+ },
+ "dependencies": {
+  "express": "^4.15.3"
  }
 }
