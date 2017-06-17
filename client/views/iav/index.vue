@@ -67,7 +67,7 @@
   }
 
   .dwolla-iav-link {
-      color: #1e88e5;
+      color: #5fc8d8;
       cursor: pointer;
   }
 
@@ -76,7 +76,7 @@
   }
 
   .dwolla-iav-button {
-      background: #1e88e5;
+      background: #5fc8d8;
       color: white;
       border-radius: 3px;
   }

@@ -1,9 +1,10 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
+import { awsConfig } from './dev_configuration'
 
 const POOLDATA = {
-  UserPoolId: 'us-east-1_nhF9sTRVD', // dev pool
+  UserPoolId: awsConfig.UserPoolId, // dev pool
   // UserPoolId: 'us-east-1_fWjpODvHX', // prod pool
-  ClientId: '3drob3qfmheloo0790eobjgc5g' // Your client id here
+  ClientId: awsConfig.ClientId // Your client id here
 }
 
 export function awsRegister ({email, password}) {

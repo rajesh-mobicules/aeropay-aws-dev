@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { aeroConfig } from './dev_configuration'
 
 export function registerMerchant (formData, idToken) {
   const config = {
@@ -8,10 +9,9 @@ export function registerMerchant (formData, idToken) {
     }
   }
   // console.log(config)
-  const creatMerchantURL = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/dev/createBusiness'
   // const creatMerchantURL = 'http://merchant-dev.us-east-1.elasticbeanstalk.com/createBusiness'
   return new Promise((resolve, reject) => {
-    axios.post(creatMerchantURL, formData, config)
+    axios.post(aeroConfig.creatMerchantURL, formData, config)
       .then(res => {
         console.log(res)
         // if (res.data.error === null || res.data.error === '') {
@@ -29,15 +29,15 @@ export function registerMerchant (formData, idToken) {
 export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON, idToken) {
   const dwolla = window.dwolla
   // var iavToken = 'bL5MU6FIRmZ8XEuQmYXjaxYMqf8mbfFrecvch4dYQttRUIwikA'
-  dwolla.configure('sandbox')
+  dwolla.configure(aeroConfig.dwollaEnv)
   dwolla.iav.start(iavToken, {
     container: 'iavContainer',
     stylesheets: [
-      'http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext',
-      'https://aeropay-demo.herokuapp.com/iavcss/iav.css'
+      'https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext',
+      aeroConfig.iavCss
     ],
-    microDeposits: false,
-    fallbackToMicroDeposits: false,
+    microDeposits: aeroConfig.microDeposits,
+    fallbackToMicroDeposits: aeroConfig.fallbackToMicroDeposits,
     subscriber: ({ currentPage, error }) => {
       // console.log('currentPage:', currentPage, 'error:', JSON.stringify(error))
     }
@@ -75,9 +75,9 @@ function addFundingSource (fundingSource, idToken) {
     }
   }
   const data = {fundingSourceId: fundingSource}
-  const url = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/dev/addBankAccount'
+
   return new Promise((resolve, reject) => {
-    axios.post(url, data, config)
+    axios.post(aeroConfig.addFundingUrl, data, config)
       .then(res => {
         if (res.data.error === null) resolve('successly added funding source')
         else reject(res.data.error)
@@ -87,7 +87,6 @@ function addFundingSource (fundingSource, idToken) {
 }
 
 export function refreshIav (idToken) {
-  const url = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/dev/iavTokenForMerchant'
   const config = {
     headers: {
       'requestAuthorization': idToken,
@@ -95,7 +94,7 @@ export function refreshIav (idToken) {
     }
   }
   return new Promise((resolve, reject) => {
-    axios.get(url, config)
+    axios.get(aeroConfig.refreshIavUrl, config)
       .then(res => {
         if (res.data !== null && typeof res.data === 'object' && 'iavToken' in res.data) {
           resolve(res.data.iavToken)
