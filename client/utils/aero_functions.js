@@ -26,15 +26,15 @@ export function registerMerchant (formData, idToken) {
   })
 }
 
-export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON) {
+export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON, idToken) {
   const dwolla = window.dwolla
   // var iavToken = 'bL5MU6FIRmZ8XEuQmYXjaxYMqf8mbfFrecvch4dYQttRUIwikA'
   dwolla.configure('sandbox')
   dwolla.iav.start(iavToken, {
     container: 'iavContainer',
     stylesheets: [
-      'http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext'
-      // 'http://myapp.com/iav/someStylesheet.css'
+      'http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext',
+      'https://aeropay-demo.herokuapp.com/iavcss/iav.css'
     ],
     microDeposits: false,
     fallbackToMicroDeposits: false,
@@ -56,11 +56,33 @@ export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON) {
             SET_FUNDING_SOURCE(fundingSourceId)
             SET_IAV_BUTTON(true)
             console.log(aeroPayUrl)
+            addFundingSource(fundingSourceId, idToken)
+              .then(res => console.log(res))
+              .catch(error => console.log(error))
             // window.location.href = aeroPayUrl
           }
         }
       }
     }
+  })
+}
+
+function addFundingSource (fundingSource, idToken) {
+  const config = {
+    headers: {
+      'requestAuthorization': idToken,
+      'Content-Type': 'application/json'
+    }
+  }
+  const data = {fundingSourceId: fundingSource}
+  const url = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/dev/addBankAccount'
+  return new Promise((resolve, reject) => {
+    axios.post(url, data, config)
+      .then(res => {
+        if (res.data.error === null) resolve('successly added funding source')
+        else reject(res.data.error)
+      })
+      .catch(err => reject(err))
   })
 }
 

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div id="iavContainer"></div>
-
     <div class="has-text-centered">
       <router-link to="/profile" v-show="showIavProfileButton" class="button is-primary">Go To Profile</router-link>
     </div>
@@ -17,11 +16,11 @@
       this.SET_IAV_BUTTON(false)
       refreshIav(this.idToken)
         .then(iavToken => {
-          dwollaIav(iavToken, this.SET_FUNDING_SOURCE, this.SET_IAV_BUTTON)
+          dwollaIav(iavToken, this.SET_FUNDING_SOURCE, this.SET_IAV_BUTTON, this.idToken)
         })
         .catch(err => {
           console.log(err)
-          dwollaIav(err, this.SET_FUNDING_SOURCE, this.SET_IAV_BUTTON)
+          dwollaIav(err, this.SET_FUNDING_SOURCE, this.SET_IAV_BUTTON, this.idToken)
         })
     },
     methods: {
@@ -36,7 +35,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   /* Implement Dwolla's styles */
   .dwolla-iav-text-box,
   .dwolla-iav-button,
@@ -101,5 +100,13 @@
 
   .dwolla-iav-radio-selected {
       background-color: #1e88e5;
+  }
+  .form-legend--center {
+    color:  red;
+    font-size: 100px;
+  }
+  .dwolla-iav-header {
+    color: red;
+    font-size: 100;
   }
 </style>
