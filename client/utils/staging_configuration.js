@@ -1,4 +1,4 @@
-const awsStagingBaseUrl = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/dev/'
+const awsStagingBaseUrl = 'https://vwyvoq678a.execute-api.us-east-1.amazonaws.com/staging'
 
 export const aeroConfig = {
   creatMerchantURL: awsStagingBaseUrl + 'createBusiness',
@@ -11,6 +11,6 @@ export const aeroConfig = {
 }
 
 export const awsConfig = {
-  UserPoolId: 'us-east-1_nhF9sTRVD',
-  ClientId: '3drob3qfmheloo0790eobjgc5g'
+  UserPoolId: 'us-east-1_ndcMY47H8',
+  ClientId: '3oepf9klhovflf31bg5ok73m85'
 }
