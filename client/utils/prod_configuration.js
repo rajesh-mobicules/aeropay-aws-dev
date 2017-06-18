@@ -1,16 +1,16 @@
-const awsProdBaseUrl = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/dev/'
+const awsProdBaseUrl = 'https://waas395lu9.execute-api.us-east-1.amazonaws.com/prod/'
 
 export const aeroConfig = {
   creatMerchantURL: awsProdBaseUrl + 'createBusiness',
   addFundingUrl: awsProdBaseUrl + 'addBankAccount',
   refreshIavUrl: awsProdBaseUrl + 'iavTokenForMerchant',
   iavCss: 'https://aeropay-demo.herokuapp.com/iavcss/iav.css',
-  dwollaEnv: 'sandbox',
+  dwollaEnv: 'prod',
   microDeposits: false,
   fallbackToMicroDeposits: false
 }
 
 export const awsConfig = {
-  UserPoolId: 'us-east-1_nhF9sTRVD',
-  ClientId: '3drob3qfmheloo0790eobjgc5g'
+  UserPoolId: 'us-east-1_fWjpODvHX',
+  ClientId: '7sj44o6sb3hsg806r4fgj5hnau'
 }
