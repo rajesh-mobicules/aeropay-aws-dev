@@ -17,7 +17,8 @@ export default {
       path: 'monthly',
       component: lazyLoading('transactions/Monthly'),
       meta: {
-        link: 'transactions/Monthly.vue'
+        link: 'transactions/Monthly.vue',
+        auth: true
       }
     },
     {
@@ -25,7 +26,8 @@ export default {
       path: 'daily',
       component: lazyLoading('transactions/Daily'),
       meta: {
-        link: 'transactions/Daily.vue'
+        link: 'transactions/Daily.vue',
+        auth: true
       }
     },
     {
@@ -33,7 +35,8 @@ export default {
       path: 'yearly',
       component: lazyLoading('transactions/Yearly'),
       meta: {
-        link: 'transactions/Yearly.vue'
+        link: 'transactions/Yearly.vue',
+        auth: true
       }
     }
   ]

@@ -4,7 +4,7 @@ import menuModule from 'vuex-store/modules/menu'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash', // Demo is living in GitHub.io, so required!
+  mode: 'history', // Demo is living in GitHub.io, so required!
   linkActiveClass: 'is-active',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
@@ -29,7 +29,7 @@ export default new Router({
     {
       name: 'Iav',
       path: '/iav',
-      meta: {auth: false},
+      meta: {auth: true},
       component: require('../views/iav')
     },
     ...generateRoutesFromMenu(menuModule.state.items),
