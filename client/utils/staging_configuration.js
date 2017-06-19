@@ -1,4 +1,4 @@
-const awsStagingBaseUrl = 'https://vwyvoq678a.execute-api.us-east-1.amazonaws.com/staging'
+const awsStagingBaseUrl = 'https://vwyvoq678a.execute-api.us-east-1.amazonaws.com/staging/'
 
 export const aeroConfig = {
   creatMerchantURL: awsStagingBaseUrl + 'createBusiness',
