@@ -12,5 +12,5 @@ export const aeroConfig = {
 
 export const awsConfig = {
   UserPoolId: 'us-east-1_ndcMY47H8',
-  ClientId: '3oepf9klhovflf31bg5ok73m85'
+  ClientId: '1plv2dp67uc91ubgkt58gm5ahk'
 }
