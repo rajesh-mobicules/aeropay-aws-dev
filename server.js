@@ -43,23 +43,23 @@ app.use(compression())
 //   }
 // })
 
-var https = require('https')
+// var https = require('https')
 var http = require('http')
-var fs = require('fs')
+// var fs = require('fs')
 
-var options = {
-  key: fs.readFileSync('new-rrponline.us/rrponline_us.key'),
-  cert: fs.readFileSync('new-rrponline.us/rrponline_us.chained.crt')
-}
+// var options = {
+//   key: fs.readFileSync('new-rrponline.us/rrponline_us.key'),
+//   cert: fs.readFileSync('new-rrponline.us/rrponline_us.chained.crt')
+// }
 // var options = {
 //   ca: fs.readFileSync('rrponline_us/rrponline_us.ca-bundle'),
 //   key: fs.readFileSync('rrponline_us/rrponline_us.key'),
 //   cert: fs.readFileSync('rrponline_us/rrponline_us.crt')
 // }
 
-https.createServer(options, app).listen(httpsPort, function () {
-  console.log('Secure Server listening on port ' + httpsPort)
-})
+// https.createServer(options, app).listen(httpsPort, function () {
+//   console.log('Secure Server listening on port ' + httpsPort)
+// })
 http.createServer(app).listen(port, function () {
-  console.log('Insecure Server listening on port ' + port)
+  console.log('HTTP Server listening on port ' + port)
 })
