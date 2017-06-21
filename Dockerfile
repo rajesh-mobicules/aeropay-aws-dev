@@ -1,2 +1,3 @@
 FROM node:4-onbuild
-EXPOSE 5000
+EXPOSE 80
+EXPOSE 443
