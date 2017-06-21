@@ -8,6 +8,7 @@
   "start": "node server.js"
  },
  "dependencies": {
+  "compression": "^1.6.2",
   "express": "^4.15.3",
   "serve-static": "^1.12.3"
  }

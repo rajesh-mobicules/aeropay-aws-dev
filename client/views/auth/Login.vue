@@ -1,6 +1,9 @@
 <template>
-  <div id='app-login'>
-    <h2 class='has-text-centered title column'>Please login</h2>
+  <div class='app-login'>
+    <div class="has-text-centered">
+      <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
+      <p class="portal">Merchant Portal</p>
+    </div>
     <div class='columns'>
       <div class="box column is-6 is-offset-3">
         <form @submit.prevent="loginClick">
@@ -57,7 +60,7 @@
     <br>
     <div class="columns">
       <div class="box has-text-centered column is-6 is-offset-3">
-        New to AreoPayments? <router-link to="/register">Create an account.</router-link>
+        New to AeroPay? <router-link to="/register">Create an Account Here</router-link>
       </div>
     </div>
   </div>
@@ -82,8 +85,11 @@ export default {
       hasPassWarning: false
     }
   },
+  beforeMount () {
+    this.toggleSidebar(false)
+  },
   methods: {
-    ...mapActions(['cognitoLogin']),
+    ...mapActions(['cognitoLogin', 'toggleSidebar']),
     loginClick () {
       if (!this.disabled) {
         this.isLoading = true
@@ -121,8 +127,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .app-login {
+    margin-top: 30px;
+    margin-left: -100px;
+  }
   .is-title {
-      text-transform: capitalize;
+    text-transform: capitalize;
+  }
+  .aeroImg {
+    height: 45px;
+    width: 300px;
+    margin-bottom: 10px;
+  }
+  .portal {
+    // font-family: "futura-pt";
+    font-family: "Gotham";
+    font-size: 32px;
+    margin-bottom: 20px;
   }
   #submit {
     width: 200px;

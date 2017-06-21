@@ -1,5 +1,5 @@
 <template>
-<div id="register-app" class="content">
+<div class="register-app content">
   <h1 class="title is-bold">Register Your AeroPayments Account</h1>
   <br>
   <br>
@@ -242,8 +242,11 @@
         registerReply: ''
       }
     },
+    beforeMount () {
+      this.toggleSidebar(false)
+    },
     methods: {
-      ...mapActions(['loginAndRegMerchant']),
+      ...mapActions(['loginAndRegMerchant', 'toggleSidebar']),
       onSubmit () {
         if (this.form.password !== this.form.password_confirmation) {
           this.errors.password_confirmation = true
@@ -307,14 +310,15 @@
 </script>
 
 <style lang="scss" scoped>
-#register-app {
-  margin-top: 40px
-}
-.title {
-  text-align: center;
-}
-#submit {
-  width: 200px
-}
+  .register-app {
+    margin-top: 40px;
+    margin-left: -100px
+  }
+  .title {
+    text-align: center;
+  }
+  #submit {
+    width: 200px
+  }
 
 </style>

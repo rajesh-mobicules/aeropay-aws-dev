@@ -12,7 +12,7 @@ export default new Router({
       name: 'Home',
       path: '/',
       meta: {auth: true},
-      component: require('../views/Home')
+      component: require('../views/dashboard')
     },
     {
       name: 'Login',

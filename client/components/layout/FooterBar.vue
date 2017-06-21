@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :class="{'shiftLeft': !sidebar.opened}">
     <div class="container">
       <div class="content has-text-centered">
         <p>
@@ -14,12 +14,15 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
 
     data () {
       return this.$store.state.pkg
+    },
+    computed: {
+      ...mapGetters(['sidebar'])
     }
-
   }
 </script>
 
@@ -28,11 +31,13 @@
 
   .footer {
     margin-left: 180px;
-
+    margin-top: 80px;
+    font-size: 15px;
     // @include mobile() {
     //   margin-left: 0;
     // }
-    
-
+  }
+  .shiftLeft {
+    margin-left: 60px;
   }
 </style>

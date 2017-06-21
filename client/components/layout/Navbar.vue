@@ -2,18 +2,18 @@
   <section class="hero is-bold app-navbar animated" :class="{ slideInDown: show, slideOutDown: !show }">
     <div class="hero-head">
       <nav class="nav">
-        <div class="nav-left">
+        <!-- <div class="nav-left">
           <a class="nav-item is-hidden-tablet" @click="toggleSidebar(!sidebar.opened)">
             <i class="fa fa-bars" aria-hidden="true"></i>
           </a>
-        </div>
-        <div class="nav-center">
+        </div> -->
+        <div class="nav-left">
           <a class="nav-item hero-brand" href="/">
-            <img src="~assets/logo.svg" :alt="pkginfo.description">
+            <img src="~assets/AP.png" :alt="pkginfo.description">
             
-              <div class="is-hidden-mobile">
+              <!-- <div class="is-hidden-mobile">
                 <span class="aeropay">AEROPAY</span>
-              </div>
+              </div> -->
             
           </a>
         </div>
