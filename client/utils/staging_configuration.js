@@ -1,10 +1,12 @@
+import { iavCss } from './dev_configuration'
+
 const awsStagingBaseUrl = 'https://vwyvoq678a.execute-api.us-east-1.amazonaws.com/staging/'
 
 export const aeroConfig = {
   creatMerchantURL: awsStagingBaseUrl + 'createBusiness',
   addFundingUrl: awsStagingBaseUrl + 'addBankAccount',
   refreshIavUrl: awsStagingBaseUrl + 'iavTokenForMerchant',
-  iavCss: 'https://aeropay-demo.herokuapp.com/iavcss/iav.css',
+  iavCss: iavCss,
   dwollaEnv: 'sandbox',
   microDeposits: false,
   fallbackToMicroDeposits: false

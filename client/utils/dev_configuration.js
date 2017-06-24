@@ -1,10 +1,10 @@
 const awsDevBaseUrl = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/dev/'
-
+export const iavCss = 'https://staging-portal.aeropayments.com/iavcss/iav.css'
 export const aeroConfig = {
   creatMerchantURL: awsDevBaseUrl + 'createBusiness',
   addFundingUrl: awsDevBaseUrl + 'addBankAccount',
   refreshIavUrl: awsDevBaseUrl + 'iavTokenForMerchant',
-  iavCss: 'https://aeropay-demo.herokuapp.com/iavcss/iav.css',
+  iavCss: iavCss,
   dwollaEnv: 'sandbox',
   microDeposits: false,
   fallbackToMicroDeposits: false

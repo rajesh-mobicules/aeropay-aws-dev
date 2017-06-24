@@ -1,10 +1,12 @@
+import { iavCss } from './dev_configuration'
+
 const awsProdBaseUrl = 'https://waas395lu9.execute-api.us-east-1.amazonaws.com/prod/'
 
 export const aeroConfig = {
   creatMerchantURL: awsProdBaseUrl + 'createBusiness',
   addFundingUrl: awsProdBaseUrl + 'addBankAccount',
   refreshIavUrl: awsProdBaseUrl + 'iavTokenForMerchant',
-  iavCss: 'https://aeropay-demo.herokuapp.com/iavcss/iav.css',
+  iavCss: iavCss,
   dwollaEnv: 'prod',
   microDeposits: false,
   fallbackToMicroDeposits: false
