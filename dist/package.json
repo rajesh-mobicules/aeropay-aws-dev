@@ -5,7 +5,8 @@
  "author": "Qunhao Song",
  "private": true,
  "scripts": {
-  "start": "node server.js"
+  "start": "node server.js",
+  "postinstall": "npm install compression express serve-static"
  },
  "dependencies": {
   "compression": "^1.6.2",
