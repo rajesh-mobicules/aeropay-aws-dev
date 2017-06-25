@@ -1,23 +1,15 @@
 {
-  "name": "vue-admin",
+  "name": "aeropay-web",
   "version": "0.1.12",
-  "description": "Vue Admin Panel Framework",
+  "description": "AeroPay Merchant Web",
   "repository": "vue-bulma/vue-admin",
   "homepage": "https://admin.vuebulma.com",
   "license": "MIT",
   "author": {
-    "name": "Fangdun Cai",
-    "email": "cfddream@gmail.com",
-    "url": "fundon.me"
+    "name": "Qunhao Song",
+    "email": "qunhaosong@gmail.com",
+    "url": "qhsong.com"
   },
-  "keywords": [
-    "admin",
-    "bulma",
-    "dashboard",
-    "data",
-    "visualization",
-    "vue"
-  ],
   "engines": {
     "node": ">=4",
     "npm": ">=3"

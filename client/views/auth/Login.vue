@@ -12,8 +12,6 @@
             <p class="control has-icons-left has-icons-right">
               <input class="input" type="text"
               placeholder="example@gmail.com" v-model="data.body.email"
-              @blur="evaluateUser"
-              :class="{ 'is-danger' : hasUsernameWarning }"
               >
               <span class="icon is-small is-left">
                 <i class="fa fa-user"></i>
@@ -22,19 +20,17 @@
                 <i class="fa fa-check"></i>
               </span>
             </p>
-            <p class="help is-danger" v-show="hasUsernameWarning">You must enter a username</p>
+            
             <label class="label">Password</label>
             <p class="control has-icons-left">
               <input class="input" type="password"
               placeholder="password" v-model="data.body.password"
-              @blur="evaluatePass"
-              :class="{ 'is-danger' : hasPassWarning }"
+              
               >
               <span class="icon is-small is-left">
                 <i class="fa fa-key"></i>
               </span>
             </p>
-            <p class="help is-danger" v-show="hasPassWarning">You must enter a password</p>
             <br>
           </div>
           <p class="control">
@@ -43,6 +39,7 @@
               Remember me
             </label>
           </p>
+          <p class="help is-danger error has-text-centered" v-show="hasErr">{{errMessage}}</p>
           <br>
           <input type="submit" v-show="false" class="submit">
           <p class="has-text-centered">
@@ -79,10 +76,9 @@ export default {
         },
         rememberMe: false
       },
-      error: null,
-      isLoading: false,
-      hasUsernameWarning: false,
-      hasPassWarning: false
+      hasErr: null,
+      errMessage: '',
+      isLoading: false
     }
   },
   beforeMount () {
@@ -100,15 +96,15 @@ export default {
           })
           .catch(err => {
             this.err = err
+            this.handleErr(err)
+            // console.log(err)
             this.isLoading = false
           })
       }
     },
-    evaluateUser () {
-      this.hasUsernameWarning = this.data.body.username === ''
-    },
-    evaluatePass () {
-      this.hasPassWarning = this.data.body.password === ''
+    handleErr (err) {
+      this.hasErr = true
+      this.errMessage = err.message
     }
   },
   computed: {
@@ -116,17 +112,13 @@ export default {
       return this.data.body.username === '' || this.data.body.password === ''
     }
   }
-  // filters: {
-  //   json: function (value) {
-  //     console.log(value)
-  //     return value
-  //   }
-  // }
 
 }
 </script>
 
 <style lang="scss" scoped>
+  // @import "../sass/utilities/initial-variables"
+  // @primary: #72d0eb
   .app-login {
     margin-top: 30px;
     margin-left: -100px;
@@ -147,5 +139,8 @@ export default {
   }
   #submit {
     width: 200px;
+  }
+  .error {
+    font-size: 20px;
   }
 </style>
