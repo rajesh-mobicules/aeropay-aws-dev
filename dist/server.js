@@ -1,7 +1,7 @@
 var express = require('express')
 var path = require('path')
 var serveStatic = require('serve-static')
-var compression = require('compression')
+// var compression = require('compression')
 var app = express()
 app.use(serveStatic(__dirname))
 
@@ -15,25 +15,25 @@ app.use('/iavcss', serveStatic(__dirname + '/static'))
 var port = 5000
 
 // const hostname = 'aeropayments.com'
-var httpsPort = 5443
-app.set('port_https', httpsPort)
+// var httpsPort = 5443
+// app.set('port_https', httpsPort)
 // redirect every visit to https
-app.all('*', function (req, res, next) {
-  // console.log(req)
-  if (req.secure) {
-    return next()
-  }
-  const redirectUrl = 'https://' + req.hostname + req.url
-  // console.log('redirected')
-  // const redirectUrl = 'https://'+req.hostname+':'+app.get('port_https')+req.url
-  res.redirect(redirectUrl)
-})
+// app.all('*', function (req, res, next) {
+//   // console.log(req)
+//   if (req.secure) {
+//     return next()
+//   }
+//   const redirectUrl = 'https://' + req.hostname + req.url
+//   // console.log('redirected')
+//   // const redirectUrl = 'https://'+req.hostname+':'+app.get('port_https')+req.url
+//   res.redirect(redirectUrl)
+// })
 
 app.get('*', function (req, res) {
   // console.log('got something')
   res.sendFile(path.join(__dirname, 'index.html'))
 })
-app.use(compression())
+// app.use(compression())
 //
 // app.listen(port, function (error) {
 //   if (error) {
