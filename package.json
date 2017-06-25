@@ -6,7 +6,7 @@
  "private": true,
  "scripts": {
   "start": "node server.js",
-  "postinstall": "npm install express compression serve-static"
+  "postinstall": "npm install express serve-static"
  },
  "dependencies": {
   "compression": "^1.6.2",
