@@ -6,12 +6,12 @@ var app = express()
 app.use(serveStatic(__dirname))
 
 app.use('/iavcss', serveStatic(__dirname + '/static'))
-// var port = process.env.PORT || 5000
+var port = process.env.PORT || 5000
 
 
 // var app = new (require('express'))()
 
-var port = 5000
+// var port = 5000
 app.listen(port)
 console.log('server started ' + port)
 
