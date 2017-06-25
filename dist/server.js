@@ -8,12 +8,10 @@ app.use(serveStatic(__dirname))
 app.use('/iavcss', serveStatic(__dirname + '/static'))
 var port = process.env.PORT || 5000
 
-
 // var app = new (require('express'))()
 
-// var port = 5000
-app.listen(port)
-console.log('server started ' + port)
+// app.listen(port)
+// console.log('server started ' + port)
 
 // const hostname = 'aeropayments.com'
 // var httpsPort = 5443
@@ -30,10 +28,10 @@ console.log('server started ' + port)
 //   res.redirect(redirectUrl)
 // })
 
-// app.get('*', function (req, res) {
-//   // console.log('got something')
-//   res.sendFile(path.join(__dirname, 'index.html'))
-// })
+app.get('*', function (req, res) {
+  // console.log('got something')
+  res.sendFile(path.join(__dirname, 'index.html'))
+})
 // app.use(compression())
 //
 // app.listen(port, function (error) {
@@ -45,7 +43,7 @@ console.log('server started ' + port)
 // })
 
 // var https = require('https')
-// var http = require('http')
+var http = require('http')
 // var fs = require('fs')
 
 // var options = {
@@ -61,6 +59,6 @@ console.log('server started ' + port)
 // https.createServer(options, app).listen(httpsPort, function () {
 //   console.log('Secure Server listening on port ' + httpsPort)
 // })
-// http.createServer(app).listen(port, function () {
-//   console.log('HTTP Server listening on port ' + port)
-// })
+http.createServer(app).listen(port, function () {
+  console.log('HTTP Server listening on port ' + port)
+})
