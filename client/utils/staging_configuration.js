@@ -4,8 +4,9 @@ const awsStagingBaseUrl = 'https://vwyvoq678a.execute-api.us-east-1.amazonaws.co
 
 export const aeroConfig = {
   creatMerchantURL: awsStagingBaseUrl + 'createBusiness',
-  addFundingUrl: awsStagingBaseUrl + 'addBankAccount',
-  refreshIavUrl: awsStagingBaseUrl + 'iavTokenForMerchant',
+  addFundingURL: awsStagingBaseUrl + 'addBankAccount',
+  getTransactionURL: awsStagingBaseUrl + 'transactionsForMerchant',
+  refreshIavURL: awsStagingBaseUrl + 'iavTokenForMerchant',
   iavCss: iavCss,
   dwollaEnv: 'sandbox',
   microDeposits: false,

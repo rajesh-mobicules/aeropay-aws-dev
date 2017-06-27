@@ -4,8 +4,9 @@ const awsProdBaseUrl = 'https://waas395lu9.execute-api.us-east-1.amazonaws.com/p
 
 export const aeroConfig = {
   creatMerchantURL: awsProdBaseUrl + 'createBusiness',
-  addFundingUrl: awsProdBaseUrl + 'addBankAccount',
-  refreshIavUrl: awsProdBaseUrl + 'iavTokenForMerchant',
+  addFundingURL: awsProdBaseUrl + 'addBankAccount',
+  getTransactionURL: awsProdBaseUrl + 'transactionsForMerchant',
+  refreshIavURL: awsProdBaseUrl + 'iavTokenForMerchant',
   iavCss: iavCss,
   dwollaEnv: 'prod',
   microDeposits: false,

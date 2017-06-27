@@ -2,8 +2,9 @@ const awsDevBaseUrl = 'https://1ywn2z7wf0.execute-api.us-east-1.amazonaws.com/de
 export const iavCss = 'https://staging-portal.aeropayments.com/iavcss/iav.css'
 export const aeroConfig = {
   creatMerchantURL: awsDevBaseUrl + 'createBusiness',
-  addFundingUrl: awsDevBaseUrl + 'addBankAccount',
-  refreshIavUrl: awsDevBaseUrl + 'iavTokenForMerchant',
+  getTransactionURL: awsDevBaseUrl + 'transactionsForMerchant',
+  addFundingURL: awsDevBaseUrl + 'addBankAccount',
+  refreshIavURL: awsDevBaseUrl + 'iavTokenForMerchant',
   iavCss: iavCss,
   dwollaEnv: 'sandbox',
   microDeposits: false,

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { aeroConfig } from './prod_configuration'
+import { aeroConfig } from './dev_configuration'
 
 export function registerMerchant (formData, idToken) {
   const config = {
@@ -77,7 +77,7 @@ function addFundingSource (fundingSource, idToken) {
   const data = {fundingSourceId: fundingSource}
 
   return new Promise((resolve, reject) => {
-    axios.post(aeroConfig.addFundingUrl, data, config)
+    axios.post(aeroConfig.addFundingURL, data, config)
       .then(res => {
         if (res.data.error === null) resolve('successly added funding source')
         else reject(res.data.error)
@@ -94,13 +94,41 @@ export function refreshIav (idToken) {
     }
   }
   return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.refreshIavUrl, config)
+    axios.get(aeroConfig.refreshIavURL, config)
       .then(res => {
         if (res.data !== null && typeof res.data === 'object' && 'iavToken' in res.data) {
           resolve(res.data.iavToken)
         } else {
           reject(res.data.message ? res.data.message : '')
         }
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+
+export function getTransacations (idToken) {
+  const config = {
+    headers: {
+      'requestAuthorization': idToken,
+      'Content-Type': 'application/json'
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.get(aeroConfig.getTransactionURL, config)
+      .then(res => {
+        const data = res.data
+        if (data.transactions !== null && data.error === null) {
+          resolve(data.transactions)
+        } else if (data.error !== null) {
+          console.log(data.error)
+          reject(data.error)
+        } else {
+          reject(data.message)
+        }
+        // console.log(res)
       })
       .catch(err => {
         console.log(err)
