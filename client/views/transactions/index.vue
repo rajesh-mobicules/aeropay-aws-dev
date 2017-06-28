@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="title">This is the main transcation page</h1>
-    <table class="table">
+    <h1 class="title">{{merchantName}}</h1>
+    <table class="table is-striped">
       <thead>
         <tr>
           <th>Name</th>
@@ -12,10 +12,10 @@
       </thead>
       <tbody>
         <tr v-for="t in transactions">
-          <td>{{t.customerName}}</td>
-          <td>{{t.createdDate}}</td>
-          <td>{{t.status}}</td>
-          <td>{{t.amount}}</td>
+          <td class="customer"><span class="span">From: </span>{{t.customerName}}</td>
+          <td><span class="span">{{t.createdDate}}</span></td>
+          <td><span class="span">{{t.status}}</span></td>
+          <td :class="{'is-processed': t.status === 'processed', 'is-pending': t.status === 'pending'}">{{t.amount | renderCents}}</td>
         </tr> 
       </tbody>
     </table>
@@ -40,7 +40,34 @@
         .catch(err => console.log(err))
     },
     computed: {
-      ...mapGetters(['idToken'])
+      ...mapGetters(['idToken']),
+      merchantName () {
+        if (this.transactions === null) return ''
+        return this.transactions[0]['merchantName']
+      }
+    },
+    filters: {
+      renderCents (value) {
+        if (!value) value = 0
+        value = value / 100
+        return value.toFixed(2)
+      }
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .span {
+    color: #8393aa;
+    text-transform: uppercase;
+  }
+  .customer {
+    color: #3e4e67;
+  }
+  .is-processed {
+    color: green;
+  }
+  .is-pending {
+    // color: yellow;
+  }
+</style>
