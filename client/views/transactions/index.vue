@@ -50,7 +50,7 @@
       renderCents (value) {
         if (!value) value = 0
         value = value / 100
-        return value.toFixed(2)
+        return '$' + value.toFixed(2)
       }
     }
   }
