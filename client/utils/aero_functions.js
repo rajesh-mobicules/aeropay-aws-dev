@@ -120,14 +120,19 @@ export function getTransacations (idToken) {
     axios.get(aeroConfig.getTransactionURL, config)
       .then(res => {
         const data = res.data
-        if (data.transactions !== null && data.error === null) {
+        try {
           resolve(data.transactions)
-        } else if (data.error !== null) {
-          console.log(data.error)
-          reject(data.error)
-        } else {
+        } catch (err) {
           reject(data.message)
         }
+        // if (data.transactions !== null && data.error === null) {
+        //   resolve(data.transactions)
+        // } else if (data.error !== null) {
+        //   console.log(data.error)
+        //   reject(data.error)
+        // } else {
+        //   reject(data.message)
+        // }
         // console.log(res)
       })
       .catch(err => {

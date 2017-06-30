@@ -1,8 +1,29 @@
 <template>
   <div>
-    <h1 class="title">{{merchantName}}</h1>
+    <div class="search-box">
+      <div class="field has-addons">
+        <p class="control is-expanded has-icons-left">
+          <input class="input" type="text" placeholder="Name, email, or transaction ID">
+          <span class="icon is-small is-left">
+            <i class="fa fa-search"></i>
+          </span>
+        </p>
+        <p class="control is-expanded has-icons-right">
+          <input class="input" type="text" placeholder="Date Range">
+          <span class="icon is-small is-right">
+            <i class="fa fa-calendar"></i>
+          </span>
+        </p>
+        <p class="control">
+          <a class="button is-info">
+            Search
+          </a>
+        </p>
+      </div>
+    </div>
     <table class="table is-striped">
       <thead>
+        <p class="trans_num">{{trans_num}} Transactions</p>
         <tr>
           <th>Name</th>
           <th>Date</th>
@@ -11,12 +32,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="t in transactions">
+        <tr v-for="t in totalTrans">
           <td class="customer"><span class="span">From: </span>{{t.customerName}}</td>
           <td><span class="span">{{t.createdDate}}</span></td>
-          <td><span class="span">{{t.status}}</span></td>
+          <td><span class="status">{{t.status}}</span></td>
           <td :class="{'is-processed': t.status === 'processed', 'is-pending': t.status === 'pending'}">{{t.amount | renderCents}}</td>
-        </tr> 
+        </tr>
       </tbody>
     </table>
   </div>
@@ -28,22 +49,32 @@
   export default {
     data () {
       return {
-        transactions: null
+        transactions: []
       }
     },
     beforeMount () {
       getTransacations(this.idToken)
         .then(transactions => {
           console.log(transactions)
-          this.transactions = transactions
+          this.transactions = transactions.sort((a, b) => {
+            return new Date(b.createdDate) - new Date(a.createdDate)
+          })
         })
         .catch(err => console.log(err))
     },
     computed: {
       ...mapGetters(['idToken']),
       merchantName () {
-        if (this.transactions === null) return ''
+        if (this.transactions === null || this.transactions.length === 0) return ''
         return this.transactions[0]['merchantName']
+      },
+      totalTrans () {
+        const pending = this.transactions.filter(t => t.status.toLowerCase() === 'pending')
+        const resolved = this.transactions.filter(t => t.status.toLowerCase() === 'processed')
+        return pending.concat(resolved)
+      },
+      trans_num () {
+        return this.transactions.length
       }
     },
     filters: {
@@ -69,5 +100,16 @@
   }
   .is-pending {
     // color: yellow;
+  }
+  .status {
+    text-transform: capitalize;
+  }
+  .trans_num {
+    margin: 13px 0px 5px 10px;
+    font-size: 18px;
+    padding-left: 10px;
+  }
+  .search-box {
+    margin-bottom: 15px;
   }
 </style>
