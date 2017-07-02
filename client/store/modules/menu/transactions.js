@@ -9,35 +9,5 @@ export default {
     link: 'transactions/index.vue',
     auth: true
   },
-  component: lazyLoading('transactions', true),
-
-  children: [
-    {
-      name: 'Monthly',
-      path: 'monthly',
-      component: lazyLoading('transactions/Monthly'),
-      meta: {
-        link: 'transactions/Monthly.vue',
-        auth: true
-      }
-    },
-    {
-      name: 'Daily',
-      path: 'daily',
-      component: lazyLoading('transactions/Daily'),
-      meta: {
-        link: 'transactions/Daily.vue',
-        auth: true
-      }
-    },
-    {
-      name: 'Yearly',
-      path: 'yearly',
-      component: lazyLoading('transactions/Yearly'),
-      meta: {
-        link: 'transactions/Yearly.vue',
-        auth: true
-      }
-    }
-  ]
+  component: lazyLoading('transactions', true)
 }

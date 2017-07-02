@@ -33,7 +33,7 @@
       </thead>
       <tbody>
         <tr v-for="t in totalTrans">
-          <td class="customer"><span class="span">From: </span>{{t.customerName}}</td>
+          <td class="customer"><span class="span"></span>{{t.customerName}}</td>
           <td><span class="span">{{t.createdDate}}</span></td>
           <td><span class="status">{{t.status}}</span></td>
           <td :class="{'is-processed': t.status === 'processed', 'is-pending': t.status === 'pending'}">{{t.amount | renderCents}}</td>
