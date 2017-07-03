@@ -58,6 +58,9 @@ export default {
   animation-duration: .377s;
 }
 
+$aeroBlue: #5fc8d8;
+$primary: $aeroBlue;
+
 @import '~bulma';
 
 @import '~wysiwyg.css/wysiwyg.sass';

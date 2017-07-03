@@ -2,8 +2,8 @@
   "name": "aeropay-web",
   "version": "0.1.12",
   "description": "AeroPay Merchant Web",
-  "repository": "vue-bulma/vue-admin",
-  "homepage": "https://admin.vuebulma.com",
+  "repository": "cckn1ght/aeropay-web",
+  "homepage": "dev-portal.aeropayments.com",
   "license": "MIT",
   "author": {
     "name": "Qunhao Song",
