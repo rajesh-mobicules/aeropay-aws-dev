@@ -28,6 +28,7 @@ export function awsRegister ({email, password}) {
         reject(err)
       } else {
         let cognitoUser = result.user
+        // const userAtt = recordUserAttributes(cognitoUser)
         resolve(cognitoUser)
       }
     })
@@ -55,13 +56,28 @@ export function awsAuthenticate ({email, password}) {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: result => {
         // console.log(result)
+        const userAtt = recordUserAttributes(cognitoUser)
         resolve({
           accessToken: result.getAccessToken().getJwtToken(),
           idToken: result.getIdToken().getJwtToken(),
-          refreshToken: result.getRefreshToken().getToken()
+          refreshToken: result.getRefreshToken().getToken(),
+          userAtt: userAtt
         })
       },
       onFailure: err => reject(err)
     })
   )
+}
+
+function recordUserAttributes (cognitoUser) {
+  cognitoUser.getUserAttributes((err, result) => {
+    if (err) {
+      console.log(err)
+      return
+    }
+    for (let i = 0; i < result.length; i++) {
+      console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue())
+    }
+    return result
+  })
 }

@@ -40,9 +40,12 @@ const user = {
       const password = userInfo.password
       return new Promise((resolve, reject) => {
         awsAuthenticate({email, password})
-          .then(tokens => {
-            commit('SET_TOKEN', tokens)
+          .then(result => {
+            const { accessToken, idTokne, refreshToken } = result
+            // const userAtt = result.userAtt
+            commit('SET_TOKEN', {accessToken, idTokne, refreshToken})
             commit('SET_EMAIL', email)
+            // commit('')
             resolve()
           })
           .catch(error => {

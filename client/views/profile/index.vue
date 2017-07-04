@@ -1,29 +1,82 @@
 <template>
   <div>
-    <h2 class='has-text-centered title column'>Profile</h2>
-    <div class="columns">
-      <div class="box column is-6 is-offset-3">
-        <div class="field">
-          <label class="label">Email</label>
-          <p class="control">
-            <input class="input" type="text" placeholder="Email Address" v-model="newEmail">
-          </p>
-        </div>
-        <div class="field">
-          <label class="label">Bank Account</label>
-          <p class="control">
-            <input class="input" type="text" placeholder="Bank Account" v-model="newBank">
-          </p>
-        </div>
-        <div class="has-text-centered">
-          <a class="button is-primary" @click="updateProfile">Update Profile</a>
-        </div>
-        <br>
-        <br>
-        <div class="has-text-centered">
-          <router-link to="/iav" class="button is-primary" >Change or Add Bank Account</router-link>
+    <div class="card">
+      <div class="card-content">
+        <p class="title">
+          Name
+        </p>
+        <p class="subtitle">
+          {{email}}
+        </p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            Basic
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            Locations
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            Billing
+          </span>
+        </p>
+      </footer>
+    </div>
+    <br>
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Authorized representative
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          NAME
         </div>
       </div>
+    </div>
+    <br>
+
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Contact Inforamtion
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p>EMAIL {{email}}</p>
+          <p>ADDRESS 1</p>
+          <p>ADDRESS 2</p>
+          <p>CITY</p>
+          <p>STATE</p>
+          <p>ZIP</p>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Organization
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          COMPANY
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="has-text-centered">
+      <router-link to="/iav" class="button is-primary" >Change or Add Bank Account</router-link>
     </div>
   </div>
 </template>
@@ -50,3 +103,11 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .card {
+    margin: 0px;
+    padding: 0px;
+
+  }
+</style>
