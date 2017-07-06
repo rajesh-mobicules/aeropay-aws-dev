@@ -17,6 +17,7 @@ const user = {
       state.email = email
     },
     SET_TOKEN: (state, tokens) => {
+      console.log(tokens)
       for (let key in tokens) {
         window.localStorage.setItem(key, tokens[key])
         state[key] = tokens[key]
@@ -41,9 +42,10 @@ const user = {
       return new Promise((resolve, reject) => {
         awsAuthenticate({email, password})
           .then(result => {
-            const { accessToken, idTokne, refreshToken } = result
+            // console.log(result)
+            const { accessToken, idToken, refreshToken } = result
             // const userAtt = result.userAtt
-            commit('SET_TOKEN', {accessToken, idTokne, refreshToken})
+            commit('SET_TOKEN', {accessToken, idToken, refreshToken})
             commit('SET_EMAIL', email)
             // commit('')
             resolve()
