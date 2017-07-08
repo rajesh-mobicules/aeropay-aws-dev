@@ -23,6 +23,7 @@
       <div class="field">
         <label for="email" class="label">Email Address *</label>
         <p class="control">
+          <!-- <input pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required id="email" name="email" class="input" v-model="form.email" />  -->
           <input type="email" id="email" name="email" class="input" v-model="form.email" required>
         </p>
         <span class="help is-danger" v-if="errors.email">Email address is already taken</span>
@@ -38,34 +39,59 @@
         <input type="text" class="input" name="city" v-model="form.city">
         <p>City</p>
         <br>
-        <input type="text" class="input" name="state" v-model="form.state">
-        <p>State</p>
+      </div>
+        <!-- <input type="text" class="input" name="state" v-model="form.state"> -->
+      <div class="field">
+        <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <span class="select">
+              <select name="state" required v-model="form.state">
+                <option v-for="s in states" :key="s">{{ s }}</option>
+              </select>
+            </span>
+          </div>
+          <span>State</span>
+        </div>
         <br>
-        <input type="text" class="input" name="zipcode" v-model="form.zipcode">
-        <p>Zip Code</p>
+        <!-- <input type="text" class="input" name="zipcode" v-model="form.zipcode"> -->
+        <div class="field">
+          <div class="control">
+            <cleave class="input" :options="{ blocks: [5], numericOnly: true }" name="zipcode" v-model="form.zipcode"></cleave>
+            <span>Zip Code</span>
+          </div>
+        </div>
         <br>
-        <input type="text" class="input" name="country" v-model="form.country">
-        <p>Country</p>
+        <div class="filed">
+          <div class="control">
+            <input type="text" class="input" name="country" v-model="form.country">
+          </div>
+            <span>Country</span>
+        </div>
         <br>
+        </div>
       </div>
       <div class="field">
         <label class="label">Date of Birth *</label>
         <div class="field-body">
           <div class="field">
             <p class="control">
-              <input type="text" class="input" name="Month" v-model="form.Month">
+              <!-- <input type="text" class="input" name="Month" v-model="form.Month"> -->
+              <cleave class="input" :options="{ blocks: [2], numericOnly: true }" name="Month" v-model="form.Month"></cleave>
             </p>
             <span>MM</span>
           </div>
           <div class="field">
             <p class="control">
-              <input type="text" class="input" name="Day" v-model="form.Day">
+              <!-- <input type="text" class="input" name="Day" v-model="form.Day"> -->
+              <cleave class="input" :options="{ blocks: [2], numericOnly: true }" name="Day" v-model="form.Day"></cleave>
             </p>
             <span>DD</span>
           </div>
           <div class="field">
             <p class="control">
-              <input type="text" class="input" name="Year" v-model="form.Year">
+              <!-- <input type="text" class="input" name="Year" v-model="form.Year"> -->
+              <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="Year" v-model="form.Year"></cleave>
             </p>
             <span>YYYY</span>
           </div>
@@ -74,27 +100,30 @@
       <div class="field">
         <label class="label">Last Four Digits of Social Security *</label>
         <div class="control">
-          <input type="text" class="input" name="social-security" v-model="form['social-security']">
+          <!-- <input type="text" class="input" name="social-security" v-model="form['social-security']"> -->
+          <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="social-security" v-model="form['social-security']"></cleave>
         </div>
       </div>
       <div class="field">
         <label class="label">Phone Number *</label>
         <div class="field-body">
           <div class="field">
-            <p class="control">
-              <input type="text" class="input" name="phone-area-code" v-model="form['phone-area-code']">
-            </p>
-            <span>(###)</span>
+            <div class="control">
+              <cleave class="input" :options="{ blocks: [3], numericOnly: true }" name="phone-area-code" v-model="form['phone-area-code']"></cleave>
+            </div>
+            <span>###</span>
           </div>
           <div class="field">
             <p class="control">
-              <input type="text" class="input" name="phone-local-prefix" v-model="form['phone-local-prefix']">
+              <!-- <input type="text" class="input" name="phone-local-prefix" v-model="form['phone-local-prefix']"> -->
+              <cleave class="input" :options="{ blocks: [3], numericOnly: true }" name="phone-local-prefix" v-model="form['phone-local-prefix']"></cleave>
             </p>
             <span>###</span>
           </div>
           <div class="field">
             <p class="control">
-              <input type="text" class="input" name="phone-local-suffix" v-model="form['phone-local-suffix']">
+              <!-- <input type="text" class="input" name="phone-local-suffix" v-model="form['phone-local-suffix']"> -->
+              <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="phone-local-suffix" v-model="form['phone-local-suffix']"></cleave>
             </p>
             <span>####</span>
           </div>
@@ -129,7 +158,8 @@
       <div class="field">
         <label class="label">EIN *</label>
         <p class="control">
-          <input type="text" name="ein" class="input" v-model="form.ein">
+          <!-- <input type="text" name="ein" class="input" v-model="form.ein"> -->
+          <cleave class="input" :options="{ delimiter: '-', blocks: [2, 7], numericOnly: true }" name="ein" v-model="form.ein"></cleave>
         </p>
         <span>12-1234567</span>
       </div>
@@ -200,8 +230,14 @@
   import { Form } from '../../utils/Form'
   import { awsRegister } from '../../utils/aws_functions'
   import { mapActions } from 'vuex'
+  import Cleave from 'vue-cleave'
+  import statesHash from 'utils/states_hash.json'
+
   export default {
     name: 'register-app',
+    components: {
+      Cleave
+    },
     data () {
       return {
         form: new Form({
@@ -244,6 +280,7 @@
     },
     beforeMount () {
       this.toggleSidebar(false)
+      console.log(statesHash)
     },
     methods: {
       ...mapActions(['loginAndRegMerchant', 'toggleSidebar']),
@@ -304,6 +341,14 @@
     computed: {
       disabled () {
         return this.errors.email || this.errors.password_confirmation || this.errors.password
+      },
+      states () {
+        const ss = []
+        for (let key in statesHash) {
+          ss.push(key)
+        }
+        // console.log(ss)
+        return ss
       }
     }
   }
