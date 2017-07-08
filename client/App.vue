@@ -59,7 +59,7 @@ export default {
 }
 
 $aeroBlue: #5fc8d8;
-$primary: $aeroBlue;
+// $primary: $aeroBlue;
 
 @import '~bulma';
 
