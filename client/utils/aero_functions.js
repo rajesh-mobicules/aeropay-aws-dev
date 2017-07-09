@@ -14,11 +14,11 @@ export function registerMerchant (formData, idToken) {
     axios.post(aeroConfig.creatMerchantURL, formData, config)
       .then(res => {
         console.log(res)
-        // if (res.data.error === null || res.data.error === '') {
-        resolve(res.data)
-        // } else {
-        //   reject(res.data)
-        // }
+        if ('error' in res.data) {
+          reject(res.data)
+        } else {
+          resolve(res.data)
+        }
       })
       .catch(error => {
         reject(error)

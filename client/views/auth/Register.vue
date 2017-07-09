@@ -10,12 +10,14 @@
         <div class="field-body">
           <div class="field is-grouped">
             <p class="control is-expanded">
-              <input class="input" type="text" name="fname" placeholder="First Name" v-model="form.fname" autoComplete="on" required>
+              <input class="input" type="text" name="fname" placeholder="First Name" v-model="form.fname" autoComplete="on">
+              <span class="help is-danger" v-if="errors.fname !== null">{{errors.fname}}</span>
             </p>
           </div>
           <div class="field">
             <p class="control">
-              <input class="input" type="text" name="lname" placeholder="Last Name" v-model="form.lname" required>
+              <input class="input" type="text" name="lname" placeholder="Last Name" v-model="form.lname">
+              <span class="help is-danger" v-if="errors.lname !== null">{{errors.lname}}</span>
             </p>
           </div>
         </div>
@@ -23,20 +25,22 @@
       <div class="field">
         <label for="email" class="label">Email Address *</label>
         <p class="control">
-          <input type="email" id="email" name="email" class="input" v-model="form.email" required>
+          <input type="email" id="email" name="email" class="input" v-model="form.email" >
         </p>
-        <span class="help is-danger" v-if="errors.email">Email address is already taken</span>
+        <span class="help is-danger" v-if="errors.email !== null">{{errors.email}}</span>
       </div>
       <div class="field">
         <label class="label">Address *</label>
-        <input type="text" class="input" name="address" v-model="form.address" required>
-        <p>Address 1</p>
+        <input type="text" class="input" name="address" v-model="form.address" >
+        <p>Address 1 *</p>
+        <span class="help is-danger" v-if="errors.address !== null">{{errors.address}}</span>
         <br>
         <input type="text" class="input" name="address2" v-model="form.address2">
         <p>Address 2</p>
         <br>
         <input type="text" class="input" name="city" v-model="form.city">
-        <p>City</p>
+        <p>City *</p>
+        <span class="help is-danger" v-if="errors.city !== null">{{errors.city}}</span>
         <br>
       </div>
         <!-- <input type="text" class="input" name="state" v-model="form.state"> -->
@@ -44,10 +48,12 @@
           
         <div class="control ">
           <span class="select">
-            <select name="state" required v-model="form.state" required>
+            <select name="state" v-model="form.state" @click="clearErrors('state')">
               <option v-for="s in states" :key="s">{{ s }}</option>
             </select>
+            
             <span>State</span>
+            <span class="help is-danger" v-if="errors.state !== null">{{errors.state}}</span>
           </span>
 
         </div>
@@ -61,8 +67,9 @@
         </div>
         <br>
         <div class="control">
-          <input type="text" class="input" name="country" v-model="form.country" required>
+          <input type="text" class="input" name="country" v-model="form.country" >
           <span>Country</span>
+          <span class="help is-danger" v-if="errors.country !== null">{{errors.country}}</span>
         </div>
         <br>
       </div>
@@ -130,9 +137,10 @@
         <label class="label">Business Type *</label>
         <p class="control">
           <span class="select">
-            <select name="businessType" v-model="form['businessType']" required>
+            <select name="businessType" v-model="form['businessType']" @click="clearErrors('businessType')">
               <option v-for="type in bizTypes" :key="type">{{ type }}</option>
             </select>
+            <span class="help is-danger" v-if="errors.businessType !== null">{{errors.businessType}}</span>
           </span>
         </p>
       </div>
@@ -140,16 +148,18 @@
         <label class="label">Business Classification *</label>
         <p class="control">
           <span class="select">
-            <select name="select-business-classification-field" required v-model="form['select-business-classification-field']" required>
+            <select name="select-business-classification-field" v-model="form['select-business-classification-field']" @click="clearErrors('select-business-classification-field')">
               <option v-for="cla in bizClassification" :key="cla">{{ cla }}</option>
             </select>
+            <span class="help is-danger" v-if="errors['select-business-classification-field'] !== null">{{errors['select-business-classification-field']}}</span>
           </span>
         </p>
       </div>
       <div class="field">
         <label class="label">Business Name *</label>
         <p class="control">
-          <input type="text" name="business-name" class="input" v-model="form['business-name']" required>
+          <input type="text" name="business-name" class="input" v-model="form['business-name']">
+          <span class="help is-danger" v-if="errors['business-name'] !== null">{{errors['business-name']}}</span>
         </p>
       </div>
       <div class="field">
@@ -162,21 +172,22 @@
         <span>12-1234567</span>
       </div>
       <div class="field">
-        <label class="label">Doing Business As?</label>
+        <label class="label">Doing Business As? *</label>
         <p class="control">
           <input type="text" name="dba" class="input" v-model="form.dba" >
+          <span class="help is-danger" v-if="errors.dba !== null">{{errors.dba}}</span>
         </p>
       </div>
       <div class="control">
         <label for="password" class="label">Password *</label>
         <p class="control">
-          <input type="password" id="password" name="password" class="input" v-model="form.password" required>
+          <input type="password" id="password" name="password" class="input" v-model="form.password" >
         </p>
         <span class="help is-danger" v-if="errors.password !== null">{{errors.password}}</span>
       </div>
       <div class="control">
         <label for="passwordConfirmation" class="label">Confim Password *</label>
-        <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="input" v-model="form.passwordConfirmation" required>
+        <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="input" v-model="form.passwordConfirmation" >
         <span class="help is-danger" v-if="errors.passwordConfirmation !== null">{{errors.passwordConfirmation}}</span>
       </div>
       <br>
@@ -184,21 +195,23 @@
       <div class="field">
         <p class="control">
           <label class="checkbox">
-            <input type="checkbox" name="authorized" v-model="form.authorized">
+            <input type="checkbox" name="authorized" v-model="form.authorized" @click="clearErrors('authorized')">
             I hereby authorize and accept the Aero Pay Terms of Service and Privacy Policy agreements. I acknowledge this feature is powered by Dwolla and accept their Terms of Service and Privacy Policy agreements.
           </label>
+          <span class="help is-danger" v-if="errors.authorized !== null">{{errors.authorized}}</span>
         </p>
       </div>
       <br>
       <br>
-      <span class="help is-danger" v-if="disabled">You have entered invalid values!</span>
+      <span class="help is-danger" v-if="disabled && errors.overall === null">You have entered invalid values!</span>
+      <span class="help is-danger" v-if="disabled && errors.overall !== null">{{errors.overall}}</span>
+      <input type="submit" v-if="false">
       <p class="has-text-centered">
-        <input class="button is-primary" id="submit"
+        <a class="button is-primary" id="submit"
           :disabled="disabled"
           :class = "{'is-loading' : isLoading}"
-          type="submit"
-          @click="onSubmit" value="Create"
-        >
+          @click="onSubmit"
+        >Create</a>
       </p>
     </form>
     <div class="box column is-6 is-offset-3" v-if="registerSuccess">
@@ -273,7 +286,19 @@
           ein: null,
           DOB: null,
           'social-security': null,
-          phone: null
+          phone: null,
+          city: null,
+          address: null,
+          state: null,
+          country: null,
+          businessType: null,
+          'select-business-classification-field': null,
+          'business-name': null,
+          authorized: null,
+          dba: null,
+          fname: null,
+          lname: null,
+          overall: null
         },
         formHasError: false,
         isLoading: false,
@@ -292,13 +317,20 @@
           // console.log(this.errors)
         } else {
           this.isLoading = true
-          this.form.submit(awsRegister)
+          awsRegister(this.form.data())
             .then(response => {
               this.onSuccess(response)
             })
-            .catch(error => {
-              this.onFail(error)
+            .catch(err => {
+              this.onFail(err)
             })
+          // this.form.submit(awsRegister)
+          //   .then(response => {
+          //     this.onSuccess(response)
+          //   })
+          //   .catch(error => {
+          //     this.onFail(error)
+          //   })
         }
       },
       resolveData (data) {
@@ -306,15 +338,19 @@
         this.registerSuccess = true
       },
       onSuccess (response) {
-        console.log(response)
+        // console.log(response)
         this.loginAndRegMerchant(this.form)
           .then(data => {
             this.resolveData(data)
           })
           .catch(err => {
             this.isLoading = false
-            console.log(err)
+            this.handleError(err)
           })
+      },
+      handleError (err) {
+        // console.log(err)
+        this.errors.overall = err.error
       },
       onFail (error) {
         if (error.code === 'UsernameExistsException') {
@@ -326,7 +362,7 @@
             })
             .catch(err => {
               this.isLoading = false
-              console.log(err)
+              this.handleError(err)
             })
         } else if (error.code === 'InvalidPasswordException') {
           this.errors.password = true
@@ -338,6 +374,7 @@
       },
       clearErrors (field) {
         // console.log(field)
+        this.errors.overall = null
         if (field === 'Month' || field === 'Year' || field === 'Year') {
           this.errors.DOB = null
         } else if (field === 'phone-area-code' || field === 'phone-local-prefix' || field === 'phone-local-suffix') {
@@ -350,8 +387,7 @@
       },
       validateForm () {
         // const { email, password, passwordConfirmation, zipcode, Year, Month, Day } = this.form
-        const {zipcode, ein, email, Month, Year, Day, password, passwordConfirmation} = this.form
-        console.log(Month)
+        const {zipcode, ein, email, Month, Year, Day, password, passwordConfirmation, fname, lname, address, city, state, country, businessType, authorized, dba} = this.form
         if (zipcode.length !== 5) {
           this.errors.zipcode = 'Zipcode must has five digits!'
         }
@@ -375,6 +411,27 @@
         }
         if (this.form['phone-area-code'].length !== 3 || this.form['phone-local-prefix'].length !== 3 || this.form['phone-local-suffix'].length !== 4) {
           this.errors.phone = 'Phone number is not correct!'
+        }
+        if (fname.length < 1) this.errors.fname = 'Please enter your frist name!'
+        if (lname.length < 1) this.errors.lname = 'Please enter your last name'
+        if (address.length < 1) this.errors.address = 'please enter your address'
+        if (city.length < 1) this.errors.city = 'please enter the city name'
+        if (state.length < 1) this.errors.state = 'please chose a state'
+        if (country.length < 1) this.errors.country = 'Please enter your country name'
+        if (businessType.length < 1) this.errors.businessType = 'Please select your business type'
+        if (businessType.length < 1) this.errors.businessType = 'Please select your business type'
+        // console.log(authorized)
+        if (this.form['select-business-classification-field'].length < 1) {
+          this.errors['select-business-classification-field'] = 'Please select your business classification field'
+        }
+        if (this.form['business-name'].length < 1) {
+          this.errors['business-name'] = 'Please enter your business name'
+        }
+        if (dba.length < 1) {
+          this.errors.dba = 'Please enter this field'
+        }
+        if (!authorized) {
+          this.errors.authorized = 'Please confirm that you authrize Aeropay terms of service'
         }
       },
       validateEmail (email) {

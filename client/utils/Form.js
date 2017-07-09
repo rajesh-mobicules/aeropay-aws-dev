@@ -46,7 +46,6 @@ export class Form {
   }
   data () {
     let data = {}
-
     for (let property in this.originalData) {
       data[property] = this[property]
     }
