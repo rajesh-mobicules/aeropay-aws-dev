@@ -10,7 +10,9 @@ export const aeroConfig = {
   iavCss: iavCss,
   dwollaEnv: 'prod',
   microDeposits: false,
-  fallbackToMicroDeposits: false
+  fallbackToMicroDeposits: false,
+  profileForMerchant: awsProdBaseUrl + 'profileForMerchant',
+  locationsForMerchant: awsProdBaseUrl + 'locationsForMerchant'
 }
 
 export const awsConfig = {

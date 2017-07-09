@@ -2,96 +2,59 @@
   <div>
     <div class="card">
       <div class="card-content">
-        <p class="title">
-          Name
+        <p class="title p-name">
+          {{merchant.firstName + " " + merchant.lastName}}
         </p>
-        <p class="subtitle">
-          {{email}}
-        </p>
+        <span class="sub">
+          <i class="fa fa-envelope-o"></i>
+          {{merchant.email}}
+        </span>
+        <span class="sub">
+          {{merchant.status}}
+        </span>
       </div>
       <footer class="card-footer">
-        <p class="card-footer-item">
+        <router-link to="/profile/basic" class="card-footer-item">
           <span>
             Basic
           </span>
-        </p>
-        <p class="card-footer-item">
-          <span>
+        </router-link>
+        <router-link to="/profile/locations" class="card-footer-item">
+          <span to="/profile/locations">
             Locations
           </span>
-        </p>
-        <p class="card-footer-item">
+        </router-link>
+        <router-link to="/profile/billing" class="card-footer-item">
           <span>
             Billing
           </span>
-        </p>
+        </router-link>
       </footer>
     </div>
     <br>
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">
-          Authorized representative
-        </p>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          NAME
-        </div>
-      </div>
-    </div>
-    <br>
+    <router-view :merchant="merchant"></router-view>
 
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">
-          Contact Inforamtion
-        </p>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          <p>EMAIL {{email}}</p>
-          <p>ADDRESS 1</p>
-          <p>ADDRESS 2</p>
-          <p>CITY</p>
-          <p>STATE</p>
-          <p>ZIP</p>
-        </div>
-      </div>
-    </div>
-    <br>
-
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">
-          Organization
-        </p>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          COMPANY
-        </div>
-      </div>
-    </div>
-    <br>
-
-    <div class="has-text-centered">
-      <router-link to="/iav" class="button is-primary" >Change or Add Bank Account</router-link>
-    </div>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
+  import { getProfile } from 'utils/aero_functions'
   export default {
     data () {
       return {
-        newEmail: '',
-        newBank: ''
+        merchant: {}
       }
     },
-    mounted () {
-      this.newEmail = this.email
+    beforeMount () {
+      getProfile(this.idToken)
+        .then(merchant => {
+          console.log(merchant)
+          this.merchant = merchant
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     methods: {
       updateProfile () {
@@ -99,7 +62,7 @@
       }
     },
     computed: {
-      ...mapGetters(['email'])
+      ...mapGetters(['email', 'idToken'])
     }
   }
 </script>
@@ -108,6 +71,17 @@
   .card {
     margin: 0px;
     padding: 0px;
-
+  }
+  .p-name {
+    display: block;
+    margin: 10px 0px 30px 0px;
+  }
+  .sub {
+    display: inline-block;
+    margin: 0 20px 0 0;
+    color: #8393aa;
+  }
+  .fa {
+    margin-top: 4px;
   }
 </style>

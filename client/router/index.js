@@ -32,6 +32,10 @@ export default new Router({
       meta: {auth: true},
       component: require('../views/iav')
     },
+    {
+      path: '/profile',
+      redirect: '/profile/basic'
+    },
     ...generateRoutesFromMenu(menuModule.state.items),
     {
       path: '*',

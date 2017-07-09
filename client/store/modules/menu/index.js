@@ -1,6 +1,7 @@
 import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
 import transactions from './transactions'
+import profile from './profile'
 // show: meta.label -> name
 // name: component name
 // meta.label: display label
@@ -28,16 +29,7 @@ const state = {
       },
       component: lazyLoading('customers', true)
     },
-    {
-      name: 'Profile',
-      path: '/profile',
-      meta: {
-        auth: true,
-        icon: 'fa-user-circle',
-        link: 'profile/index.vue'
-      },
-      component: lazyLoading('profile', true)
-    }
+    profile
   ]
 }
 

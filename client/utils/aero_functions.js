@@ -109,11 +109,33 @@ export function refreshIav (idToken) {
   })
 }
 
+export function getLocations (idToken) {
+  const config = {
+    headers: {
+      'requestAuthorization': idToken
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.get(aeroConfig.locationsForMerchant, config)
+      .then(res => {
+        const data = res.data
+        try {
+          resolve(data.locations)
+        } catch (err) {
+          reject(data.message)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+
 export function getTransacations (idToken) {
   const config = {
     headers: {
-      'requestAuthorization': idToken,
-      'Content-Type': 'application/json'
+      'requestAuthorization': idToken
     }
   }
   return new Promise((resolve, reject) => {
@@ -125,15 +147,26 @@ export function getTransacations (idToken) {
         } catch (err) {
           reject(data.message)
         }
-        // if (data.transactions !== null && data.error === null) {
-        //   resolve(data.transactions)
-        // } else if (data.error !== null) {
-        //   console.log(data.error)
-        //   reject(data.error)
-        // } else {
-        //   reject(data.message)
-        // }
-        // console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+
+export function getProfile (idToken) {
+  const config = {
+    headers: {
+      'requestAuthorization': idToken
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.get(aeroConfig.profileForMerchant, config)
+      .then(res => {
+        const data = res.data
+        if (data.success) resolve(data.merchant)
+        else reject(data.message)
       })
       .catch(err => {
         console.log(err)
