@@ -9,18 +9,18 @@
           <i class="fa fa-envelope-o"></i>
           {{merchant.email}}
         </span>
-        <span class="sub">
+        <span :class="statusClass">
           {{merchant.status}}
         </span>
       </div>
       <footer class="card-footer">
         <router-link to="/profile/basic" class="card-footer-item">
           <span>
-            Basic
+            Basic Info
           </span>
         </router-link>
         <router-link to="/profile/locations" class="card-footer-item">
-          <span to="/profile/locations">
+          <span>
             Locations
           </span>
         </router-link>
@@ -30,6 +30,7 @@
           </span>
         </router-link>
       </footer>
+      <div class="under-score" :style="{left: offset}"></div>
     </div>
     <br>
     <router-view :merchant="merchant"></router-view>
@@ -49,7 +50,7 @@
     beforeMount () {
       getProfile(this.idToken)
         .then(merchant => {
-          console.log(merchant)
+          // console.log(merchant)
           this.merchant = merchant
         })
         .catch(err => {
@@ -62,12 +63,32 @@
       }
     },
     computed: {
-      ...mapGetters(['email', 'idToken'])
+      ...mapGetters(['email', 'idToken']),
+      offset () {
+        // console.log(this.$route.name)
+        if (this.$route.name === 'Locations') return '33.3%'
+        if (this.$route.name === 'Billing') return '66.7%'
+        else return '0%'
+      },
+      statusClass () {
+        if (this.merchant.status === 'verified') {
+          return {
+            sub: true,
+            'verified': true
+          }
+        } else {
+          return {
+            sub: true,
+            'not-verified': true
+          }
+        }
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  @import '~bulma';
   .card {
     margin: 0px;
     padding: 0px;
@@ -84,4 +105,29 @@
   .fa {
     margin-top: 4px;
   }
+  .card-footer-item {
+    color: #5fc8d8;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .router-link-exact-active {
+    color: #3e4e67;
+  }
+  .under-score {
+    position: relative;
+    height: 3px;
+    transition: left .5s cubic-bezier(.23,1,.32,1);
+    background-color: #2395d6;
+    width: 33.3%;
+  }
+  .verified {
+    color: $primary;
+  }
+  .not-verfied {
+    color: $danger;
+  }
+
+  
+
 </style>

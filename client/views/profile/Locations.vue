@@ -40,7 +40,7 @@
     beforeMount () {
       getLocations(this.idToken)
         .then(locations => {
-          console.log(locations)
+          // console.log(locations)
           this.locations = locations
         })
         .catch(err => console.log(err))
