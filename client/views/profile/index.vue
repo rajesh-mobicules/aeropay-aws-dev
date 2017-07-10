@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-content">
         <p class="title p-name">
-          {{merchant.firstName + " " + merchant.lastName}}
+          {{merchant.firstName}} {{merchant.lastName}}
         </p>
         <span class="sub">
           <i class="fa fa-envelope-o"></i>
@@ -44,7 +44,8 @@
   export default {
     data () {
       return {
-        merchant: {}
+        merchant: {
+        }
       }
     },
     beforeMount () {
