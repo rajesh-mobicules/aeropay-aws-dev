@@ -16,7 +16,14 @@
 </template>
 
 <script>
+  import { getBillings } from 'utils/aero_functions'
+  import { mapGetters } from 'vuex'
   export default {
+    data () {
+      return {
+        bankAccount: {}
+      }
+    }
   }
 </script>
 

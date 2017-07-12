@@ -174,3 +174,26 @@ export function getProfile (idToken) {
       })
   })
 }
+
+export function getBillings (idToken) {
+  const config = {
+    headers: {
+      'requestAuthorization': idToken
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.get(aeroConfig.bankAccountForMerchant, config)
+      .then(res => {
+        const data = res.data
+        try {
+          resolve(data.bankAccount)
+        } catch (err) {
+          reject(data.error)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}

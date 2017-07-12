@@ -107,7 +107,7 @@
     margin-top: 4px;
   }
   .card-footer-item {
-    color: #5fc8d8;
+    color: #3e4e67;
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
@@ -119,7 +119,7 @@
     position: relative;
     height: 3px;
     transition: left .5s cubic-bezier(.23,1,.32,1);
-    background-color: #2395d6;
+    background-color: $primary;
     width: 33.3%;
   }
   .verified {

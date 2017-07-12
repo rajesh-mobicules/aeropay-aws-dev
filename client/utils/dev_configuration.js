@@ -10,7 +10,8 @@ export const aeroConfig = {
   microDeposits: false,
   fallbackToMicroDeposits: false,
   profileForMerchant: awsDevBaseUrl + 'profileForMerchant',
-  locationsForMerchant: awsDevBaseUrl + 'locationsForMerchant'
+  locationsForMerchant: awsDevBaseUrl + 'locationsForMerchant',
+  bankAccountForMerchant: awsDevBaseUrl + 'bankAccountForMerchant'
 }
 
 export const awsConfig = {
