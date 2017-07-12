@@ -15,7 +15,8 @@ export default {
       name: 'Basic',
       path: 'basic',
       meta: {
-        link: 'profile/Basic.vue'
+        link: 'profile/Basic.vue',
+        auth: true
       },
       component: lazyLoading('profile/Basic')
     },
@@ -23,7 +24,8 @@ export default {
       name: 'Locations',
       path: 'locations',
       meta: {
-        link: 'profile/Locations.vue'
+        link: 'profile/Locations.vue',
+        auth: true
       },
       component: lazyLoading('profile/Locations')
     },
@@ -31,7 +33,8 @@ export default {
       name: 'Billing',
       path: 'billing',
       meta: {
-        link: 'profile/Billing.vue'
+        link: 'profile/Billing.vue',
+        auth: true
       },
       component: lazyLoading('profile/Billing')
     }
