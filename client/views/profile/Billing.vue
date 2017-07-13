@@ -11,9 +11,12 @@
          <img src="~assets/bankAccount.svg" alt="bankAccount">
        </div>
        <div class="account-info">
-         <div class="account-name">{{"bankAccount.name"}}</div>
-         <div class="bank-name">{{"bankAccount.bankName"}}</div>
-         <div class="added">Added{{"bankAccount.created"}}</div>
+         <div class="account-name">
+          <span>{{bankAccount.name}}</span>
+          <span :class="statusClass">{{bankAccount.status}}</span>
+         </div>
+         <div class="bank-name">{{bankAccount.bankName}}</div>
+         <div class="added">Added: {{bankAccount.created | renderDate}}</div>
        </div>
       </div>
     </div>
@@ -68,12 +71,27 @@
         .catch(err => console.log(err))
     },
     computed: {
-      ...mapGetters(['idToken'])
+      ...mapGetters(['idToken']),
+      statusClass () {
+        const cls = {
+          sub: true,
+          verified: false
+        }
+        if (this.bankAccount.status === 'verified') cls.verified = true
+        return cls
+      }
+    },
+    filters: {
+      renderDate (rawDate) {
+        const date = new Date(rawDate)
+        return date.toLocaleString()
+      }
     }
   }
 </script>
 
 <style scoped lang="scss">
+  @import '~bulma';
   .account-box {
     display: flex;
   }
@@ -91,5 +109,22 @@
     display: flex;
     flex-direction: column;
     height: 84px;
+  }
+  .bank-name {
+    font-size: 14px;
+    color: #8393aa;
+  }
+  .added {
+    margin-top: auto;
+    font-size: 10px;
+    color: #8393aa;
+  }
+  .verified {
+    color: $primary;
+    margin-left: 20px;
+  }
+  .not-verfied {
+    color: $danger;
+    margin-left: 20px;
   }
 </style>
