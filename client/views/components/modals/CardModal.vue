@@ -21,7 +21,7 @@ export default {
 
   data () {
     return {
-      src: require('assets/logo.svg')
+      src: require('assets/logo.png')
     }
   },
 
