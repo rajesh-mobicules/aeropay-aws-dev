@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { aeroConfig } from './staging_configuration'
+import { aeroConfig } from './prod_configuration'
 
 export function registerMerchant (formData, idToken) {
   const config = {
