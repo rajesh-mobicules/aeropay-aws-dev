@@ -1,5 +1,5 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
-import { awsConfig } from './prod_configuration'
+import { awsConfig } from './configuration'
 
 const POOLDATA = {
   UserPoolId: awsConfig.UserPoolId, // dev pool

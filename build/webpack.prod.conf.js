@@ -30,7 +30,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     // http://vuejs.github.io/vue-loader/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env
+      'process.env': env,
+      'process.STAGE': JSON.stringify(process.env.STAGE)
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true

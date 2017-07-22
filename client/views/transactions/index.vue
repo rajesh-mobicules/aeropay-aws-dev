@@ -88,6 +88,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '~bulma';
   .span {
     color: #8393aa;
     text-transform: uppercase;
@@ -96,7 +97,7 @@
     color: #3e4e67;
   }
   .is-processed {
-    color: green;
+    color: $primary;
   }
   .is-pending {
     // color: yellow;
