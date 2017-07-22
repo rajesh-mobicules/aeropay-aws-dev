@@ -19,8 +19,6 @@ const awsProdConfig = {
   ClientId: '4ho9ffdaapbhgpmdn43tasjtgj'
 }
 
-console.log(process.STAGE)
-
 let awsBaseUrl
 let awsConfig
 
