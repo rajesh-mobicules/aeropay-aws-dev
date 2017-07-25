@@ -15,6 +15,7 @@
     "npm": ">=3"
   },
   "scripts": {
+    "build": "cross-env NODE_ENV=production node build/build.js",
     "build-dev": "cross-env NODE_ENV=production STAGE=dev node build/build.js",
     "build-staging": "cross-env NODE_ENV=production STAGE=staging node build/build.js",
     "build-prod": "cross-env NODE_ENV=production STAGE=prod node build/build.js",

@@ -42,6 +42,7 @@ export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON, idToken
       // console.log('currentPage:', currentPage, 'error:', JSON.stringify(error))
     }
   }, function (err, res) {
+    console.log(iavToken)
     console.log('Error: ' + JSON.stringify(err) + ' -- Response: ' + JSON.stringify(res))
     if (res) {
       if ('_links' in res) {

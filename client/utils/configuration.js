@@ -21,16 +21,19 @@ const awsProdConfig = {
 
 let awsBaseUrl
 let awsConfig
-
-if (process.STAGE === 'dev') {
+const stage = process.env.STAGE
+console.log(stage)
+let dwollaEnv = 'sandbox'
+if (stage === 'dev') {
   awsBaseUrl = awsDevBaseUrl
   awsConfig = awsDevConfig
-} else if (process.STAGE === 'staging') {
+} else if (stage === 'staging') {
   awsBaseUrl = awsStagingBaseUrl
   awsConfig = awsStagingConfig
 } else {
   awsBaseUrl = awsProdBaseUrl
   awsConfig = awsProdConfig
+  dwollaEnv = 'prod'
 }
 
 export { awsConfig }
@@ -43,7 +46,7 @@ export const aeroConfig = {
   addFundingURL: awsBaseUrl + 'addBankAccount',
   refreshIavURL: awsBaseUrl + 'iavTokenForMerchant',
   iavCss: iavCss,
-  dwollaEnv: 'sandbox',
+  dwollaEnv: dwollaEnv,
   microDeposits: false,
   fallbackToMicroDeposits: false,
   profileForMerchant: awsBaseUrl + 'profileForMerchant',
