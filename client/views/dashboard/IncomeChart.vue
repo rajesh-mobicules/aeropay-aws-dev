@@ -70,7 +70,7 @@
           },
           series: [
             {
-              name: 'customer number',
+              name: '$',
               type: 'line',
               data: this.userData.moneyByMonth,
               markPoint: {
