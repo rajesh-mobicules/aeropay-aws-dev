@@ -51,5 +51,6 @@ export const aeroConfig = {
   fallbackToMicroDeposits: false,
   profileForMerchant: awsBaseUrl + 'profileForMerchant',
   locationsForMerchant: awsBaseUrl + 'locationsForMerchant',
-  bankAccountForMerchant: awsBaseUrl + 'bankAccountForMerchant'
+  bankAccountForMerchant: awsBaseUrl + 'bankAccountForMerchant',
+  userTransactionSummaryForMerchant: awsBaseUrl + 'userTransactionSummaryForMerchant'
 }

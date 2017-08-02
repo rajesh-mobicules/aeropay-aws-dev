@@ -198,3 +198,26 @@ export function getBillings (idToken) {
       })
   })
 }
+
+export function getTransactionSummary (idToken) {
+  const config = {
+    headers: {
+      'requestAuthorization': idToken
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.get(aeroConfig.userTransactionSummaryForMerchant, config)
+      .then(res => {
+        const data = res.data
+        try {
+          resolve(data.transactions)
+        } catch (err) {
+          reject(data.error)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}

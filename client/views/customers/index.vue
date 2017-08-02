@@ -26,8 +26,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="c in customers">
-          <td class="customer"><span class="span"></span>{{c.customerName}}</td>
+        <tr v-for="c in transactions">
+          <td class="customer"><span class="span"></span>{{c.firstName}} {{c.lastName}}</td>
           <td><span class="span">{{c.email}}</span></td>
           <td><span class="status">{{c.status}}</span></td>
           <td>{{c.created}}</td>
@@ -38,13 +38,28 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import { getTransactionSummary } from 'utils/aero_functions'
   export default {
     data () {
       return {
-        customers: []
+        transactions: []
       }
+    },
+    beforeMount () {
+      getTransactionSummary(this.idToken)
+        .then(transactions => {
+          console.log(transactions)
+          this.transactions = transactions
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    computed: {
+      ...mapGetters(['idToken'])
     }
-  }
+}
 </script>
 
 <style lang="scss" scoped>
