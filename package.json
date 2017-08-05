@@ -39,6 +39,7 @@
     "animejs": "^2.0.1",
     "axios": "^0.15.3",
     "bulma": "^0.4.1",
+    "country-list": "^1.1.0",
     "echarts": "^3.6.2",
     "font-awesome": "4.7.0",
     "jwt-decode": "^2.2.0",

@@ -1,12 +1,13 @@
 <template>
 <div class="register-app content">
-  <h1 class="title is-bold">Register Your AeroPayments Account</h1>
-  <br>
-  <br>
-    <div class="columns is-vcentered">
+  <div class="has-text-centered">
+    <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
+    <p class="portal">register</p>
+  </div>
+  <div class="columns is-vcentered">
     <form @submit.prevent="onSubmit" class="box column is-6 is-offset-3" @keydown="clearErrors($event.target.name)" v-if="!registerSuccess">
       <div class="field">
-        <label class="label">Name *</label>
+        <label class="label">Name</label>
         <div class="field-body">
           <div class="field is-grouped">
             <p class="control is-expanded">
@@ -23,23 +24,23 @@
         </div>
       </div>
       <div class="field">
-        <label for="email" class="label">Email Address *</label>
+        <label for="email" class="label">Email Address</label>
         <p class="control">
           <input type="email" id="email" name="email" class="input" v-model="form.email" >
         </p>
         <span class="help is-danger" v-if="errors.email !== null">{{errors.email}}</span>
       </div>
       <div class="field">
-        <label class="label">Address *</label>
+        <label class="label">Address</label>
         <input type="text" class="input" name="address" v-model="form.address" >
-        <p>Address 1 *</p>
+        <p>Address 1</p>
         <span class="help is-danger" v-if="errors.address !== null">{{errors.address}}</span>
         <br>
         <input type="text" class="input" name="address2" v-model="form.address2">
-        <p>Address 2</p>
+        <p>Address 2 (optional)</p>
         <br>
         <input type="text" class="input" name="city" v-model="form.city">
-        <p>City *</p>
+        <p>City</p>
         <span class="help is-danger" v-if="errors.city !== null">{{errors.city}}</span>
         <br>
       </div>
@@ -51,30 +52,34 @@
             <select name="state" v-model="form.state" @click="clearErrors('state')">
               <option v-for="s in states" :key="s">{{ s }}</option>
             </select>
-            
             <span>State</span>
             <span class="help is-danger" v-if="errors.state !== null">{{errors.state}}</span>
           </span>
-
         </div>
-        
         <br>
-        
         <div class="control">
           <cleave class="input" :options="{ blocks: [5], numericOnly: true }" name="zipcode" v-model="form.zipcode"></cleave>
           <span>Zip Code</span>
           <span class="help is-danger" v-if="errors.zipcode !== null">{{errors.zipcode}}</span>
         </div>
         <br>
-        <div class="control">
-          <input type="text" class="input" name="country" v-model="form.country" >
-          <span>Country</span>
-          <span class="help is-danger" v-if="errors.country !== null">{{errors.country}}</span>
-        </div>
+
         <br>
       </div>
       <div class="field">
-        <label class="label">Date of Birth *</label>
+        <div class="control">
+          <!-- <input type="text" class="input" name="country" v-model="form.country" > -->
+          <span class="select">
+            <select name="country" v-model="form.country" @click="clearErrors('country')">
+              <option v-for="c in countryNames" :key="c">{{ c }}</option>
+            </select>
+          </span>
+          <p>Country</p>
+          <span class="help is-danger" v-if="errors.country !== null">{{errors.country}}</span>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Date of Birth</label>
         <span class="help is-danger" v-if="errors.DOB !== null">{{errors.DOB}}</span>
         <div class="field-body">
           <div class="field">
@@ -100,7 +105,7 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">Last Four Digits of Social Security *</label>
+        <label class="label">Last Four Digits of Social Security</label>
         <div class="control">
           <!-- <input type="text" class="input" name="social-security" v-model="form['social-security']"> -->
           <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="social-security" v-model="form['social-security']"></cleave>
@@ -108,7 +113,7 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">Phone Number *</label>
+        <label class="label">Phone Number</label>
         <span class="help is-danger" v-if="errors.phone !== null">{{errors.phone}}</span>
         <div class="field-body">
           <div class="field">
@@ -134,7 +139,7 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">Business Type *</label>
+        <label class="label">Business Type</label>
         <p class="control">
           <span class="select">
             <select name="businessType" v-model="form['businessType']" @click="clearErrors('businessType')">
@@ -145,7 +150,7 @@
         </p>
       </div>
       <div class="field">
-        <label class="label">Business Classification *</label>
+        <label class="label">Business Classification</label>
         <p class="control">
           <span class="select">
             <select name="select-business-classification-field" v-model="form['select-business-classification-field']" @click="clearErrors('select-business-classification-field')">
@@ -156,14 +161,14 @@
         </p>
       </div>
       <div class="field">
-        <label class="label">Business Name *</label>
+        <label class="label">Business Name (official name as listed with state)</label>
         <p class="control">
           <input type="text" name="business-name" class="input" v-model="form['business-name']">
           <span class="help is-danger" v-if="errors['business-name'] !== null">{{errors['business-name']}}</span>
         </p>
       </div>
       <div class="field">
-        <label class="label">EIN *</label>
+        <label class="label">EIN</label>
         <p class="control">
           <!-- <input type="text" name="ein" class="input" v-model="form.ein"> -->
           <cleave class="input" :options="{ delimiter: '-', blocks: [2, 7], numericOnly: true }" name="ein" v-model="form.ein"></cleave>
@@ -172,21 +177,25 @@
         <span>12-1234567</span>
       </div>
       <div class="field">
-        <label class="label">Doing Business As? *</label>
+        <label class="label">Doing Business As? (optional)</label>
         <p class="control">
           <input type="text" name="dba" class="input" v-model="form.dba" >
           <span class="help is-danger" v-if="errors.dba !== null">{{errors.dba}}</span>
         </p>
       </div>
       <div class="control">
-        <label for="password" class="label">Password *</label>
+        <label for="password" class="label">Password
+          <div class="tooltip"> ?
+            <span class="tooltiptext">Passwords must be at least 8 characters long</span>
+          </div>
+        </label>
         <p class="control">
           <input type="password" id="password" name="password" class="input" v-model="form.password" >
         </p>
         <span class="help is-danger" v-if="errors.password !== null">{{errors.password}}</span>
       </div>
       <div class="control">
-        <label for="passwordConfirmation" class="label">Confim Password *</label>
+        <label for="passwordConfirmation" class="label">Confim Password</label>
         <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="input" v-model="form.passwordConfirmation" >
         <span class="help is-danger" v-if="errors.passwordConfirmation !== null">{{errors.passwordConfirmation}}</span>
       </div>
@@ -196,7 +205,17 @@
         <p class="control">
           <label class="checkbox">
             <input type="checkbox" name="authorized" v-model="form.authorized" @click="clearErrors('authorized')">
-            I hereby authorize and accept the Aero Pay Terms of Service and Privacy Policy agreements. I acknowledge this feature is powered by Dwolla and accept their Terms of Service and Privacy Policy agreements.
+            <span>I hereby authorize and accept the Aero Pay Terms of Service and Privacy Policy agreements. I acknowledge this feature is powered by Dwolla and accept their Terms of Service and Privacy Policy agreements.</span>
+            <p><br><b>For more details, please refer to:</b></p>
+            <p>
+              <a href="https://www.aeropayments.com/terms-of-service">AeroPayments Terms of Service</a>
+            </p>
+            <p>
+              <a href="https://www.aeropayments.com/privacy-policy">AeroPayments Privacy Policy</a>
+            </p>
+            <p>
+              <a href="https://www.dwolla.com/legal/tos/, https://www.dwolla.com/legal/privacy/">Dwolla Privarcy Policy</a>
+            </p>
           </label>
           <span class="help is-danger" v-if="errors.authorized !== null">{{errors.authorized}}</span>
         </p>
@@ -242,6 +261,7 @@
   import { mapActions } from 'vuex'
   import Cleave from 'vue-cleave'
   import statesHash from 'utils/states_hash.json'
+  var countries = require('country-list')()
 
   export default {
     name: 'register-app',
@@ -404,7 +424,7 @@
           this.errors['social-security'] = 'You must enter your last 4 digits of social security number!'
         }
         if (password.length < 8) {
-          this.errors.password = 'Password must has at least 8 characters!'
+          this.errors.password = 'Passwords must be at least 8 characters long!'
         }
         if (passwordConfirmation !== password) {
           this.errors.passwordConfirmation = 'Passwords are not the same!'
@@ -453,6 +473,9 @@
         }
         // console.log(ss)
         return ss
+      },
+      countryNames () {
+        return countries.getNames()
       }
     }
   }
@@ -469,5 +492,39 @@
   #submit {
     width: 200px
   }
+  .aeroImg {
+    height: 45px;
+    width: 300px;
+    margin-bottom: 10px;
+  }
+  .portal {
+    // font-family: "futura-pt";
+    font-family: "Gotham";
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
 
+  .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+  }
+
+  .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 400px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+  }
+
+  .tooltip:hover .tooltiptext {
+      visibility: visible;
+  }
 </style>
