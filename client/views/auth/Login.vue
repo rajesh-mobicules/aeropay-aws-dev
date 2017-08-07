@@ -2,7 +2,7 @@
   <div class='app-login'>
     <div class="has-text-centered">
       <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
-      <p class="portal">Merchant Portal</p>
+      <p class="portal">Portal</p>
     </div>
     <div class='columns'>
       <div class="box column is-6 is-offset-3">

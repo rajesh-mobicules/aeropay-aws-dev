@@ -2,7 +2,7 @@
 <div class="register-app content">
   <div class="has-text-centered">
     <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
-    <p class="portal">register</p>
+    <p class="portal">Register</p>
   </div>
   <div class="columns is-vcentered">
     <form @submit.prevent="onSubmit" class="box column is-6 is-offset-3" @keydown="clearErrors($event.target.name)" v-if="!registerSuccess">
@@ -483,7 +483,7 @@
 
 <style lang="scss" scoped>
   .register-app {
-    margin-top: 40px;
+    margin-top: 30px;
     margin-left: -100px
   }
   .title {
