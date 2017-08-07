@@ -37,7 +37,7 @@
         <span class="help is-danger" v-if="errors.address !== null">{{errors.address}}</span>
         <br>
         <input type="text" class="input" name="address2" v-model="form.address2">
-        <p>Address 2 (optional)</p>
+        <p>Address 2 <span class="extra-info">(optional)</span></p>
         <br>
         <input type="text" class="input" name="city" v-model="form.city">
         <p>City</p>
@@ -161,7 +161,7 @@
         </p>
       </div>
       <div class="field">
-        <label class="label">Business Name (official name as listed with state)</label>
+        <label class="label">Business Name <span class="extra-info">(official name as listed with state)</span></label>
         <p class="control">
           <input type="text" name="business-name" class="input" v-model="form['business-name']">
           <span class="help is-danger" v-if="errors['business-name'] !== null">{{errors['business-name']}}</span>
@@ -177,7 +177,7 @@
         <span>12-1234567</span>
       </div>
       <div class="field">
-        <label class="label">Doing Business As? (optional)</label>
+        <label class="label">Doing Business As? <span class="extra-info">(optional)</span></label>
         <p class="control">
           <input type="text" name="dba" class="input" v-model="form.dba" >
           <span class="help is-danger" v-if="errors.dba !== null">{{errors.dba}}</span>
@@ -186,7 +186,7 @@
       <div class="control">
         <label for="password" class="label">Password
           <div class="tooltip"> ?
-            <span class="tooltiptext">Passwords must be at least 8 characters long</span>
+            <span class="tooltiptext">{{passwordErrorMessage}}</span>
           </div>
         </label>
         <p class="control">
@@ -323,7 +323,8 @@
         formHasError: false,
         isLoading: false,
         registerSuccess: false,
-        registerReply: ''
+        registerReply: '',
+        passwordErrorMessage: 'Passwords must be at least 8 characters long, containg 1 capital letter and 1 number!'
       }
     },
     beforeMount () {
@@ -424,7 +425,7 @@
           this.errors['social-security'] = 'You must enter your last 4 digits of social security number!'
         }
         if (password.length < 8) {
-          this.errors.password = 'Passwords must be at least 8 characters long!'
+          this.errors.password = this.passwordErrorMessage
         }
         if (passwordConfirmation !== password) {
           this.errors.passwordConfirmation = 'Passwords are not the same!'
@@ -468,14 +469,22 @@
       },
       states () {
         const ss = []
-        for (let key in statesHash) {
-          ss.push(key)
+        for (let s in statesHash) {
+          ss.push(s)
         }
         // console.log(ss)
         return ss
       },
       countryNames () {
-        return countries.getNames()
+        const cs = []
+        cs.push('United States')
+        const names = countries.getNames()
+        for (let c in countries.getNames()) {
+          if (c !== 'United States') {
+            cs.push(names[c])
+          }
+        }
+        return cs
       }
     }
   }
@@ -526,5 +535,8 @@
 
   .tooltip:hover .tooltiptext {
       visibility: visible;
+  }
+  .extra-info {
+    text-transform: uppercase;
   }
 </style>
