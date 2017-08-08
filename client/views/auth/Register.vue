@@ -177,7 +177,7 @@
         <span>12-1234567</span>
       </div>
       <div class="field">
-        <label class="label">Doing Business As? <span class="extra-info">(optional)</span></label>
+        <label class="label">Doing Business As <span class="extra-info">(optional)</span></label>
         <p class="control">
           <input type="text" name="dba" class="input" v-model="form.dba" >
           <span class="help is-danger" v-if="errors.dba !== null">{{errors.dba}}</span>
@@ -205,16 +205,19 @@
         <p class="control">
           <label class="checkbox">
             <input type="checkbox" name="authorized" v-model="form.authorized" @click="clearErrors('authorized')">
-            <span>I hereby authorize and accept the Aero Pay Terms of Service and Privacy Policy agreements. I acknowledge this feature is powered by Dwolla and accept their Terms of Service and Privacy Policy agreements.</span>
+            <span>I hereby authorize and accept the Aero Payments Terms of Service and Privacy Policy agreements. I acknowledge this feature is powered by Dwolla and accept their Terms of Service and Privacy Policy agreements.</span>
             <p><br><b>For more details, please refer to:</b></p>
             <p>
-              <a href="https://www.aeropayments.com/terms-of-service">AeroPayments Terms of Service</a>
+              <a href="https://www.aeropayments.com/terms-of-service">Aero Payments Terms of Service</a>
             </p>
             <p>
-              <a href="https://www.aeropayments.com/privacy-policy">AeroPayments Privacy Policy</a>
+              <a href="https://www.aeropayments.com/privacy-policy">Aero Payments Privacy Policy</a>
             </p>
             <p>
-              <a href="https://www.dwolla.com/legal/tos/, https://www.dwolla.com/legal/privacy/">Dwolla Privarcy Policy</a>
+              <a href="https://www.dwolla.com/legal/tos/">Dwolla Legal TOS</a>
+            </p>
+            <p>
+              <a href="https://www.dwolla.com/legal/privacy/">Dwolla Privarcy Policy</a>
             </p>
           </label>
           <span class="help is-danger" v-if="errors.authorized !== null">{{errors.authorized}}</span>
@@ -324,7 +327,7 @@
         isLoading: false,
         registerSuccess: false,
         registerReply: '',
-        passwordErrorMessage: 'Passwords must be at least 8 characters long, containg 1 capital letter and 1 number!'
+        passwordErrorMessage: 'Passwords must be at least 8 characters long, containg 1 capital letter and 1 number'
       }
     },
     beforeMount () {
@@ -537,6 +540,6 @@
       visibility: visible;
   }
   .extra-info {
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 </style>

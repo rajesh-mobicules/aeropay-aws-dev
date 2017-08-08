@@ -20,6 +20,7 @@
     computed: {
       options () {
         return {
+          // backgroundColor: '#394056',
           title: {
             text: 'Income Chart'
           },
