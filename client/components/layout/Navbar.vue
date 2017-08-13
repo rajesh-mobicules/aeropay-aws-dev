@@ -1,29 +1,19 @@
 <template>
-  <section class="hero is-bold app-navbar animated" :class="{ slideInDown: show, slideOutDown: !show }">
-    <div class="hero-head">
-      <nav class="nav">
-        <!-- <div class="nav-left">
-          <a class="nav-item is-hidden-tablet" @click="toggleSidebar(!sidebar.opened)">
-            <i class="fa fa-bars" aria-hidden="true"></i>
-          </a>
-        </div> -->
-        <div class="nav-left">
-          <a class="nav-item hero-brand" href="/">
-            <img src="~assets/AP.png" :alt="pkginfo.description">
-            
-              <!-- <div class="is-hidden-mobile">
-                <span class="aeropay">AEROPAY</span>
-              </div> -->
-            
-          </a>
-        </div>
-        <div class="nav-right is-flex">
-          <router-link v-if="!checkAuth" to="/login" class="nav-item">Login</router-link>
-          <a v-if="checkAuth" @click="logoutClick" class="nav-item">Logout</a>
-        </div>
-      </nav>
+  <nav class="navbar app-navbar" >
+    <div class="navbar-brand">
+      <a class="navbar-item"  href="/">
+        <img src="~assets/AP.png" alt="Aero Payments">
+      </a>
     </div>
-  </section>
+    <div id="navMenu" class="navbar-menu">
+      <div class="navbar-end">
+
+        <router-link v-if="!checkAuth" to="/login" class="navbar-item">Login</router-link>
+        <a v-if="checkAuth" @click="logoutClick" class="navbar-item">Logout</a>
+      </div>
+    </div>
+  </nav>
+
 </template>
 
 <script>
@@ -101,5 +91,22 @@ export default {
     font-style: normal;
     line-height: 1em;
   }
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 400px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }
 </style>

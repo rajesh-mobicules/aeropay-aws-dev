@@ -10,14 +10,16 @@ const user = {
     refreshToken: window.localStorage.getItem('refreshToken'),
     accountAdded: false,
     fundingSource: null,
-    showIavProfileButton: false
+    showIavProfileButton: false,
+    userVerified: true,
+    companyVerified: true
   },
   mutations: {
     SET_EMAIL: (state, email) => {
       state.email = email
     },
     SET_TOKEN: (state, tokens) => {
-      console.log(tokens)
+      // console.log(tokens)
       for (let key in tokens) {
         window.localStorage.setItem(key, tokens[key])
         state[key] = tokens[key]

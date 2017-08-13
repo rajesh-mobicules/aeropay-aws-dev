@@ -28,6 +28,8 @@ const showIavProfileButton = state => state.user.showIavProfileButton
 const componententry = state => {
   return state.menu.items.filter(c => c.meta && c.meta.label === 'Components')[0]
 }
+const userVerified = state => state.user.userVerified
+const companyVerified = state => state.user.companyVerified
 
 export {
   pkg,
@@ -43,5 +45,7 @@ export {
   showIavProfileButton,
   email,
   checkAuth,
-  componententry
+  componententry,
+  userVerified,
+  companyVerified
 }
