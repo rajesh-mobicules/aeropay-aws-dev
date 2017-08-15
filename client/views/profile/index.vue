@@ -40,9 +40,11 @@
     <br>
     <router-view :merchant="merchant"></router-view>
 
-    <sweet-modal ref="uploader">
-      <sweet-modal-tab v-for="d in documentTypes" :title="d.name" :id="d.name" :key="d.name" :disabled="!d.enable">
-        <p>{{d.description}}</p>
+    <sweet-modal ref="uploader" title="We need some additional information.">
+      <sweet-modal-tab v-for="d in documentTypes" :title="d.name" :id="d.name" :key="d.name" :disabled="!d.enable" >
+        <p>We'll need a bit more information to finish verifying your Business account. We take protecting your identity seriously, and want to be extra certain that this is you.</p>
+        <div class="document-description">{{d.description}}</div>
+        <p>Once you've submitted the file(s), you can expect to hear from us in 1-2 business days. In the meantime, feel free to <router-link to="/support">contact support</router-link>.</p>
         <dropzone
           :id="d.name"
           :url="uploadURL"
@@ -50,8 +52,10 @@
           @vdropzone-error="showError"
           paramName="document"
           :headers="header"
+          :dropzoneOptions="dropzoneOptions"
           >
           <input id="type" type="hidden" name="type" :value="d.name">
+          <!-- <input id="document" type="file" name="document" v-show="false"> -->
         </dropzone>
       </sweet-modal-tab>
 <!--       <sweet-modal-tab title="passport" id="tab1">
@@ -90,27 +94,31 @@
     data () {
       return {
         uploadURL: documentUploadURL,
+        dropzoneOptions: {
+          uploadMultiple: 'no',
+          parallelUploads: 1
+        },
         merchant: {
         },
         documentTypes: [
           {
             name: 'passport',
-            description: 'Please upload your passport',
+            description: 'Please upload a copy of your passport',
             enable: true
           },
           {
             name: 'license',
-            description: 'Please upload your license',
+            description: 'Please upload a copy of your license',
             enable: true
           },
           {
             name: 'idCard',
-            description: 'Please upload your ID Card',
+            description: 'Please upload a copy of your ID Card',
             enable: false
           },
           {
             name: 'other',
-            description: 'Please upload other documents',
+            description: 'Please upload a copy of other documents',
             enable: true
           }
         ]
@@ -215,44 +223,12 @@
     text-decoration: underline;
   }
 
-  /* The Modal (background) */
-  .modal {
-      display: block; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1; /* Sit on top */
-      padding-top: 100px; /* Location of the box */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  .document-description {
+    font-weight: bold;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #d3d3d3;
   }
-
-  /* Modal Content */
-  .modal-content {
-      background-color: #fefefe;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-  }
-
-  /* The Close Button */
-  .close {
-      color: #aaaaaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-  }
-
-  .close:hover,
-  .close:focus {
-      color: #000;
-      text-decoration: none;
-      cursor: pointer;
-  }
-  
 
 </style>

@@ -154,9 +154,20 @@
         <p class="control">
           <span class="select">
             <select name="select-business-classification-field" v-model="form['select-business-classification-field']" @click="clearErrors('select-business-classification-field')">
-              <option v-for="cla in bizClassification" :key="cla">{{ cla }}</option>
+              <option v-for="cla in buizClassifications.buizClassNames" :key="cla">{{ cla }}</option>
             </select>
             <span class="help is-danger" v-if="errors['select-business-classification-field'] !== null">{{errors['select-business-classification-field']}}</span>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <label class="label">Industry Classification</label>
+        <p class="control">
+          <span class="select">
+            <select name="select-industry-classification-field" v-model="form['select-industry-classification-field']" @click="clearErrors('select-industry-classification-field')">
+              <option v-for="cla in industryClassifications" :key="cla">{{ cla }}</option>
+            </select>
+            <span class="help is-danger" v-if="errors['select-industry-classification-field'] !== null">{{errors['select-industry-classification-field']}}</span>
           </span>
         </p>
       </div>
@@ -264,6 +275,7 @@
   import { mapActions } from 'vuex'
   import Cleave from 'vue-cleave'
   import statesHash from 'utils/states_hash.json'
+  import buizClaz from 'utils/APIv2BusinessClassificationIds.json'
   var countries = require('country-list')()
 
   export default {
@@ -294,6 +306,7 @@
           'phone-local-suffix': '',
           'businessType': '',
           'select-business-classification-field': '',
+          'select-industry-classification-field': '',
           'business-name': '',
           ein: '',
           dba: '',
@@ -316,6 +329,7 @@
           country: null,
           businessType: null,
           'select-business-classification-field': null,
+          'select-industry-classification-field': null,
           'business-name': null,
           authorized: null,
           dba: null,
@@ -488,6 +502,36 @@
           }
         }
         return cs
+      },
+      buizClassifications () {
+        const bs = []
+        const is = {}
+        const buizClazFic = buizClaz['_embedded']['business-classifications']
+
+        for (let i = 0; i < buizClazFic.length; i++) {
+          // console.log(buizClazFic[i])
+          let name = buizClazFic[i]['name']
+          bs.push(name)
+          let indusClazFic = buizClazFic[i]['_embedded']['industry-classifications']
+          // console.log(indusClazFic)
+          for (let j = 0; j < indusClazFic.length; j++) {
+            // console.log(indusClazFic[j].name)
+            if (is[name] == null) is[name] = []
+            is[name].push(indusClazFic[j].name)
+          }
+          // console.log(ind['_embedded']['industry-classifications'])
+        }
+        // console.log(is)
+        return {
+          buizClassNames: bs,
+          industryClass: is
+        }
+      },
+      industryClassifications () {
+        const curVal = this.form['select-business-classification-field']
+        const indus = this.buizClassifications.industryClass
+        console.log(indus[curVal])
+        return indus[curVal]
       }
     }
   }
