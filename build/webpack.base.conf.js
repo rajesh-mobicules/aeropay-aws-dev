@@ -17,6 +17,9 @@ module.exports = {
       'vuex-router-sync'
     ]
   },
+  node: {
+    fs: 'empty'
+  },
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production'

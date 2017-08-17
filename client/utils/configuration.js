@@ -52,7 +52,9 @@ export const aeroConfig = {
   profileForMerchant: awsBaseUrl + 'profileForMerchant',
   locationsForMerchant: awsBaseUrl + 'locationsForMerchant',
   bankAccountForMerchant: awsBaseUrl + 'bankAccountForMerchant',
-  userTransactionSummaryForMerchant: awsBaseUrl + 'userTransactionSummaryForMerchant'
+  userTransactionSummaryForMerchant: awsBaseUrl + 'userTransactionSummaryForMerchant',
+  uploadDocumentForMerchant: awsBaseUrl + 'uploadDocumentForMerchant'
+
 }
 
 export const documentUploadURL = awsBaseUrl + 'uploadDocumentForMerchant'

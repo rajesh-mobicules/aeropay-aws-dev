@@ -351,9 +351,7 @@
       ...mapActions(['loginAndRegMerchant', 'toggleSidebar']),
       onSubmit () {
         this.validateForm()
-        if (this.disabled) {
-          // console.log(this.errors)
-        } else {
+        if (!this.disabled) {
           this.isLoading = true
           awsRegister(this.form.data())
             .then(response => {

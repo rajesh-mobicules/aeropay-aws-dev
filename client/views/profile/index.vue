@@ -45,7 +45,18 @@
         <p>We'll need a bit more information to finish verifying your Business account. We take protecting your identity seriously, and want to be extra certain that this is you.</p>
         <div class="document-description">{{d.description}}</div>
         <p>Once you've submitted the file(s), you can expect to hear from us in 1-2 business days. In the meantime, feel free to <router-link to="/support">contact support</router-link>.</p>
-        <dropzone
+        <form @submit.prevent="onSubmit">
+          <input :id="d.name" type="file" @change="onSelect">
+          <input type="submit" v-if="false">
+          <p class="has-text-centered">
+            <a class="button is-primary" id="submit"
+              :class = "{'is-loading' : isLoading}"
+              @click="onSubmit">
+              Submit
+            </a>
+          </p>
+        </form>
+<!--         <dropzone
           :id="d.name"
           :url="uploadURL"
           @vdropzone-success="showSuccess"
@@ -55,25 +66,9 @@
           :dropzoneOptions="dropzoneOptions"
           >
           <input id="type" type="hidden" name="type" :value="d.name">
-          <!-- <input id="document" type="file" name="document" v-show="false"> -->
-        </dropzone>
+          <input id="document" type="file" name="document" v-show="false">
+        </dropzone> -->
       </sweet-modal-tab>
-<!--       <sweet-modal-tab title="passport" id="tab1">
-        <dropzone
-          id="documentUploader"
-          :url="uploadURL"
-          @vdropzone-success="showSuccess"
-          @vdropzone-error="showError"
-          paramName="document"
-          :headers="header"
-          >
-          <input id="type" type="hidden" name="type" value="passport">
-        </dropzone>
-      </sweet-modal-tab>
-      <sweet-modal-tab title="Tab 2" id="tab2">
-      </sweet-modal-tab>
-      <sweet-modal-tab title="Tab 3" id="tab3" disabled>Tab 3 is disabled</sweet-modal-tab>
- -->     
     </sweet-modal>
   </div>
 
@@ -81,10 +76,11 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { getProfile } from 'utils/aero_functions'
+  import { getProfile, uploadFile } from 'utils/aero_functions'
   import { SweetModal, SweetModalTab } from 'sweet-modal-vue'
   import Dropzone from 'vue2-dropzone'
   import { documentUploadURL } from 'utils/configuration'
+  // import FileReader from 'filereader'
   export default {
     components: {
       SweetModal,
@@ -93,11 +89,21 @@
     },
     data () {
       return {
+        files: {
+          passport: null,
+          license: null,
+          idCard: null,
+          other: null
+        },
+        isLoading: false,
+        isCalculating: false,
+        fileType: null,
         uploadURL: documentUploadURL,
         dropzoneOptions: {
           uploadMultiple: 'no',
           parallelUploads: 1
         },
+        base64file: null,
         merchant: {
         },
         documentTypes: [
@@ -136,6 +142,20 @@
         })
     },
     methods: {
+      getBase64 (file, cb) {
+        const reader = new window.FileReader()
+        reader.readAsDataURL(file)
+        // reader.onload = function () {
+        //   this.isCalculating = true
+        //   console.log(reader.result)
+        //   this.base64file = reader.result
+        //   this.fileType = type
+        // }
+        reader.onload = cb
+        reader.onerror = function (error) {
+          console.log('Error: ', error)
+        }
+      },
       updateProfile () {
         console.log(this.newEmail, this.newBank)
       },
@@ -150,6 +170,25 @@
       },
       showError (file) {
         console.log('file upload failed')
+      },
+      onSelect (event) {
+        console.log(event)
+        const input = event.target
+        const type = event.target.id
+        if (input.files && input.files[0]) {
+          console.log(input.files[0])
+          this.getBase64(input.files[0], e => {
+            this.base64file = e.target.result
+            this.fileType = type
+          })
+        }
+      },
+      onSubmit () {
+        if (this.base64file !== null) {
+          uploadFile(this.base64file, this.fileType, this.idToken)
+            .then(res => window.alert('submit success'))
+            .catch(err => console.log(err))
+        }
       }
     },
     computed: {

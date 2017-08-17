@@ -87,6 +87,24 @@ function addFundingSource (fundingSource, idToken) {
   })
 }
 
+export function uploadFile (base64file, fileType, idToken) {
+  const config = {
+    headers: {
+      'requestAuthorization': idToken,
+      'Content-Type': 'application/json'
+    }
+  }
+  const data = {document: base64file, type: fileType}
+  return new Promise((resolve, reject) => {
+    axios.post(aeroConfig.uploadDocumentForMerchant, data, config)
+      .then(res => {
+        if (res.data.success === true) resolve('successly upload file!')
+        else reject(res.data.error)
+      })
+      .catch(err => reject(err))
+  })
+}
+
 export function refreshIav (idToken) {
   const config = {
     headers: {
