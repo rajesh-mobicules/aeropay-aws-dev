@@ -45,9 +45,12 @@
         <p>We'll need a bit more information to finish verifying your Business account. We take protecting your identity seriously, and want to be extra certain that this is you.</p>
         <div class="document-description">{{d.description}}</div>
         <p>Once you've submitted the file(s), you can expect to hear from us in 1-2 business days. In the meantime, feel free to <router-link to="/support">contact support</router-link>.</p>
-        <form @submit.prevent="onSubmit">
-          <input :id="d.name" type="file" @change="onSelect">
+        <br>
+        <form @submit.prevent="onSubmit" class="has-text-centered">
+        <input :id="d.name" type="file" @change="onSelect">
           <input type="submit" v-if="false">
+          <br>
+          <br>
           <p class="has-text-centered">
             <a class="button is-primary" id="submit"
               :class = "{'is-loading' : isLoading}"
@@ -56,18 +59,6 @@
             </a>
           </p>
         </form>
-<!--         <dropzone
-          :id="d.name"
-          :url="uploadURL"
-          @vdropzone-success="showSuccess"
-          @vdropzone-error="showError"
-          paramName="document"
-          :headers="header"
-          :dropzoneOptions="dropzoneOptions"
-          >
-          <input id="type" type="hidden" name="type" :value="d.name">
-          <input id="document" type="file" name="document" v-show="false">
-        </dropzone> -->
       </sweet-modal-tab>
     </sweet-modal>
   </div>
@@ -172,22 +163,32 @@
         console.log('file upload failed')
       },
       onSelect (event) {
-        console.log(event)
+        // console.log(event)
         const input = event.target
         const type = event.target.id
+        this.isCalculating = true
         if (input.files && input.files[0]) {
-          console.log(input.files[0])
+          // console.log(input.files[0])
           this.getBase64(input.files[0], e => {
             this.base64file = e.target.result
             this.fileType = type
+            this.isCalculating = false
           })
         }
       },
       onSubmit () {
         if (this.base64file !== null) {
+          this.isLoading = true
           uploadFile(this.base64file, this.fileType, this.idToken)
-            .then(res => window.alert('submit success'))
-            .catch(err => console.log(err))
+            .then(res => {
+              this.isLoading = false
+              window.alert('submit success')
+            })
+            .catch(err => {
+              this.isLoading = true
+              console.log(err)
+              window.alert('server is busy, try it later!')
+            })
         }
       }
     },
@@ -220,7 +221,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '~bulma';
   .card {
     margin: 0px;
@@ -269,5 +270,8 @@
     border-radius: 5px;
     background-color: #d3d3d3;
   }
-
+  .sweet-action-close:hover {
+    background: $primary;
+    color: #fff;
+  }
 </style>
