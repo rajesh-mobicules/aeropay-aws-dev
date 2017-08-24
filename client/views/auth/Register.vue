@@ -353,6 +353,9 @@
         this.validateForm()
         if (!this.disabled) {
           this.isLoading = true
+          const industryName = this.form['select-industry-classification-field']
+          this.form['select-industry-classification-field'] = this.buizClassifications.industryDict[industryName]
+          console.log(this.form.data())
           awsRegister(this.form.data())
             .then(response => {
               this.onSuccess(response)
@@ -360,13 +363,6 @@
             .catch(err => {
               this.onFail(err)
             })
-          // this.form.submit(awsRegister)
-          //   .then(response => {
-          //     this.onSuccess(response)
-          //   })
-          //   .catch(error => {
-          //     this.onFail(error)
-          //   })
         }
       },
       resolveData (data) {
@@ -504,6 +500,7 @@
       buizClassifications () {
         const bs = []
         const is = {}
+        const industryDict = {}
         const buizClazFic = buizClaz['_embedded']['business-classifications']
 
         for (let i = 0; i < buizClazFic.length; i++) {
@@ -514,21 +511,24 @@
           // console.log(indusClazFic)
           for (let j = 0; j < indusClazFic.length; j++) {
             // console.log(indusClazFic[j].name)
+            let ind = indusClazFic[j]
             if (is[name] == null) is[name] = []
-            is[name].push(indusClazFic[j].name)
+            is[name].push(ind.name)
+            industryDict[ind.name] = ind.id
           }
           // console.log(ind['_embedded']['industry-classifications'])
         }
-        // console.log(is)
+        // console.log(industryDict)
         return {
           buizClassNames: bs,
-          industryClass: is
+          industryClass: is,
+          industryDict: industryDict
         }
       },
       industryClassifications () {
         const curVal = this.form['select-business-classification-field']
         const indus = this.buizClassifications.industryClass
-        console.log(indus[curVal])
+        // console.log(indus[curVal])
         return indus[curVal]
       }
     }
