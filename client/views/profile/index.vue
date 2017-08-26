@@ -10,9 +10,9 @@
           {{merchant.email}}
         </span>
         <span>
-          <span :class="statusClass" v-show="merchant.status === 'verified'" >{{statusMessage}}</span>
+          <span :class="statusClass" v-show="merchant.status === status.verified" >{{statusMessage}}</span>
           <a :class="statusClass"
-            v-show="merchant.status === 'unverified'"
+            v-show="merchant.status === status.document"
             @click.stop.prevent="enableUploader">
               <i class="fa fa-exclamation-circle"></i>  {{statusMessage}}
           </a>
@@ -96,6 +96,10 @@
         },
         base64file: null,
         merchant: {
+        },
+        status: {
+          document: 'document',
+          verified: 'verified'
         },
         documentTypes: [
           {
@@ -201,15 +205,15 @@
         else return '0%'
       },
       statusMessage () {
-        if (this.merchant.status === 'unverified') {
-          return 'unverified: please submit additional information for verification'
-        } else if (this.merchant.status === 'verified') return 'verified'
+        if (this.merchant.status === this.status.document) {
+          return 'please submit additional information for verification'
+        } else if (this.merchant.status === this.status.verified) return 'verified'
         else return ''
       },
       statusClass () {
         return {
-          'verified': this.merchant.status === 'verified',
-          'not-verified': this.merchant.status === 'unverified'
+          'verified': this.merchant.status === this.status.verified,
+          'not-verified': this.merchant.status === this.status.document
         }
       },
       header () {
