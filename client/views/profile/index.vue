@@ -125,7 +125,7 @@
       getProfile(this.idToken)
         .then(merchant => {
           // console.log(merchant)
-          merchant.status = 'unverified'
+          // merchant.status = 'unverified'
           this.merchant = merchant
         })
         .catch(err => {
