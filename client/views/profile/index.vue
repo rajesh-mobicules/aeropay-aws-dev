@@ -210,7 +210,7 @@
         .then(merchant => {
           // console.log(merchant)
           // merchant.status = 'unverified'
-          merchant.status = 'retry'
+          // merchant.status = 'retry'
           this.merchant = merchant
         })
         .catch(err => {
@@ -279,11 +279,13 @@
         }
       },
       submitSsn () {
-        if (this.ssn.length !== 11) {
+        const ssn = this.ssn.split('-').join('')
+        if (ssn.length !== 9) {
           this.ssnError = 'Must enter 9 digits social security number!'
         } else {
+          this.ssnError = null
           this.isLoading = true
-          uploadSsn(this.ssn, this.idToken)
+          uploadSsn(ssn, this.idToken)
             .then(res => {
               this.isLoading = false
               window.alert('submit success')
