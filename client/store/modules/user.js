@@ -66,6 +66,7 @@ const user = {
             // console.log(tokens.idToken)
             commit('SET_TOKEN', tokens)
             commit('SET_EMAIL', email)
+            // console.log('token set')
             registerMerchant(userInfo.data(), tokens.idToken)
               .then(res => {
                 resolve(res)

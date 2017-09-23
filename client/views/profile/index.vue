@@ -10,11 +10,22 @@
           {{merchant.email}}
         </span>
         <span>
-          <span :class="statusClass" v-show="merchant.status === status.verified" >{{statusMessage}}</span>
-          <a :class="statusClass"
-            v-show="merchant.status === status.document"
-            @click.stop.prevent="enableUploader">
-              <i class="fa fa-exclamation-circle"></i>  {{statusMessage}}
+          <span class="verified" v-show="merchant.status === status.verified || merchant.status === status.reviewed" >{{verifiedMsg}}</span>
+          <span class="pending" v-show="merchant.status === status.pending">pending</span>
+          <a class="document"
+            v-show="merchant.status === status.document && merchant.type === types.customer"
+            @click.stop.prevent="customerUploader">
+              <i class="fa fa-exclamation-circle"></i>  {{documentMsg}}
+          </a>
+          <a class="document"
+            v-show="merchant.status === status.document && merchant.type === types.business"
+            @click.stop.prevent="businessUploader">
+              <i class="fa fa-exclamation-circle"></i>  {{documentMsg}}
+          </a>
+          <a class="retry"
+            v-show="merchant.status === status.retry"
+            @click.stop.prevent="openRetryModal">
+              <i class="fa fa-exclamation-circle"></i>  {{retryMsg}}
           </a>
         </span>
       </div>
@@ -39,44 +50,110 @@
     </div>
     <br>
     <router-view :merchant="merchant"></router-view>
-
-    <sweet-modal ref="uploader" title="We need some additional information.">
-      <sweet-modal-tab v-for="d in documentTypes" :title="d.name" :id="d.name" :key="d.name" :disabled="!d.enable" >
-        <p>We'll need a bit more information to finish verifying your Business account. We take protecting your identity seriously, and want to be extra certain that this is you.</p>
-        <div class="document-description">{{d.description}}</div>
-        <p>Once you've submitted the file(s), you can expect to hear from us in 1-2 business days. In the meantime, feel free to <router-link to="/support">contact support</router-link>.</p>
-        <br>
-        <form @submit.prevent="onSubmit" class="has-text-centered">
-        <input :id="d.name" type="file" @change="onSelect">
+    <div class="businessUploader">
+      <sweet-modal ref="businessUploader" title="We need some additional information.">
+        <sweet-modal-tab title="description" id="description">
+          <div class="content">
+            <p>We'll need a bit more information to finish verifying your Business account. We take protecting your identity seriously, and want to be extra certain that this is you.</p>
+            <br>
+            <p>Required documents are different for different business types</p>
+            <br>
+            <p>* Partnership, General Partnership, Limited Liability Corporation (LLC), Corporation</p>
+            <p><b>EIN Letter (IRS-issued SS4 confirmation letter)</b></p>
+            <br>
+            <p>* Sole Proprietorship will need one or more of the following, as applicable to your sole proprietorship:</p>
+            <ul>
+              <li><b>Fictitious Business Name Statement</b></li>
+              <li><b>EIN documentation (IRS-issued SS4 confirmation letter)</b></li>
+              <li><b>Color copy of a valid government-issued photo ID (e.g., a driver’s license, passport, or state ID card)</b></li>
+            </ul>
+          </div>
+        </sweet-modal-tab>
+        <sweet-modal-tab v-for="d in documentTypes" :title="d.name" :id="d.name" :key="d.name" :disabled="!d.enable" >
+          <div class="document-description">{{d.description}}</div>
+          <p>Once you've submitted the file(s), you can expect to hear from us in 1-2 business days. In the meantime, feel free to <router-link to="/support">contact support</router-link>.</p>
+          <br>
+          <form @submit.prevent="onSubmit" class="has-text-centered">
+          <input :id="d.name" type="file" @change="onSelect">
+            <input type="submit" v-if="false">
+            <br>
+            <br>
+            <p class="has-text-centered">
+              <a class="button is-primary" id="submit"
+                :class = "{'is-loading' : isLoading}"
+                @click="onSubmit">
+                Submit
+              </a>
+            </p>
+          </form>
+        </sweet-modal-tab>
+      </sweet-modal>
+    </div>
+    <div class="customerUploader">
+      <sweet-modal ref="customerUploader" title="We need some additional information.">
+        <div class="content" id="id">
+          <p>We'll need a bit more information to finish verifying your Business account. We take protecting your identity seriously, and want to be extra certain that this is you.</p>
+          <br>
+          <div class="document-description">{{documentTypes[1].description}}</div>
+          <p>Once you've submitted the file(s), you can expect to hear from us in 1-2 business days. In the meantime, feel free to <router-link to="/support">contact support</router-link>.</p>
+          <br>
+          <form @submit.prevent="onSubmit" class="has-text-centered">
+            <input :id="documentTypes[1].name" type="file" @change="onSelect">
+            <input type="submit" v-if="false">
+            <br>
+            <br>
+            <p class="has-text-centered">
+              <a class="button is-primary" id="submit"
+                :class = "{'is-loading' : isLoading}"
+                @click="onSubmit">
+                Submit
+              </a>
+            </p>
+          </form>
+        </div>
+      </sweet-modal>
+    </div>
+    <div class="retry-modal">
+      <sweet-modal title="Re-submit SSN" ref="retry">
+        <form @submit.prevent="submitSsn">
+          <div class="field">
+            <!-- <p>{{retryMsg}}</p> -->
+            <label for="ssn" class="label">{{retryMsg}}</label>
+            <p class="control column is-4 is-offset-4">
+              <cleave class="input" :options="{ delimiter: '-', blocks: [3, 2, 4], numericOnly: true }" name="ssn" v-model="ssn"></cleave>
+              <span>xxx-xx-xxxx</span>
+            </p>
+            <span class="help is-danger" v-if="ssnError !== null">{{ssnError}}</span>
+          </div>
           <input type="submit" v-if="false">
-          <br>
-          <br>
           <p class="has-text-centered">
             <a class="button is-primary" id="submit"
+              :disabled="disabled"
               :class = "{'is-loading' : isLoading}"
-              @click="onSubmit">
-              Submit
-            </a>
+              @click="submitSsn"
+            >Submit</a>
           </p>
         </form>
-      </sweet-modal-tab>
-    </sweet-modal>
+      </sweet-modal>
+    </div>
   </div>
 
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
-  import { getProfile, uploadFile } from 'utils/aero_functions'
+  import { getProfile, uploadFile, uploadSsn } from 'utils/aero_functions'
   import { SweetModal, SweetModalTab } from 'sweet-modal-vue'
   import Dropzone from 'vue2-dropzone'
   import { documentUploadURL } from 'utils/configuration'
+  import Cleave from 'vue-cleave'
   // import FileReader from 'filereader'
   export default {
     components: {
       SweetModal,
       SweetModalTab,
-      Dropzone
+      Dropzone,
+      Cleave
     },
     data () {
       return {
@@ -86,6 +163,9 @@
           idCard: null,
           other: null
         },
+        ssnError: null,
+        ssn: '',
+        disabled: false,
         isLoading: false,
         isCalculating: false,
         fileType: null,
@@ -99,27 +179,27 @@
         },
         status: {
           document: 'document',
-          verified: 'verified'
+          retry: 'retry',
+          verified: 'verified',
+          pending: 'pending',
+          reviewed: 'reviewed'
         },
+        types: {
+          customer: 'customer',
+          business: 'business'
+        },
+        documentMsg: 'Please submit additional information for verification',
+        retryMsg: 'Please re-enter your full social security number to get verified',
+        verifiedMsg: 'verified',
         documentTypes: [
           {
-            name: 'passport',
-            description: 'Please upload a copy of your passport',
+            name: 'EIN Letter',
+            description: 'Please upload a copy of your EIN Letter (IRS-issued SS4 confirmation letter)',
             enable: true
           },
           {
-            name: 'license',
-            description: 'Please upload a copy of your license',
-            enable: true
-          },
-          {
-            name: 'idCard',
-            description: 'Please upload a copy of your ID Card',
-            enable: false
-          },
-          {
-            name: 'other',
-            description: 'Please upload a copy of other documents',
+            name: 'photo ID',
+            description: 'Please upload a copy of your photo ID (e.g., a driver’s license, passport, or state ID card)',
             enable: true
           }
         ]
@@ -130,6 +210,7 @@
         .then(merchant => {
           // console.log(merchant)
           // merchant.status = 'unverified'
+          merchant.status = 'retry'
           this.merchant = merchant
         })
         .catch(err => {
@@ -140,12 +221,6 @@
       getBase64 (file, cb) {
         const reader = new window.FileReader()
         reader.readAsDataURL(file)
-        // reader.onload = function () {
-        //   this.isCalculating = true
-        //   console.log(reader.result)
-        //   this.base64file = reader.result
-        //   this.fileType = type
-        // }
         reader.onload = cb
         reader.onerror = function (error) {
           console.log('Error: ', error)
@@ -154,9 +229,17 @@
       updateProfile () {
         console.log(this.newEmail, this.newBank)
       },
-      enableUploader () {
+      customerUploader () {
         // this.showUploader = true
-        this.$refs.uploader.open()
+        this.$refs.customerUploader.open()
+      },
+      businessUploader () {
+        // this.showUploader = true
+        this.$refs.businessUploader.open()
+      },
+      openRetryModal () {
+        // this.showUploader = true
+        this.$refs.retry.open()
       },
       showSuccess (file, response) {
         // window.alert('upload success')
@@ -189,7 +272,24 @@
               window.alert('submit success')
             })
             .catch(err => {
-              this.isLoading = true
+              this.isLoading = false
+              console.log(err)
+              window.alert('server is busy, try it later!')
+            })
+        }
+      },
+      submitSsn () {
+        if (this.ssn.length !== 11) {
+          this.ssnError = 'Must enter 9 digits social security number!'
+        } else {
+          this.isLoading = true
+          uploadSsn(this.ssn, this.idToken)
+            .then(res => {
+              this.isLoading = false
+              window.alert('submit success')
+            })
+            .catch(err => {
+              this.isLoading = false
               console.log(err)
               window.alert('server is busy, try it later!')
             })
@@ -203,18 +303,6 @@
         if (this.$route.name === 'Locations') return '33.3%'
         if (this.$route.name === 'Billing') return '66.7%'
         else return '0%'
-      },
-      statusMessage () {
-        if (this.merchant.status === this.status.document) {
-          return 'please submit additional information for verification'
-        } else if (this.merchant.status === this.status.verified) return 'verified'
-        else return ''
-      },
-      statusClass () {
-        return {
-          'verified': this.merchant.status === this.status.verified,
-          'not-verified': this.merchant.status === this.status.document
-        }
       },
       header () {
         return {
@@ -262,11 +350,17 @@
   .verified {
     color: $primary;
   }
-  .not-verified {
+  .document {
     color: $danger;
     text-decoration: underline;
   }
-
+  .retry {
+    color: $warning;
+    text-decoration: underline;
+  }
+  .pending {
+    color: $warning;
+  }
   .document-description {
     font-weight: bold;
     padding: 10px;
@@ -277,5 +371,12 @@
   .sweet-action-close:hover {
     background: $primary;
     color: #fff;
+  }
+  .uploader {
+    margin-left: -50px;
+  }
+  .retry-modal {
+    position: relative;
+    left: 1000px;
   }
 </style>

@@ -11,9 +11,9 @@ export function registerMerchant (formData, idToken) {
   // console.log(config)
   // const creatMerchantURL = 'http://merchant-dev.us-east-1.elasticbeanstalk.com/createBusiness'
   return new Promise((resolve, reject) => {
-    axios.post(aeroConfig.creatMerchantURL, formData, config)
+    axios.post(aeroConfig.m, formData, config)
       .then(res => {
-        console.log(res)
+        // console.log(res)
         if ('error' in res.data) {
           reject(res.data)
         } else {
@@ -99,6 +99,24 @@ export function uploadFile (base64file, fileType, idToken) {
     axios.post(aeroConfig.uploadDocumentForMerchant, data, config)
       .then(res => {
         if (res.data.success === true) resolve('successly upload file!')
+        else reject(res.data.error)
+      })
+      .catch(err => reject(err))
+  })
+}
+
+export function uploadSsn (ssn, idToken) {
+  const config = {
+    headers: {
+      'requestAuthorization': idToken,
+      'Content-Type': 'application/json'
+    }
+  }
+  const data = {ssn: ssn}
+  return new Promise((resolve, reject) => {
+    axios.post(aeroConfig.retryCreateBusiness, data, config)
+      .then(res => {
+        if (res.data.success === true) resolve('successly submit ssn!')
         else reject(res.data.error)
       })
       .catch(err => reject(err))

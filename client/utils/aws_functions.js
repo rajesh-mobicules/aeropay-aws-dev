@@ -75,9 +75,9 @@ function recordUserAttributes (cognitoUser) {
       console.log(err)
       return
     }
-    for (let i = 0; i < result.length; i++) {
-      console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue())
-    }
+    // for (let i = 0; i < result.length; i++) {
+    //   console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue())
+    // }
     return result
   })
 }

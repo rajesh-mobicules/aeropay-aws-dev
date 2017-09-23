@@ -355,7 +355,7 @@
           this.isLoading = true
           const industryName = this.form['select-industry-classification-field']
           this.form['select-industry-classification-field'] = this.buizClassifications.industryDict[industryName]
-          console.log(this.form.data())
+          // console.log(this.form.data())
           awsRegister(this.form.data())
             .then(response => {
               this.onSuccess(response)
@@ -376,12 +376,11 @@
             this.resolveData(data)
           })
           .catch(err => {
-            this.isLoading = false
             this.handleError(err)
           })
       },
       handleError (err) {
-        // console.log(err)
+        this.isLoading = false
         this.errors.overall = err.error
       },
       onFail (error) {
@@ -393,7 +392,6 @@
               this.resolveData(res)
             })
             .catch(err => {
-              this.isLoading = false
               this.handleError(err)
             })
         } else if (error.code === 'InvalidPasswordException') {
