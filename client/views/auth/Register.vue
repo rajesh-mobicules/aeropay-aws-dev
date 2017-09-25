@@ -2,7 +2,7 @@
 <div class="register-app content">
   <div class="has-text-centered">
     <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
-    <p class="portal">Register</p>
+    <!-- <p class="portal">Register</p> -->
   </div>
   <div class="columns is-vcentered">
     <form @submit.prevent="onSubmit" class="box column is-6 is-offset-3" @keydown="clearErrors($event.target.name)" v-if="!registerSuccess">
@@ -545,9 +545,10 @@
     width: 200px
   }
   .aeroImg {
-    height: 45px;
-    width: 300px;
-    margin-bottom: 10px;
+    height: 234px;
+    width: 234px;
+    margin-bottom: 0px;
+    margin-top: -60px;
   }
   .portal {
     // font-family: "futura-pt";

@@ -2,7 +2,7 @@
   <div class='app-login'>
     <div class="has-text-centered">
       <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
-      <p class="portal">Portal</p>
+      <!-- <p class="portal">Portal</p> -->
     </div>
     <div class='columns'>
       <div class="box column is-6 is-offset-3">
@@ -127,9 +127,10 @@ export default {
     text-transform: capitalize;
   }
   .aeroImg {
-    height: 45px;
-    width: 300px;
-    margin-bottom: 10px;
+    height: 234px;
+    width: 234px;
+    margin-bottom: 0px;
+    margin-top: -60px;
   }
   .portal {
     // font-family: "futura-pt";
