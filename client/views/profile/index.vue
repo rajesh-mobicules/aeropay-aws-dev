@@ -13,12 +13,15 @@
           <span class="verified" v-show="merchant.status === status.verified || merchant.status === status.reviewed" >{{verifiedMsg}}</span>
           <span class="pending" v-show="merchant.status === status.pending">pending</span>
           <a class="document"
-            v-show="merchant.status === status.document && merchant.type === types.customer"
+            v-show="merchant.status === status.document && merchant.type === types.verifyWithDocument"
             @click.stop.prevent="customerUploader">
               <i class="fa fa-exclamation-circle"></i>  {{documentMsg}}
           </a>
           <a class="document"
-            v-show="merchant.status === status.document && merchant.type === types.business"
+            v-show="merchant.status === status.document
+            && (merchant.type === types.verifyBusinessWithDocument
+            || merchant.type === types.verifyBusinessId
+            || merchant.type === types.business)"
             @click.stop.prevent="businessUploader">
               <i class="fa fa-exclamation-circle"></i>  {{documentMsg}}
           </a>
@@ -186,7 +189,10 @@
         },
         types: {
           customer: 'customer',
-          business: 'business'
+          business: 'business',
+          verifyWithDocument: 'verify-with-document',
+          verifyBusinessWithDocument: 'verify-business-with-document',
+          verifyBusinessId: 'verify-authorized-representative-and-business-with-document'
         },
         documentMsg: 'Please submit additional information for verification',
         retryMsg: 'Please re-enter your full social security number to get verified',
@@ -208,7 +214,7 @@
     beforeMount () {
       getProfile(this.idToken)
         .then(merchant => {
-          // console.log(merchant)
+          console.log(merchant)
           // merchant.status = 'unverified'
           // merchant.status = 'retry'
           this.merchant = merchant

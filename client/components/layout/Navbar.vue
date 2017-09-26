@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar app-navbar" >
+  <nav class="navbar app-navbar" role="navigation" aria-label="main navigation" >
     <div class="navbar-brand">
       <a class="navbar-item"  href="/">
         <img src="~assets/AP.png" alt="Aero Payments">
