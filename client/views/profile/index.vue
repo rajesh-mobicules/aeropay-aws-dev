@@ -54,7 +54,7 @@
     <br>
     <router-view :merchant="merchant"></router-view>
     <div class="businessUploader">
-      <sweet-modal ref="businessUploader" title="We need some additional information.">
+      <sweet-modal class="aero-modal" ref="businessUploader" title="We need some additional information.">
         <sweet-modal-tab title="description" id="description">
           <div class="content">
             <p>We'll need a bit more information to finish verifying your Business account. We take protecting your identity seriously, and want to be extra certain that this is you.</p>
@@ -93,7 +93,7 @@
       </sweet-modal>
     </div>
     <div class="customerUploader">
-      <sweet-modal ref="customerUploader" title="We need some additional information.">
+      <sweet-modal class="aero-modal" ref="customerUploader" title="We need some additional information.">
         <div class="content" id="id">
           <p>We'll need a bit more information to finish verifying your Business account. We take protecting your identity seriously, and want to be extra certain that this is you.</p>
           <br>
@@ -117,7 +117,7 @@
       </sweet-modal>
     </div>
     <div class="retry-modal">
-      <sweet-modal title="Re-submit SSN" ref="retry">
+      <sweet-modal class="aero-modal" title="Re-submit SSN" ref="retry">
         <form @submit.prevent="submitSsn">
           <div class="field">
             <!-- <p>{{retryMsg}}</p> -->
@@ -376,9 +376,11 @@
     border-radius: 5px;
     background-color: #d3d3d3;
   }
-  .sweet-action-close:hover {
+  .aero-modal .sweet-modal .sweet-box-actions .sweet-action-close:hover {
     background: $primary;
-    color: #fff;
+  }
+  .aero-modal .sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab.active a  {
+    color: $primary;
   }
   .uploader {
     margin-left: -50px;
