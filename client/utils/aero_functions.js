@@ -11,7 +11,7 @@ export function registerMerchant (formData, idToken) {
   // console.log(config)
   // const creatMerchantURL = 'http://merchant-dev.us-east-1.elasticbeanstalk.com/createBusiness'
   return new Promise((resolve, reject) => {
-    axios.post(aeroConfig.m, formData, config)
+    axios.post(aeroConfig.creatMerchantURL, formData, config)
       .then(res => {
         // console.log(res)
         if ('error' in res.data) {
