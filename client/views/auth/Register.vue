@@ -424,6 +424,9 @@
         if (ein.length !== 10) {
           this.errors.ein = 'EIN number is not correct!'
         }
+        if (ein === '12-3456789') {
+          this.error.ein = 'EIN cannot be 12-3456789!'
+        }
         if (!this.validateEmail(email)) {
           this.errors.email = 'Email address is not valid!'
         }
