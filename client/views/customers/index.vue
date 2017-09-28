@@ -15,9 +15,9 @@
         </p>
       </div>
     </div>
-    <table class="table is-striped">
+    <table class="table is-striped is-fullwidth">
       <thead>
-        <p class="trans_num">0 Customers</p>
+        <p class="trans_num">{{trans_num}} Customers</p>
         <tr>
           <th>Name</th>
           <th>Email</th>
@@ -57,7 +57,10 @@
         })
     },
     computed: {
-      ...mapGetters(['idToken'])
+      ...mapGetters(['idToken']),
+      trans_num () {
+        return this.transactions.length
+      }
     }
 }
 </script>

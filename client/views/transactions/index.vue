@@ -21,7 +21,7 @@
         </p>
       </div>
     </div>
-    <table class="table is-striped">
+    <table class="table is-striped is-fullwidth">
       <thead>
         <p class="trans_num">{{trans_num}} Transactions</p>
         <tr>
