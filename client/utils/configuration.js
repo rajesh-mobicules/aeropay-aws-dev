@@ -38,7 +38,7 @@ if (stage === 'dev') {
 
 export { awsConfig }
 
-export const iavCss = 'https://staging-portal.aeropayments.com/iavcss/iav.css'
+export const iavCss = 'https://portal.aeropayments.com/iavcss/iav.css'
 
 export const aeroConfig = {
   creatMerchantURL: awsBaseUrl + 'createBusiness',
