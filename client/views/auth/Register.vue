@@ -35,14 +35,11 @@
         <input type="text" class="input" name="address" v-model="form.address" >
         <p>Address 1</p>
         <span class="help is-danger" v-if="errors.address !== null">{{errors.address}}</span>
-        <br>
         <input type="text" class="input" name="address2" v-model="form.address2">
         <p>Address 2 <span class="extra-info">(optional)</span></p>
-        <br>
         <input type="text" class="input" name="city" v-model="form.city">
         <p>City</p>
         <span class="help is-danger" v-if="errors.city !== null">{{errors.city}}</span>
-        <br>
       </div>
         <!-- <input type="text" class="input" name="state" v-model="form.state"> -->
       <div class="field is-grouped">
@@ -117,9 +114,9 @@
         <span class="help is-danger" v-if="errors.phone !== null">{{errors.phone}}</span>
         <div class="field-body">
           <div class="field">
-            <div class="control">
+            <p class="control">
               <cleave class="input" :options="{ blocks: [3], numericOnly: true }" name="phone-area-code" v-model="form['phone-area-code']"></cleave>
-            </div>
+            </p>
             <span>###</span>
           </div>
           <div class="field">
@@ -185,16 +182,16 @@
           <cleave class="input" :options="{ delimiter: '-', blocks: [2, 7], numericOnly: true }" name="ein" v-model="form.ein"></cleave>
           <span class="help is-danger" v-if="errors.ein !== null">{{errors.ein}}</span>
         </p>
-        <span>12-1234567</span>
+        <span>Ex. 12-3456789</span>
       </div>
       <div class="field">
-        <label class="label">Doing Business As <span class="extra-info">(optional)</span></label>
+        <label class="label">Doing Business As</label>
         <p class="control">
           <input type="text" name="dba" class="input" v-model="form.dba" >
           <span class="help is-danger" v-if="errors.dba !== null">{{errors.dba}}</span>
         </p>
       </div>
-      <div class="control">
+      <div class="field">
         <label for="password" class="label">Password
           <div class="tooltip"> ?
             <span class="tooltiptext">{{passwordErrorMessage}}</span>
@@ -205,9 +202,11 @@
         </p>
         <span class="help is-danger" v-if="errors.password !== null">{{errors.password}}</span>
       </div>
-      <div class="control">
+      <div class="field">
         <label for="passwordConfirmation" class="label">Confim Password</label>
-        <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="input" v-model="form.passwordConfirmation" >
+        <p class="control">
+          <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="input" v-model="form.passwordConfirmation" >
+        </p>
         <span class="help is-danger" v-if="errors.passwordConfirmation !== null">{{errors.passwordConfirmation}}</span>
       </div>
       <br>
