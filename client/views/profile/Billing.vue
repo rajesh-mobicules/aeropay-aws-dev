@@ -10,14 +10,14 @@
        <div class="bank-bg">
          <img src="~assets/bankAccount.svg" alt="bankAccount">
        </div>
-       <transition class="account-info">
+       <div class="account-info">
          <div class="account-name">
           <span>{{bankAccount.name}}</span>
           <span :class="statusClass">{{bankAccount.status}}</span>
          </div>
          <div class="bank-name">{{bankAccount.bankName}}</div>
          <div class="added">Added: {{bankAccount.created | renderDate}}</div>
-       </transition>
+       </div>
       </div>
     </div>
     <br>
