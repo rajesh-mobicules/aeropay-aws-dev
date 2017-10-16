@@ -10,14 +10,14 @@
        <div class="bank-bg">
          <img src="~assets/bankAccount.svg" alt="bankAccount">
        </div>
-       <div class="account-info">
+       <transition class="account-info">
          <div class="account-name">
           <span>{{bankAccount.name}}</span>
           <span :class="statusClass">{{bankAccount.status}}</span>
          </div>
          <div class="bank-name">{{bankAccount.bankName}}</div>
          <div class="added">Added: {{bankAccount.created | renderDate}}</div>
-       </div>
+       </transition>
       </div>
     </div>
     <br>
@@ -126,5 +126,11 @@
   .not-verfied {
     color: $danger;
     margin-left: 20px;
+  }
+  .account-info-enter-active, .account-info-leave-active {
+    transition: opacity .5s
+  }
+  .account-info-enter, .account-info-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0
   }
 </style>
