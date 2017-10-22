@@ -4,7 +4,6 @@
   "description": "AeroPay Merchant Web",
   "repository": "cckn1ght/aeropay-web",
   "homepage": "dev-portal.aeropayments.com",
-  "license": "MIT",
   "author": {
     "name": "Qunhao Song",
     "email": "qunhaosong@gmail.com",

@@ -6,7 +6,7 @@ const state = {
     isTablet: false
   },
   sidebar: {
-    opened: true,
+    opened: false,
     hidden: false
   },
   effect: {

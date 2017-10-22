@@ -23,13 +23,19 @@ const nprogress = new NProgress({ parent: '.nprogress-container' })
 
 const { state, getters } = store
 
+// const hasAccessRight = (auth, currenRole) => {
+
+// }
+
 router.beforeEach((to, from, next) => {
   // console.log(to.meta.auth, !getters.checkAuth)
   if (to.meta.auth && !getters.checkAuth) {
     console.log('redirecting')
     next('/login')
   }
-  if (!state.app.device.isMobile && !state.app.sidebar.opened) {
+  if (!getters.checkAuth || !to.meta.auth) {
+    store.commit(TOGGLE_SIDEBAR, false)
+  } else if (!state.app.device.isMobile && !state.app.sidebar.opened) {
     store.commit(TOGGLE_SIDEBAR, true)
   }
   // if (to.path === '/login' || to.path === '/register') {

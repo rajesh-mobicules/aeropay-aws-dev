@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import menuModule from 'vuex-store/modules/menu'
+// import UserRoles from 'utils/UserRoles'
 Vue.use(Router)
 
 export default new Router({
@@ -25,6 +26,12 @@ export default new Router({
       path: '/register',
       meta: {auth: false},
       component: require('../views/auth/Register')
+    },
+    {
+      name: 'ForgotPassword',
+      path: '/forgotpassword',
+      meta: {auth: false},
+      component: require('../views/auth/ForgotPassword')
     },
     {
       name: 'Iav',

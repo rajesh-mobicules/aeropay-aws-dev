@@ -20,12 +20,15 @@
                 <i class="fa fa-check"></i>
               </span>
             </p>
-            
-            <label class="label">Password</label>
+
+            <label class="label">
+              Password
+              <span><router-link class="forgot-password" to="/forgotpassword">Forgot Password?</router-link></span>
+            </label>
             <p class="control has-icons-left">
               <input class="input" type="password"
               placeholder="password" v-model="data.body.password"
-              
+
               >
               <span class="icon is-small is-left">
                 <i class="fa fa-key"></i>
@@ -81,9 +84,6 @@ export default {
       isLoading: false
     }
   },
-  beforeMount () {
-    this.toggleSidebar(false)
-  },
   methods: {
     ...mapActions(['cognitoLogin', 'toggleSidebar']),
     loginClick () {
@@ -109,7 +109,7 @@ export default {
   },
   computed: {
     disabled () {
-      return this.data.body.username === '' || this.data.body.password === ''
+      return this.data.body.email === '' || this.data.body.password === ''
     }
   }
 
@@ -119,6 +119,7 @@ export default {
 <style lang="scss" scoped>
   // @import "../sass/utilities/initial-variables"
   // @primary: #72d0eb
+  @import '~bulma';
   .app-login {
     margin-top: 30px;
     margin-left: -100px;
@@ -143,5 +144,9 @@ export default {
   }
   .error {
     font-size: 20px;
+  }
+  .forgot-password {
+    float: right;
+    color: $blue;
   }
 </style>

@@ -1,7 +1,9 @@
 import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
 import transactions from './transactions'
+import settings from './settings'
 import profile from './profile'
+import help from './help'
 // show: meta.label -> name
 // name: component name
 // meta.label: display label
@@ -29,7 +31,9 @@ const state = {
       },
       component: lazyLoading('customers', true)
     },
-    profile
+    profile,
+    settings,
+    help
   ]
 }
 
