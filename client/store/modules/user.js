@@ -1,5 +1,6 @@
 import { awsAuthenticate } from 'utils/aws_functions'
 import { registerMerchant } from 'utils/aero_functions'
+import { ACCESS_TOKEN, initHeader } from 'utils/auth_utils'
 // var getLocal = window.localStorage.getItem
 const user = {
   state: {
@@ -24,6 +25,7 @@ const user = {
         window.localStorage.setItem(key, tokens[key])
         state[key] = tokens[key]
       }
+      initHeader(tokens[ACCESS_TOKEN])
     },
     DELETE_TOKEN: (state, token) => {
       state[token] = null

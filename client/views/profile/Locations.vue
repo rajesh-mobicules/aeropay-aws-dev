@@ -30,18 +30,90 @@
     </div>
     <br>
     <div class="has-text-centered content">
-      <router-link to="#" class="button is-primary">Add Location</router-link>
+      <button  @click.stop.prevent="openModalClick" class="button is-primary">Add Location</button>
     </div>
+    <sweet-modal class="location-modal" ref="locationCreater" title="Add a location">
+     <form @submit.prevent="addLocationSubmit">
+       <div class="field">
+         <label class="label">Location Name</label>
+         <p class="control">
+           <input class="input" type="text"
+           placeholder="Chicago Store #1" v-model="location.name"
+           >
+         </p>
+
+         <label class="label">Address</label>
+         <p class="control">
+           <input class="input" type="text"
+           placeholder="address" v-model="location.address"
+           >
+         </p>
+         <label class="label">City</label>
+         <p class="control">
+           <input class="input" type="text"
+           placeholder="Chicago" v-model="location.city"
+           >
+         </p>
+         
+         <label class="label">State</label>
+         <div class="control ">
+           <span class="select">
+             <select name="state" v-model="location.state">
+               <option v-for="s in states" :key="s">{{ s }}</option>
+             </select>
+             <!-- <span>State</span> -->
+           </span>
+         </div>
+         <label class="label">Postal Code</label>
+         <p class="control">
+           <input class="input" type="text" 
+            v-model="location.postalCode"
+           >
+         </p>
+
+       </div>
+
+       <p class="help is-danger error has-text-centered" v-show="hasErr">{{errMessage}}</p>
+       <br>
+       <input type="submit" v-show="false" class="submit">
+       <p class="has-text-centered">
+         <a class="signin-button button is-primary" id="submit" type="submit" value="Sign in"
+            @click="addLocationSubmit" :disabled="disabled"
+            :class = "{'is-loading' : isLoading}"
+         >
+           Submit
+         </a>
+       </p>
+     </form> 
+    </sweet-modal>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import { getLocations } from "utils/aero_functions"
+import { getLocations, createLocation } from "utils/aero_functions"
+import { SweetModal } from 'sweet-modal-vue'
+import statesHash from 'utils/states_hash.json'
 export default {
+  components: {
+    SweetModal
+  },
   data () {
     return {
-      locations: []
+      locations: [],
+      location: {
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        latitude: '',
+        longitude: ''
+      },
+      hasErr: false,
+      errMessage: '',
+      disabled: false,
+      isLoading: false
     }
   },
   beforeMount () {
@@ -52,8 +124,37 @@ export default {
       })
       .catch(err => console.log(err))
   },
+  methods: {
+    openModalClick () {
+      // this.showUploader = true
+      this.$refs.locationCreater.open()
+    },
+    addLocationSubmit () {
+      if (!this.disabled) {
+        this.isLoading = true
+        createLocation(this.location)
+        .then(data => {
+          this.isLoading = false
+          window.alert("create success")
+        })
+        .catch(err => {
+          this.isLoading = false
+          console.log(err)
+          this.errMessage = err.message
+        })
+      }
+    }
+  },
   computed: {
-    ...mapGetters(['idToken'])
+    ...mapGetters(['idToken']),
+    states () {
+      const ss = []
+      for (let s in statesHash) {
+        ss.push(s)
+      }
+      // console.log(ss)
+      return ss
+    }
   }
 }
 </script>

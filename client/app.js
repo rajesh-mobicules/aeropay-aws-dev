@@ -8,7 +8,7 @@ import router from './router'
 import store from './store'
 import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
-
+import { ACCESS_TOKEN, initHeader } from 'utils/auth_utils'
 Vue.router = router
 Vue.use(VueAxios, axios)
 
@@ -54,6 +54,11 @@ router.beforeEach((to, from, next) => {
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
+
+const header = window.localStorage.getItem(ACCESS_TOKEN);
+if (header) {
+  initHeader(header);
+}
 
 const app = new Vue({
   router,

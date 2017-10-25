@@ -169,6 +169,19 @@ export function getLocations (idToken) {
   })
 }
 
+export function createLocation (location) {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios.post(aeroConfig.locationForMerchant, location, config)
+    .then(res => resolve(res.data))
+    .catch(err => reject(err))
+  })
+}
+
 export function getTransacations (idToken) {
   const config = {
     headers: {

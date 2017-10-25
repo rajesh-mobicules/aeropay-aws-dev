@@ -36,7 +36,7 @@ export default new Router({
     {
       name: 'Iav',
       path: '/iav',
-      meta: {auth: true},
+      meta: {auth: 'admin'},
       component: require('../views/iav')
     },
     {
