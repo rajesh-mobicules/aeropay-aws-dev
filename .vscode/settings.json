@@ -1,0 +1,10 @@
+{
+  "path-intellisense.mappings": {
+    "/": "${workspaceRoot}",
+    "utils": "${workspaceRoot}/client/utils"
+  },
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "typescript.tsdk": "/Users/qhsong/.nvm/versions/node/v7.10.0/lib/node_modules/typescript/lib",
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true
+}

@@ -1,6 +1,11 @@
 import axios from 'axios'
 import { aeroConfig } from './configuration'
 
+const config = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}
 export function registerMerchant (formData, idToken) {
   const config = {
     headers: {
@@ -146,12 +151,7 @@ export function refreshIav (idToken) {
   })
 }
 
-export function getLocations (idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken
-    }
-  }
+export function getLocations () {
   return new Promise((resolve, reject) => {
     axios.get(aeroConfig.locationsForMerchant, config)
       .then(res => {
@@ -170,14 +170,24 @@ export function getLocations (idToken) {
 }
 
 export function createLocation (location) {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
   return new Promise((resolve, reject) => {
     axios.post(aeroConfig.locationForMerchant, location, config)
-    .then(res => resolve(res.data))
+      .then(res => resolve(JSON.parse(res.data.location.replace(/'/g, '"'))))
+    .catch(err => reject(err))
+  })
+}
+
+export function deleteLocation (merchantLocationId) {
+  return new Promise((resolve, reject) => {
+    axios.delete(aeroConfig.locationForMerchant + '?merchantLocationId=' + merchantLocationId)
+    .then(res => resolve(res))
+    .catch(err => reject(err))
+  })
+}
+export function saveLocation (location, merchantLocationId) {
+  return new Promise((resolve, reject) => {
+    axios.put(aeroConfig.locationForMerchant + '?merchantLocationId=' + merchantLocationId, location)
+    .then(res => resolve(res))
     .catch(err => reject(err))
   })
 }
@@ -206,13 +216,13 @@ export function getTransacations (idToken) {
 }
 
 export function getProfile (idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken
-    }
-  }
+  // const config = {
+  //   headers: {
+  //     'requestAuthorization': idToken
+  //   }
+  // }
   return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.profileForMerchant, config)
+    axios.get(aeroConfig.profileForMerchant)
       .then(res => {
         const data = res.data
         if (data.success) resolve(data.merchant)

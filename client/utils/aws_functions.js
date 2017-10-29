@@ -6,11 +6,8 @@ const POOLDATA = {
   // UserPoolId: 'us-east-1_fWjpODvHX', // prod pool
   ClientId: awsConfig.ClientId // Your client id here
 }
-
+const userPool = new CognitoUserPool(POOLDATA)
 export function awsRegister ({email, password}) {
-  const poolData = POOLDATA
-  const userPool = new CognitoUserPool(poolData)
-
   const attributeList = []
 
   const dataEmail = {
@@ -36,9 +33,7 @@ export function awsRegister ({email, password}) {
 }
 
 export function awsAuthenticate ({email, password}) {
-  const poolData = POOLDATA
   // create user pool
-  const userPool = new CognitoUserPool(poolData)
   const userData = {
     Username: email,
     Pool: userPool
@@ -80,4 +75,21 @@ function recordUserAttributes (cognitoUser) {
     // }
     return result
   })
+}
+
+export function forgotPassword (email) {
+  const userData = {
+    Username: email,
+    Pool: userPool
+  }
+  const cognitoUser = new CognitoUser(userData)
+
+  return new Promise((resolve, reject) => cognitoUser.forgotPassword({
+    onSuccess: data => {
+      resolve(data);
+    },
+    onFailure: err => {
+      reject(err)
+    }
+  }))
 }

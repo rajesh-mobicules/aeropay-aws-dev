@@ -12,12 +12,12 @@
             </label>
             <p class="control has-icons-left has-icons-right">
               <input class="input" type="text"
-              placeholder="example@gmail.com" v-model="data.body.email"
+              placeholder="example@gmail.com" v-model="email"
               >
               <span class="icon is-small is-left">
                 <i class="fa fa-user"></i>
               </span>
-              <span class="icon is-small is-right" v-show="data.body.email">
+              <span class="icon is-small is-right" v-show="email">
                 <i class="fa fa-check"></i>
               </span>
             </p>
@@ -41,16 +41,12 @@
 </template>
 
 <script>
-// import { awsAuthenticate } from '../../utils/aws_functions'
+import { forgotPassword } from '../../utils/aws_functions'
 import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      data: {
-        body: {
-          email: ''
-        }
-      },
+      email: '',
       hasErr: null,
       errMessage: '',
       isLoading: false
@@ -60,8 +56,16 @@ export default {
     ...mapActions([]),
     submitClick () {
       if (!this.disabled) {
-        // this.isLoading = true
-        window.alert('waiting for API')
+        this.isLoading = true
+        forgotPassword(this.email)
+        .then(data => {
+          this.isLoading = false
+          console.log(data)
+        })
+        .catch(err => {
+          this.isLoading = false
+          console.log(err)
+        })
       }
     },
     handleErr (err) {
@@ -71,7 +75,7 @@ export default {
   },
   computed: {
     disabled () {
-      return this.data.body.email === '';
+      return this.email === '';
     }
   }
 

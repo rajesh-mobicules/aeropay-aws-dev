@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card">
+    <div class="card" id="profile-top">
       <div class="card-content">
         <p class="title p-name">
           {{merchant.firstName}} {{merchant.lastName}}

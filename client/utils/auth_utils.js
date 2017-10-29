@@ -3,7 +3,7 @@ const initHeader = (token) => {
   axios.defaults.headers.common[AUTH_HEADER] = token;
 }
 
-const ACCESS_TOKEN = 'idToken'
-const AUTH_HEADER = 'Authorization'
+const ID_TOKEN = 'idToken'
+const AUTH_HEADER = 'requestAuthorization'
 
-export { initHeader, ACCESS_TOKEN, AUTH_HEADER }
+export { initHeader, ID_TOKEN, AUTH_HEADER }

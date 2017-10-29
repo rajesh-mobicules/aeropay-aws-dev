@@ -56,7 +56,7 @@
           <dt>company</dt>
           <dd>{{merchant.businessName}}</dd>
         </dl>
-          
+
         </div>
       </div>
     </div>

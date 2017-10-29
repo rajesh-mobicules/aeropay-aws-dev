@@ -8,7 +8,24 @@ import router from './router'
 import store from './store'
 import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
-import { ACCESS_TOKEN, initHeader } from 'utils/auth_utils'
+import { ID_TOKEN, initHeader } from 'utils/auth_utils'
+import VueScrollTo from 'vue-scrollto';
+
+Vue.use(VueScrollTo)
+
+// You can also pass in the default options
+Vue.use(VueScrollTo, {
+  container: "body",
+  duration: 500,
+  easing: "ease",
+  offset: 0,
+  cancelable: true,
+  onDone: false,
+  onCancel: false,
+  x: false,
+  y: true
+})
+
 Vue.router = router
 Vue.use(VueAxios, axios)
 
@@ -55,7 +72,7 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 
-const header = window.localStorage.getItem(ACCESS_TOKEN);
+const header = window.localStorage.getItem(ID_TOKEN);
 if (header) {
   initHeader(header);
 }
