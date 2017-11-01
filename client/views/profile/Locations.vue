@@ -108,9 +108,9 @@
        </p>
      </form>
     </sweet-modal>
-    <sweet-modal id="delete-modal" title="delete confirmation" ref="deleteConfirm">
+    <sweet-modal id="delete-modal" title="Delete Confirmation" ref="deleteConfirm">
       <div class="has-text-centered">
-        <p>Do you really want to delete location {{selectedLocationId}} ?</p>
+        <p>Are you sure you want to delete this store location?</p>
         <br />
         <button @click="deleteLocationSubmit"
         class="button is-danger"
@@ -209,7 +209,6 @@ export default {
         createLocation(this.location)
           .then(location => {
             this.isLoading = false;
-            window.alert("create success");
             this.locations.push(location);
             this.$refs.locationCreater.close();
           })
@@ -240,7 +239,6 @@ export default {
               loc.merchantLocationId.toString() !==
               this.selectedLocationId.toString()
           );
-          window.alert("delete success!");
           this.$refs.deleteConfirm.close();
         })
         .catch(err => {
