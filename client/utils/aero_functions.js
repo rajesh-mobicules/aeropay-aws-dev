@@ -80,7 +80,7 @@ function addFundingSource (fundingSource, idToken) {
       'Content-Type': 'application/json'
     }
   }
-  const data = {fundingSourceId: fundingSource}
+  const data = { fundingSourceId: fundingSource }
 
   return new Promise((resolve, reject) => {
     axios.post(aeroConfig.addFundingURL, data, config)
@@ -99,7 +99,7 @@ export function uploadFile (base64file, fileType, idToken) {
       'Content-Type': 'application/json'
     }
   }
-  const data = {document: base64file, type: fileType}
+  const data = { document: base64file, type: fileType }
   return new Promise((resolve, reject) => {
     axios.post(aeroConfig.uploadDocumentForMerchant, data, config)
       .then(res => {
@@ -117,7 +117,7 @@ export function uploadSsn (ssn, idToken) {
       'Content-Type': 'application/json'
     }
   }
-  const data = {ssn: ssn}
+  const data = { ssn: ssn }
   return new Promise((resolve, reject) => {
     axios.post(aeroConfig.retryCreateBusiness, data, config)
       .then(res => {
@@ -173,33 +173,28 @@ export function createLocation (location) {
   return new Promise((resolve, reject) => {
     axios.post(aeroConfig.locationForMerchant, location, config)
       .then(res => resolve(JSON.parse(res.data.location.replace(/'/g, '"'))))
-    .catch(err => reject(err))
+      .catch(err => reject(err))
   })
 }
 
 export function deleteLocation (merchantLocationId) {
   return new Promise((resolve, reject) => {
     axios.delete(aeroConfig.locationForMerchant + '?merchantLocationId=' + merchantLocationId)
-    .then(res => resolve(res))
-    .catch(err => reject(err))
+      .then(res => resolve(res))
+      .catch(err => reject(err))
   })
 }
 export function saveLocation (location, merchantLocationId) {
   return new Promise((resolve, reject) => {
     axios.put(aeroConfig.locationForMerchant + '?merchantLocationId=' + merchantLocationId, location)
-    .then(res => resolve(res))
-    .catch(err => reject(err))
+      .then(res => resolve(res))
+      .catch(err => reject(err))
   })
 }
 
-export function getTransacations (idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken
-    }
-  }
+export function getTransacations () {
   return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.getTransactionURL, config)
+    axios.get(aeroConfig.getTransactionURL)
       .then(res => {
         const data = res.data
         try {
@@ -279,4 +274,22 @@ export function getTransactionSummary (idToken) {
         reject(err)
       })
   })
+}
+
+export function getTrasactionsByCondition (keyword, dateRange) {
+  let data = {
+    keyword: keyword
+  }
+  if (dateRange.includes("to")) {
+    const dates = dateRange.split("to")
+    const from = dates[0].trim()
+    const to = dates[1].trim()
+    data.dates = {
+      from: from,
+      to: to
+    }
+  }
+  return axios.post(aeroConfig.searchTransactionsForMerchant, data, config)
+    .then(res => res.transactions)
+    .catch(err => err)
 }
