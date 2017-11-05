@@ -280,7 +280,7 @@ export function getTrasactionsByCondition (keyword, dateRange) {
   let data = {
     keyword: keyword
   }
-  if (dateRange.includes("to")) {
+  if (dateRange !== null && dateRange.includes("to")) {
     const dates = dateRange.split("to")
     const from = dates[0].trim()
     const to = dates[1].trim()
@@ -290,6 +290,6 @@ export function getTrasactionsByCondition (keyword, dateRange) {
     }
   }
   return axios.post(aeroConfig.searchTransactionsForMerchant, data, config)
-    .then(res => res.transactions)
+    .then(res => res.data.transactions)
     .catch(err => err)
 }
