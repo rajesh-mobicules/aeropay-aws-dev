@@ -2410,6 +2410,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2424,9 +2430,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       dateRange: null,
       dateConfig: {
         dateFormat: "Y-m-d",
-        static: true,
         mode: "range",
         maxDate: "today",
+        wrap: true,
         disable: []
       }
     };
@@ -2445,6 +2451,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
+    clearDates: function clearDates() {
+      this.dateRange = "";
+    },
     search: function search() {
       var _this2 = this;
 
@@ -2852,7 +2861,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "dateRange"
     }
-  }), _vm._v(" "), _vm._m(1)], 1), _vm._v(" "), _c('p', {
+  }, [_c('a', {
+    staticClass: "button date-clear",
+    attrs: {
+      "data-clear": ""
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-close"
+  })])]), _vm._v(" "), _vm._m(1)], 1), _vm._v(" "), _c('p', {
     staticClass: "control"
   }, [_c('a', {
     staticClass: "button is-info",
@@ -2882,7 +2898,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         'is-processed': t.status === 'processed', 'is-pending': t.status === 'pending'
       }
     }, [_vm._v(_vm._s(_vm._f("renderCents")(t.amount)))])])
-  }))])])
+  }))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('br'), _vm._v(" "), _c('br'), _vm._v(" "), _c('br')])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "icon is-small is-left"
@@ -2921,4 +2937,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 /***/ })
 
 });
-//# sourceMappingURL=0.df0a4cca3ccf287a3a4c.js.map
+//# sourceMappingURL=0.e11c39a21358eff74f57.js.map
