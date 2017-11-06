@@ -13,7 +13,9 @@
             class="data-picker"
             placeholder="date range. (optional)"
             :config="dateConfig"
-            v-model="dateRange"></datepicker>
+            v-model="dateRange">
+        <a class="button date-clear" data-clear><i class="fa fa-close"></i></a>
+          </datepicker>
           <span class="icon is-small is-right">
             <i class="fa fa-calendar"></i>
           </span>
@@ -44,11 +46,18 @@
         </tr>
       </tbody>
     </table>
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
 <script>
-import { getTransacations, getTrasactionsByCondition } from "utils/aero_functions";
+import {
+  getTransacations,
+  getTrasactionsByCondition
+} from "utils/aero_functions";
 import Datepicker from "vue-bulma-datepicker";
 export default {
   components: {
@@ -61,13 +70,12 @@ export default {
       dateRange: null,
       dateConfig: {
         dateFormat: "Y-m-d",
-        static: true,
         mode: "range",
         maxDate: "today",
-        disable: [
-        ]
+        wrap: true,
+        disable: []
       }
-    }
+    };
   },
   beforeMount() {
     getTransacations()
@@ -80,15 +88,18 @@ export default {
       .catch(err => console.log(err));
   },
   methods: {
+    clearDates() {
+      this.dateRange = "";
+    },
     search() {
       getTrasactionsByCondition(this.keyword, this.dateRange)
-      .then(trans => {
-        console.log(trans)
-        this.transactions = trans.sort((a, b) => {
-          return new Date(b.createdDate) - new Date(a.createdDate);
+        .then(trans => {
+          console.log(trans);
+          this.transactions = trans.sort((a, b) => {
+            return new Date(b.createdDate) - new Date(a.createdDate);
+          });
         })
-      })
-      .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
   },
   computed: {
@@ -150,4 +161,5 @@ export default {
 .data-picker {
   width: 400px;
 }
+
 </style>

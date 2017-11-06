@@ -5,9 +5,11 @@
         <img src="~assets/AP.png" alt="Aero Payments">
       </a>
     </div>
-    <div id="navMenu" class="navbar-menu">
-      <div class="navbar-end">
 
+    <div id="navMenu" class="navbar-menu">
+
+      <div class="navbar-end">
+        <p class="navbar-item navbar-total">Total: -1</p>
         <router-link v-if="!checkAuth" to="/login" class="navbar-item">Login</router-link>
         <a v-if="checkAuth" @click="logoutClick" class="navbar-item">Logout</a>
       </div>
@@ -17,11 +19,10 @@
 </template>
 
 <script>
-import Tooltip from 'vue-bulma-tooltip'
-import { mapGetters, mapActions } from 'vuex'
+import Tooltip from "vue-bulma-tooltip";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-
   components: {
     Tooltip
   },
@@ -31,32 +32,29 @@ export default {
   },
 
   computed: mapGetters({
-    pkginfo: 'pkg',
-    sidebar: 'sidebar',
-    checkAuth: 'checkAuth'
+    pkginfo: "pkg",
+    sidebar: "sidebar",
+    checkAuth: "checkAuth"
   }),
 
   methods: {
-    ...mapActions([
-      'toggleSidebar',
-      'logout'
-    ]),
-    logoutClick () {
-      this.isLoading = true
+    ...mapActions(["toggleSidebar", "logout"]),
+    logoutClick() {
+      this.isLoading = true;
       this.logout()
         .then(() => {
-          this.$router.push({ path: '/login' })
+          this.$router.push({ path: "/login" });
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-@import '~bulma/sass/utilities/variables';
+@import "~bulma/sass/utilities/variables";
 
 .app-navbar {
   position: fixed;
@@ -93,20 +91,23 @@ export default {
   }
 }
 .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 400px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
+  visibility: hidden;
+  width: 400px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
 
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
 }
 
 .tooltip:hover .tooltiptext {
-    visibility: visible;
+  visibility: visible;
+}
+.navbar-total {
+  margin-right: 500px;
 }
 </style>

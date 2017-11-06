@@ -34,6 +34,10 @@
         </tr>
       </tbody>
     </table>
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
