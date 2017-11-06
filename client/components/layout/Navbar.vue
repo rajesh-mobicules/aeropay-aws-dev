@@ -9,7 +9,7 @@
     <div id="navMenu" class="navbar-menu">
 
       <div class="navbar-end">
-        <p class="navbar-item navbar-total">Total: -1</p>
+        <p v-if="checkAuth" class="navbar-item navbar-total">Total: -1</p>
         <router-link v-if="!checkAuth" to="/login" class="navbar-item">Login</router-link>
         <a v-if="checkAuth" @click="logoutClick" class="navbar-item">Logout</a>
       </div>
