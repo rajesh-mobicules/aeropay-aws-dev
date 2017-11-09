@@ -9,8 +9,7 @@ import store from './store'
 import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
 import { ID_TOKEN, initHeader } from 'utils/auth_utils'
-import VueScrollTo from 'vue-scrollto';
-
+import VueScrollTo from 'vue-scrollto'
 Vue.use(VueScrollTo)
 
 // You can also pass in the default options
@@ -55,16 +54,6 @@ router.beforeEach((to, from, next) => {
   } else if (!state.app.device.isMobile && !state.app.sidebar.opened) {
     store.commit(TOGGLE_SIDEBAR, true)
   }
-  // if (to.path === '/login' || to.path === '/register') {
-  //   store.commit(TOGGLE_SIDEBAR, false)
-  // } else {
-  //   // console.log(getters.checkAuth)
-  //   // if (!getters.checkAuth) {
-  //   //   // console.log(getters.checkAuth)
-  //   //   router.push('/login')
-  //   // }
-  //   store.commit(TOGGLE_SIDEBAR, true)
-  // }
   next()
 })
 
