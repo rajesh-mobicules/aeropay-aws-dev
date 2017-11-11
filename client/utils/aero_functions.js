@@ -38,7 +38,7 @@ export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON, idToken
   dwolla.iav.start(iavToken, {
     container: 'iavContainer',
     stylesheets: [
-      'https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext',
+      // 'https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext',
       aeroConfig.iavCss
     ],
     microDeposits: aeroConfig.microDeposits,
@@ -135,9 +135,11 @@ export function refreshIav (idToken) {
       'Content-Type': 'application/json'
     }
   }
+  console.log(idToken)
   return new Promise((resolve, reject) => {
     axios.get(aeroConfig.refreshIavURL, config)
       .then(res => {
+        console.log(res)
         if (res.data !== null && typeof res.data === 'object' && 'iavToken' in res.data) {
           resolve(res.data.iavToken)
         } else {

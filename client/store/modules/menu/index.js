@@ -11,8 +11,8 @@ import help from './help'
 const state = {
   items: [
     {
-      name: 'Dashboard',
-      path: '/dashboard',
+      name: 'Transaction Analytics',
+      path: '/transactionanalytics',
       meta: {
         icon: 'fa-tachometer',
         link: 'dashboard/index.vue',

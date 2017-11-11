@@ -26,7 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="c in transactions">
+        <tr v-for="(c, i) in transactions" :key="i">
           <td class="customer"><span class="span"></span>{{c.firstName}} {{c.lastName}}</td>
           <td><span class="span">{{c.email}}</span></td>
           <td><span class="status">{{c.status}}</span></td>

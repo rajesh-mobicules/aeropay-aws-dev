@@ -9,7 +9,9 @@
     <div id="navMenu" class="navbar-menu">
 
       <div class="navbar-end">
-        <p v-if="checkAuth" class="navbar-item navbar-total">Total: -1</p>
+        <p v-if="checkAuth" class="navbar-item navbar-total">
+          Total Revenue: $6200 | Total Transactions: 40 | $5000 Total $ this month
+        </p
         <router-link v-if="!checkAuth" to="/login" class="navbar-item">Login</router-link>
         <a v-if="checkAuth" @click="logoutClick" class="navbar-item">Logout</a>
       </div>
@@ -106,6 +108,6 @@ export default {
   visibility: visible;
 }
 .navbar-total {
-  margin-right: 500px;
+  margin-right: 300px;
 }
 </style>

@@ -43,7 +43,7 @@
       </div>
         <!-- <input type="text" class="input" name="state" v-model="form.state"> -->
       <div class="field is-grouped">
-          
+
         <div class="control ">
           <span class="select">
             <select name="state" v-model="form.state" @click="clearErrors('state')">
@@ -424,7 +424,7 @@
           this.errors.ein = 'EIN number is not correct!'
         }
         if (ein === '12-3456789') {
-          this.error.ein = 'EIN cannot be 12-3456789!'
+          this.errors.ein = 'EIN cannot be 12-3456789!'
         }
         if (!this.validateEmail(email)) {
           this.errors.email = 'Email address is not valid!'
