@@ -4,22 +4,24 @@ import transactions from './transactions'
 import settings from './settings'
 import profile from './profile'
 import help from './help'
+import labs from './labs'
 // show: meta.label -> name
 // name: component name
 // meta.label: display label
 
 const state = {
   items: [
-    {
-      name: 'Transaction Analytics',
-      path: '/transactionanalytics',
-      meta: {
-        icon: 'fa-tachometer',
-        link: 'dashboard/index.vue',
-        auth: true
-      },
-      component: lazyLoading('dashboard', true)
-    },
+    // {
+    //   name: 'Transaction Analytics',
+    //   path: '/transactionanalytics',
+    //   meta: {
+    //     icon: 'fa-tachometer',
+    //     link: 'dashboard/index.vue',
+    //     auth: true
+    //   },
+    //   component: lazyLoading('dashboard', true)
+    // },
+    labs,
     transactions,
     {
       name: 'Customers',

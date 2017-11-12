@@ -279,19 +279,16 @@ export function getTransactionSummary (idToken) {
 }
 
 export function getTrasactionsByCondition (keyword, dateRange) {
-  let data = {
-    keyword: keyword
-  }
+  let url;
   if (dateRange !== null && dateRange.includes("to")) {
     const dates = dateRange.split("to")
     const from = dates[0].trim()
     const to = dates[1].trim()
-    data.dates = {
-      from: from,
-      to: to
-    }
+    url = `${aeroConfig.searchTransactionsForMerchant}?keyword=${keyword}&dateFrom=${from}&dateTo=${to}`
+  } else {
+    url = `${aeroConfig.searchTransactionsForMerchant}?keyword=${keyword}`
   }
-  return axios.post(aeroConfig.searchTransactionsForMerchant, data, config)
+  return axios.get(url)
     .then(res => res.data.transactions)
     .catch(err => err)
 }

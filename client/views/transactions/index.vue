@@ -1,31 +1,32 @@
 <template>
   <div>
-    <div class="search-box">
-      <div class="field has-addons">
-        <p class="control is-expanded has-icons-left">
-          <input class="input" type="text" placeholder="Name, email, or transaction ID" v-model="keyword">
-          <span class="icon is-small is-left">
-            <i class="fa fa-search"></i>
-          </span>
+    <div class="field columns">
+      <div class="control has-icons-left column is-6">
+        <input class="input" type="text" placeholder="Name, email, or transaction ID" v-model="keyword">
+        <span class="icon is-small is-left search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+      </div>
+        <p class="column is-4">
+            <flat-pickr
+              v-model="dateRange"
+              :config="dateConfig"
+              placeholder="date range. (optional)"
+            >
+            </flat-pickr>
+            <div class="column">
+          <button class="button" type="button" title="Clear" @click.prevent="clearDates">
+            <i class="fa fa-close">
+              <span aria-hidden="true" class="sr-only">Clear</span>
+            </i>
+          </button>
+        </div>
         </p>
-        <p class="control has-icons-right">
-          <datepicker
-            class="data-picker"
-            placeholder="date range. (optional)"
-            :config="dateConfig"
-            v-model="dateRange">
-        <a class="button date-clear" data-clear><i class="fa fa-close"></i></a>
-          </datepicker>
-          <span class="icon is-small is-right">
-            <i class="fa fa-calendar"></i>
-          </span>
-        </p>
-        <p class="control">
+        <p class="column">
           <a class="button is-info" @click.prevent="search">
             Search
           </a>
         </p>
-      </div>
     </div>
     <table class="table is-striped is-fullwidth">
       <thead>
@@ -58,10 +59,12 @@ import {
   getTransacations,
   getTrasactionsByCondition
 } from "utils/aero_functions";
-import Datepicker from "vue-bulma-datepicker";
+import flatPickr from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
 export default {
   components: {
-    Datepicker
+    Datepicker,
+    flatPickr
   },
   data() {
     return {
@@ -161,5 +164,8 @@ export default {
 .data-picker {
   width: 400px;
 }
-
+.search-icon {
+  margin-top: 11px;
+  margin-left: 10px;
+}
 </style>
