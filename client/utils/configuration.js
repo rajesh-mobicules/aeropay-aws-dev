@@ -37,7 +37,7 @@ if (stage === 'dev') {
 }
 
 export { awsConfig }
-
+// awsBaseUrl = '/dev/'
 export const iavCss = 'https://portal.aeropayments.com/iavcss/iav.css'
 
 export const aeroConfig = {
@@ -56,7 +56,7 @@ export const aeroConfig = {
   uploadDocumentForMerchant: awsBaseUrl + 'uploadDocumentForMerchant',
   retryCreateBusiness: awsBaseUrl + 'retryCreateBusiness',
   locationForMerchant: awsBaseUrl + 'locationForMerchant',
-  searchTransactionsForMerchant: 'https://mggeo0sr6e.execute-api.us-east-1.amazonaws.com/dev/searchTransactionsForMerchant'
+  searchTransactionsForMerchant: awsBaseUrl + 'sls/searchTransactionsForMerchant'
 }
 
 export const documentUploadURL = awsBaseUrl + 'uploadDocumentForMerchant'
