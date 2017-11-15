@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" id="profile-top">
+    <div class="card box" id="profile-top">
       <div class="card-content">
         <p class="title p-name">
           {{merchant.firstName}} {{merchant.lastName}}
@@ -342,7 +342,6 @@
   .card-footer-item {
     color: #3e4e67;
     text-align: center;
-    text-transform: uppercase;
     cursor: pointer;
   }
   .router-link-exact-active {
@@ -389,4 +388,5 @@
     position: relative;
     left: 1000px;
   }
+
 </style>

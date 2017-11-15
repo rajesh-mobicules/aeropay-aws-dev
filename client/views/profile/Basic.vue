@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card">
+    <div class="card box">
       <header class="card-header">
         <p class="card-header-title">
           Authorized representative
@@ -17,7 +17,7 @@
     </div>
     <br>
 
-    <div class="card">
+    <div class="card box">
       <header class="card-header">
         <p class="card-header-title">
           Contact Inforamtion
@@ -44,7 +44,7 @@
     </div>
     <br>
 
-    <div class="card">
+    <div class="card box">
       <header class="card-header">
         <p class="card-header-title">
           Organization

@@ -1,5 +1,4 @@
 import lazyLoading from './lazyLoading'
-
 export default {
   name: 'Profile',
   path: '/profile',

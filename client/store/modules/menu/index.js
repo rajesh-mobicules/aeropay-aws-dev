@@ -21,7 +21,6 @@ const state = {
     //   },
     //   component: lazyLoading('dashboard', true)
     // },
-    labs,
     transactions,
     {
       name: 'Customers',
@@ -34,6 +33,7 @@ const state = {
       component: lazyLoading('customers', true)
     },
     profile,
+    labs,
     settings,
     help
   ]

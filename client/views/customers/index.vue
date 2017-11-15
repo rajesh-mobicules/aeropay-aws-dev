@@ -15,25 +15,27 @@
         </p>
       </div>
     </div>
-    <table class="table is-striped is-fullwidth">
-      <thead>
-        <p class="trans_num">{{trans_num}} Customers</p>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Status</th>
-          <th>Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(c, i) in transactions" :key="i">
-          <td class="customer"><span class="span"></span>{{c.firstName}} {{c.lastName}}</td>
-          <td><span class="span">{{c.email}}</span></td>
-          <td><span class="status">{{c.status}}</span></td>
-          <td>{{c.created}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <article class="box">
+      <table class="table is-striped is-fullwidth">
+        <thead>
+          <p class="trans_num">{{trans_num}} Customers</p>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(c, i) in transactions" :key="i">
+            <td class="customer"><span class="span"></span>{{c.firstName}} {{c.lastName}}</td>
+            <td><span class="span">{{c.email}}</span></td>
+            <td><span class="status">{{c.status}}</span></td>
+            <td>{{c.created}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
     <br />
     <br />
     <br />

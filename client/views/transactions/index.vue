@@ -28,25 +28,29 @@
           </a>
         </p>
     </div>
-    <table class="table is-striped is-fullwidth">
-      <thead>
-        <p class="trans_num">{{trans_num}} Transactions</p>
-        <tr>
-          <th>Name</th>
-          <th>Date</th>
-          <th>Status</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(t, i) in totalTrans" :key="i">
-          <td class="customer"><span class="span"></span>{{t.customerName}}</td>
-          <td><span class="span">{{t.createdDate}}</span></td>
-          <td><span class="status">{{t.status}}</span></td>
-          <td :class="{'is-processed': t.status === 'processed', 'is-pending': t.status === 'pending'}">{{t.amount | renderCents}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <article class="box">
+      <table class="table is-striped is-fullwidth">
+        <thead>
+          <p class="trans_num">{{trans_num}} Transactions</p>
+          <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Others</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(t, i) in totalTrans" :key="i">
+            <td class="customer"><span class="span"></span>{{t.customerName}}</td>
+            <td><span class="span">{{t.createdDate}}</span></td>
+            <td><span class="status">{{t.status}}</span></td>
+            <td :class="{'is-processed': t.status === 'processed', 'is-pending': t.status === 'pending'}">{{t.amount | renderCents}}</td>
+            <td><span>{{t.location || '_'}}|{{t.locationId || '_'}}|{{t.merchantName || '_'}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
     <br />
     <br />
     <br />
@@ -138,7 +142,7 @@ export default {
 @import "~bulma";
 .span {
   color: #8393aa;
-  text-transform: uppercase;
+  text-transform: lowercase;
 }
 .customer {
   color: #3e4e67;
@@ -166,5 +170,8 @@ export default {
 .search-icon {
   margin-top: 11px;
   margin-left: 10px;
+}
+.trans-table {
+  border: #dbdbdb;
 }
 </style>

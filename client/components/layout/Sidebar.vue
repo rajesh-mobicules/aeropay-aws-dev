@@ -1,7 +1,7 @@
 <template>
   <aside class="menu app-sidebar animated" :class="{ slideInLeft: show, slideOutLeft: !show }">
     <p class="menu-label">
-      General
+      general
     </p>
     <ul class="menu-list">
       <li v-for="(item, index) in menu" :key="index">

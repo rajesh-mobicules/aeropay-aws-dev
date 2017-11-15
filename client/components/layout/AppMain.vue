@@ -1,6 +1,6 @@
 <template>
   <section class="app-main">
-    <div class="container is-fluid is-marginless app-content">
+    <div class="container is-fluid is-marginless app-content bg">
       <transition
         mode="out-in"
         enter-active-class="fadeIn"
@@ -38,4 +38,5 @@ export default {
 .app-content {
   padding: 20px;
 }
+
 </style>

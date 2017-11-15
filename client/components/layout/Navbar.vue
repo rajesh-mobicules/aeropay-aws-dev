@@ -9,10 +9,13 @@
     <div id="navMenu" class="navbar-menu">
       <div class="navbar-end">
         <p v-if="checkAuth" class="navbar-item navbar-total">
-          Total Revenue: $6200 | Total Transactions: 40 | $5000 Total $ this month
+          total revenue:
+          <span class="aero-number">$6200</span>
+          | total transactions: <span class="aero-number">49</span>
+          | <span class="aero-number">$5000</span> total $ this month
         </p>
-        <router-link v-if="!checkAuth" to="/login" class="navbar-item">Login</router-link>
-        <a v-if="checkAuth" @click="logoutClick" class="navbar-item">Logout</a>
+        <router-link v-if="!checkAuth" to="/login" class="navbar-item">login</router-link>
+        <a v-if="checkAuth" @click="logoutClick" class="navbar-item">logout</a>
       </div>
     </div>
   </nav>
@@ -52,9 +55,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import "~bulma/sass/utilities/variables";
-
+<style lang="scss" scoped>
+// @import "~bulma/sass/utilities/variables";
+@import "~bulma";
 .app-navbar {
   position: fixed;
   min-width: 100%;
@@ -108,5 +111,9 @@ export default {
 }
 .navbar-total {
   margin-right: 300px;
+}
+.aero-number {
+  color: $primary;
+  font-size: 25px;
 }
 </style>

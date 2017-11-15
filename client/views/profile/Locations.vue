@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card location-card" v-for="loc in locations" :key="loc.merchantLocationId">
+    <div class="card location-card box" v-for="loc in locations" :key="loc.merchantLocationId">
       <header class="card-header">
         <p class="card-header-title">
          {{loc.name || ""}}

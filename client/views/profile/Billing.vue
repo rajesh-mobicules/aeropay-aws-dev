@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card">
+    <div class="card box">
       <header class="card-header">
         <p class="card-header-title">
           Billing Method
@@ -27,7 +27,7 @@
           Billing History
         </p>
       </header>
-      <table class="table is-striped">
+      <table class="table is-striped is-fullwidth">
         <thead>
           <tr>
             <th>Date</th>
@@ -36,7 +36,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="t in billingHistory">
+          <tr v-for="(t, i) in billingHistory" :key="i">
             <td><span class="span">{{t.createdDate}}</span></td>
             <td><span class="status">{{t.status}}</span></td>
             <td :class="{'is-processed': t.status === 'processed', 'is-pending': t.status === 'pending'}">{{t.amount | renderCents}}</td>

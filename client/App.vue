@@ -3,7 +3,7 @@
     <nprogress-container></nprogress-container>
     <navbar v-show="true"></navbar>
     <sidebar :show="sidebar.opened && !sidebar.hidden"></sidebar>
-    <app-main></app-main>
+    <app-main class="bg"></app-main>
     <footer-bar></footer-bar>
   </div>
 </template>
@@ -58,13 +58,23 @@ export default {
 
 <style lang="scss">
 @import '~animate.css';
+@font-face {
+  font-family: "adineue";
+  src: url('./assets/adineuePRO-Regular.otf');
+}
+#app {
+  font-family: "adineue", serif;
+  text-transform: lowercase;
+}
 .animated {
   animation-duration: .377s;
 }
 
 $aeroBlue: #5fc8d8;
 // $primary: $aeroBlue;
-
+.bg {
+  background-color:#f5f5f5;
+}
 @import '~bulma';
 
 @import '~wysiwyg.css/wysiwyg.sass';
