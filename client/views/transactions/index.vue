@@ -2,7 +2,7 @@
   <div>
     <div class="field columns">
       <div class="control has-icons-left column is-6">
-        <input class="input" type="text" placeholder="Name, email, or transaction ID" v-model="keyword">
+        <input class="input" type="text" placeholder="search transactions" v-model="keyword">
         <span class="icon is-small is-left search-icon">
           <i class="fa fa-search"></i>
         </span>
@@ -29,7 +29,7 @@
         </p>
     </div>
     <article class="box">
-      <table class="table is-striped is-fullwidth">
+      <table class="table is-fullwidth">
         <thead>
           <p class="trans_num">{{trans_num}} Transactions</p>
           <tr>

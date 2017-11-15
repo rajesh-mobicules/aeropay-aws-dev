@@ -66,6 +66,11 @@ export default {
   font-family: "adineue", serif;
   text-transform: lowercase;
 }
+::-webkit-input-placeholder { font-family: "adineue", serif; }
+::-moz-placeholder { font-family: "adineue", serif; } /* firefox 19+ */
+:-ms-input-placeholder { font-family: "adineue", serif;} /* ie */
+input:-moz-placeholder { font-family: "adineue", serif; }
+
 .animated {
   animation-duration: .377s;
 }

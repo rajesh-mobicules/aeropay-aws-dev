@@ -3,7 +3,7 @@
     <div class="search-box">
       <div class="field has-addons">
         <p class="control is-expanded has-icons-left">
-          <input class="input" type="text" placeholder="Name, email, or customer ID">
+          <input class="input" type="text" placeholder="search customers">
           <span class="icon is-small is-left">
             <i class="fa fa-search"></i>
           </span>
@@ -16,7 +16,7 @@
       </div>
     </div>
     <article class="box">
-      <table class="table is-striped is-fullwidth">
+      <table class="table is-fullwidth">
         <thead>
           <p class="trans_num">{{trans_num}} Customers</p>
           <tr>

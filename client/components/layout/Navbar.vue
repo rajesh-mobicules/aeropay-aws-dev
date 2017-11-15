@@ -4,16 +4,16 @@
       <a class="navbar-item"  href="/">
         <img src="~assets/AP.png" alt="Aero Payments">
       </a>
+      <p v-if="checkAuth" class="navbar-item">
+          revenue<span class="aero-number">&nbsp;$6200</span>
+          &nbsp;&nbsp;&nbsp;transactions <span class="aero-number">&nbsp;49</span>
+           &nbsp;&nbsp;&nbsp;this month<span class="aero-number">&nbsp;$5000</span>
+        </p>
     </div>
 
     <div id="navMenu" class="navbar-menu">
       <div class="navbar-end">
-        <p v-if="checkAuth" class="navbar-item navbar-total">
-          total revenue:
-          <span class="aero-number">$6200</span>
-          | total transactions: <span class="aero-number">49</span>
-          | <span class="aero-number">$5000</span> total $ this month
-        </p>
+
         <router-link v-if="!checkAuth" to="/login" class="navbar-item">login</router-link>
         <a v-if="checkAuth" @click="logoutClick" class="navbar-item">logout</a>
       </div>

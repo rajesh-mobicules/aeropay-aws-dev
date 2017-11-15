@@ -27,7 +27,7 @@
           Billing History
         </p>
       </header>
-      <table class="table is-striped is-fullwidth">
+      <table class="table is-fullwidth">
         <thead>
           <tr>
             <th>Date</th>
