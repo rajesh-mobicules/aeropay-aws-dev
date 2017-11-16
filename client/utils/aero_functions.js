@@ -196,7 +196,7 @@ export function saveLocation (location, merchantLocationId) {
 
 export function getTransacations () {
   return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.getTransactionURL)
+    axios.get(aeroConfig.searchTransactionsForMerchant + '?keyword=')
       .then(res => {
         const data = res.data
         try {

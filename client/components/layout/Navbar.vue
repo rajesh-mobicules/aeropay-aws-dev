@@ -45,7 +45,7 @@ export default {
       this.isLoading = true;
       this.logout()
         .then(() => {
-          this.$router.push({ path: "/login" });
+          this.$router.push("/login");
         })
         .catch(err => {
           console.log(err);

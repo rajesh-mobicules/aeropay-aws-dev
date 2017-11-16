@@ -33,7 +33,7 @@
     margin-left: 180px;
     // margin-top: 80px;
     font-size: 15px;
-    background-color: #f5f5f5;
+    // background-color: #f5f5f5;
     // @include mobile() {
     //   margin-left: 0;
     // }

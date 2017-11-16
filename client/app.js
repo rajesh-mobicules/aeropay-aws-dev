@@ -45,14 +45,14 @@ const { state, getters } = store
 
 router.beforeEach((to, from, next) => {
   // console.log(to.meta.auth, !getters.checkAuth)
-  if (to.meta.auth && !getters.checkAuth) {
-    console.log('redirecting')
-    next('/login')
-  }
   if (!getters.checkAuth || !to.meta.auth) {
     store.commit(TOGGLE_SIDEBAR, false)
   } else if (!state.app.device.isMobile && !state.app.sidebar.opened) {
     store.commit(TOGGLE_SIDEBAR, true)
+  }
+  if (to.meta.auth && !getters.checkAuth) {
+    console.log('redirecting')
+    next('/login')
   }
   next()
 })

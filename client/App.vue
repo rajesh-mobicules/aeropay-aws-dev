@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg">
     <nprogress-container></nprogress-container>
     <navbar v-show="true"></navbar>
     <sidebar :show="sidebar.opened && !sidebar.hidden"></sidebar>
-    <app-main class="bg"></app-main>
+    <app-main></app-main>
     <footer-bar></footer-bar>
   </div>
 </template>
