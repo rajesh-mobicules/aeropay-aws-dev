@@ -31,6 +31,9 @@ const componententry = state => {
 const userVerified = state => state.user.userVerified
 const companyVerified = state => state.user.companyVerified
 
+const transPage = state => state.transactions.page
+const transLimit = state => state.transactions.limit
+
 export {
   pkg,
   app,
@@ -47,5 +50,7 @@ export {
   checkAuth,
   componententry,
   userVerified,
-  companyVerified
+  companyVerified,
+  transPage,
+  transLimit
 }

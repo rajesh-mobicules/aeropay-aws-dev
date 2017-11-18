@@ -2,12 +2,13 @@ import lazyLoading from './lazyLoading'
 
 export default {
   name: 'Transactions',
-  path: '/transactions',
+  path: '/transactions/',
   meta: {
     icon: 'fa-usd',
     expanded: false,
     link: 'transactions/index.vue',
     auth: true
   },
-  component: lazyLoading('transactions', true)
+  component: lazyLoading('transactions', true),
+  props: true
 }

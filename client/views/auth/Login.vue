@@ -92,7 +92,7 @@ export default {
         this.cognitoLogin(this.data.body)
           .then(() => {
             this.isLoading = false
-            this.$router.push({ path: '/profile' })
+            this.$router.push({ path: '/transactions' })
           })
           .catch(err => {
             this.err = err

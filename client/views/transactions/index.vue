@@ -50,6 +50,12 @@
           </tr>
         </tbody>
       </table>
+      <div class="columns">
+        <div class="column is-offset-4 is-4 has-text-centered">
+          <button class="button is-primary" @click="prevPage" v-if="transPage > 1">previous page</button>
+          <button class="button is-success" @click="nextPage">next page</button>
+        </div>
+      </div>
     </article>
     <br />
     <br />
@@ -65,6 +71,7 @@ import {
 } from "utils/aero_functions";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   components: {
     flatPickr
@@ -97,8 +104,25 @@ export default {
     clearDates() {
       this.dateRange = "";
     },
+    nextPage() {
+      this.SET_TRANS_PAGE(this.transPage + 1);
+      this.rawSearch(this.transPage, this.transLimit);
+    },
+    prevPage() {
+      this.SET_TRANS_PAGE(this.transPage - 1);
+      this.rawSearch(this.transPage, this.transLimit);
+    },
     search() {
-      getTrasactionsByCondition(this.keyword, this.dateRange)
+      this.SET_TRANS_PAGE(1);
+      this.rawSearch(1, 10);
+    },
+    rawSearch(transPage, transLimit) {
+      getTrasactionsByCondition(
+        this.keyword,
+        this.dateRange,
+        transPage,
+        transLimit
+      )
         .then(trans => {
           console.log(trans);
           this.transactions = trans.sort((a, b) => {
@@ -106,7 +130,8 @@ export default {
           });
         })
         .catch(err => console.log(err));
-    }
+    },
+    ...mapMutations(["SET_TRANS_PAGE", "SET_TRANS_LIMIT"])
   },
   computed: {
     merchantName() {
@@ -126,8 +151,10 @@ export default {
     },
     trans_num() {
       return this.transactions.length;
-    }
+    },
+    ...mapGetters(["transPage", "transLimit"])
   },
+
   filters: {
     renderCents(value) {
       if (!value) value = 0;

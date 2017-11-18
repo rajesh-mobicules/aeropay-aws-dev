@@ -278,8 +278,9 @@ export function getTransactionSummary (idToken) {
   })
 }
 
-export function getTrasactionsByCondition (keyword, dateRange) {
+export function getTrasactionsByCondition (keyword, dateRange, page, limit) {
   let url;
+  const pageLimit = `&page=${page}&limit=${limit}`
   if (dateRange !== null && dateRange.includes("to")) {
     const dates = dateRange.split("to")
     const from = dates[0].trim()
@@ -288,6 +289,7 @@ export function getTrasactionsByCondition (keyword, dateRange) {
   } else {
     url = `${aeroConfig.searchTransactionsForMerchant}?keyword=${keyword}`
   }
+  url += pageLimit
   return axios.get(url)
     .then(res => res.data.transactions)
     .catch(err => err)
