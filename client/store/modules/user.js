@@ -13,7 +13,8 @@ const user = {
     fundingSource: null,
     showIavProfileButton: false,
     userVerified: true,
-    companyVerified: true
+    companyVerified: true,
+    mapAPIKey: 'AIzaSyBXMeMOyfE70CibQn4NaxtHKW7lDqWfgUg'
   },
   mutations: {
     SET_EMAIL: (state, email) => {

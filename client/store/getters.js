@@ -9,6 +9,7 @@ const accessToken = state => state.user.accessToken
 const idToken = state => state.user.idToken
 const refreshToken = state => state.user.refreshToken
 const fundingSource = state => state.user.fundingSource
+const mapAPIKey = state => state.user.mapAPIKey
 const email = state => {
   const jwt = state.user.accessToken
   if (jwt === null || jwt === '') return ''
@@ -52,5 +53,6 @@ export {
   userVerified,
   companyVerified,
   transPage,
-  transLimit
+  transLimit,
+  mapAPIKey
 }

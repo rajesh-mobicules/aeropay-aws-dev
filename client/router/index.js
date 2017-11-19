@@ -40,8 +40,12 @@ export default new Router({
       component: require('../views/iav')
     },
     {
-      path: '/profile',
-      redirect: '/profile/basic'
+      path: '/account',
+      redirect: '/account/info'
+    },
+    {
+      path: '/labs',
+      redirect: 'labs/gallery'
     },
     ...generateRoutesFromMenu(menuModule.state.items),
     {

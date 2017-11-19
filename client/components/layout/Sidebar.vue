@@ -5,22 +5,22 @@
     </p>
     <ul class="menu-list">
       <li v-for="(item, index) in menu" :key="index">
-        <router-link :to="item.path" :exact="true" :aria-expanded="isExpanded(item) ? 'true' : 'false'" v-if="item.path" @click.native="toggle(index, item)">
+        <router-link :to="item.path" :exact="isExpanedAble(item)" :aria-expanded="isExpanded(item) ? 'true' : 'false'" v-if="item.path" @click.native="toggle(index, item)">
           <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span>
           {{ item.meta.label || item.name }}
-          <span class="icon is-small is-angle" v-if="item.children && item.children.length">
+          <span class="icon is-small is-angle" v-if="isExpanedAble(item)">
             <i class="fa fa-angle-down"></i>
           </span>
         </router-link>
         <a :aria-expanded="isExpanded(item)" v-else @click="toggle(index, item)">
           <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span>
           {{ item.meta.label || item.name }}
-          <span class="icon is-small is-angle" v-if="item.children && item.children.length">
+          <span class="icon is-small is-angle" v-if="isExpanedAble(item)">
             <i class="fa fa-angle-down"></i>
           </span>
         </a>
 
-        <expanding v-if="item.children && item.children.length">
+        <expanding v-if="isExpanedAble(item)">
           <ul v-show="isExpanded(item)">
             <li v-for="(subItem, index) in item.children" v-if="subItem.path" :key="index">
               <router-link :to="generatePath(item, subItem)">
@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import Expanding from 'vue-bulma-expanding'
-import { mapGetters, mapActions } from 'vuex'
+import Expanding from "vue-bulma-expanding";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -47,74 +47,79 @@ export default {
     show: Boolean
   },
 
-  data () {
+  data() {
     return {
       isReady: false
-    }
+    };
   },
 
-  mounted () {
-    let route = this.$route
+  mounted() {
+    let route = this.$route;
     if (route.name) {
-      this.isReady = true
-      this.shouldExpandMatchItem(route)
+      this.isReady = true;
+      this.shouldExpandMatchItem(route);
     }
   },
 
   computed: mapGetters({
-    menu: 'menuitems'
+    menu: "menuitems"
   }),
 
   methods: {
-    ...mapActions([
-      'expandMenu'
-    ]),
+    ...mapActions(["expandMenu"]),
 
-    isExpanded (item) {
-      return item.meta.expanded
+    isExpanded(item) {
+      return item.meta.expanded;
     },
 
-    toggle (index, item) {
+    isExpanedAble(item) {
+      if (item.meta.isExpandAble === false) {
+        return false;
+      }
+      return item.children && item.children.length > 0;
+    },
+
+    toggle(index, item) {
       this.expandMenu({
         index: index,
         expanded: !item.meta.expanded
-      })
+      });
     },
 
-    shouldExpandMatchItem (route) {
-      let matched = route.matched
-      let lastMatched = matched[matched.length - 1]
-      let parent = lastMatched.parent || lastMatched
-      const isParent = parent === lastMatched
+    shouldExpandMatchItem(route) {
+      let matched = route.matched;
+      let lastMatched = matched[matched.length - 1];
+      let parent = lastMatched.parent || lastMatched;
+      const isParent = parent === lastMatched;
 
       if (isParent) {
-        const p = this.findParentFromMenu(route)
+        const p = this.findParentFromMenu(route);
         if (p) {
-          parent = p
+          parent = p;
         }
       }
 
-      if ('expanded' in parent.meta && !isParent) {
+      if ("expanded" in parent.meta && !isParent) {
         this.expandMenu({
           item: parent,
           expanded: true
-        })
+        });
       }
     },
 
-    generatePath (item, subItem) {
-      return `${item.component ? item.path + '/' : ''}${subItem.path}`
+    generatePath(item, subItem) {
+      return `${item.component ? item.path + "/" : ""}${subItem.path}`;
     },
 
-    findParentFromMenu (route) {
-      const menu = this.menu
+    findParentFromMenu(route) {
+      const menu = this.menu;
       for (let i = 0, l = menu.length; i < l; i++) {
-        const item = menu[i]
-        const k = item.children && item.children.length
+        const item = menu[i];
+        const k = item.children && item.children.length;
         if (k) {
           for (let j = 0; j < k; j++) {
             if (item.children[j].name === route.name) {
-              return item
+              return item;
             }
           }
         }
@@ -123,18 +128,17 @@ export default {
   },
 
   watch: {
-    $route (route) {
-      this.isReady = true
-      this.shouldExpandMatchItem(route)
+    $route(route) {
+      this.isReady = true;
+      this.shouldExpandMatchItem(route);
     }
   }
-
-}
+};
 </script>
 
 <style lang="scss">
-@import '~bulma/sass/utilities/variables';
-@import '~bulma/sass/utilities/mixins';
+@import "~bulma/sass/utilities/variables";
+@import "~bulma/sass/utilities/mixins";
 
 .app-sidebar {
   position: fixed;
@@ -147,7 +151,7 @@ export default {
   max-height: 100vh;
   height: calc(100% - 50px);
   z-index: 1024 - 1;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1), 0 0 0 1px rgba(17, 17, 17, 0.1);
   overflow-y: auto;
   overflow-x: hidden;
@@ -161,7 +165,7 @@ export default {
     &.is-angle {
       position: absolute;
       right: 10px;
-      transition: transform .377s ease;
+      transition: transform 0.377s ease;
     }
   }
 
@@ -182,6 +186,5 @@ export default {
       margin: 0 10px 0 15px;
     }
   }
-
 }
 </style>

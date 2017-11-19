@@ -2,7 +2,7 @@ import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
 import transactions from './transactions'
 import settings from './settings'
-import profile from './profile'
+import account from './account'
 import help from './help'
 import labs from './labs'
 // show: meta.label -> name
@@ -32,7 +32,7 @@ const state = {
       },
       component: lazyLoading('customers', true)
     },
-    profile,
+    account,
     labs,
     settings,
     help

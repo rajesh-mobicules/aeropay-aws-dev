@@ -12,8 +12,8 @@ export default {
   component: lazyLoading('labs', true),
   children: [
     {
-      name: 'Labs',
-      path: '',
+      name: 'Gallery',
+      path: 'labs/gallery',
       meta: {
         link: 'labs/labs.vue',
         auth: true

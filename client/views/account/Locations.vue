@@ -29,24 +29,30 @@
         </div>
       </div>
       <div class="card-content" v-show="loc.editable">
-        <div class="content">
-          <dl>
-            <dt>Location Name</dt>
-            <dd><input v-model="loc.name"></input></dd>
-            <dt>address</dt>
-            <dd><input v-model="loc.address"></input></dd>
-            <dt>city</dt>
-            <dd><input v-model="loc.city"></input></dd>
-            <dt>state</dt>
-            <dd>
-              <select name="state" v-model="loc.state">
-                <option v-for="s in states" :key="s">{{ s }}</option>
-               </select>
-             </dd>
-            <dt>postal code</dt>
-            <dd><input v-model="loc.postalCode"></input></dd>
-          </dl>
+        <div class="columns">
+          <div class="content column is-half">
+            <dl>
+              <dt>Location Name</dt>
+              <dd><input v-model="loc.name"></input></dd>
+              <dt>address</dt>
+              <dd><input v-model="loc.address"></input></dd>
+              <dt>city</dt>
+              <dd><input v-model="loc.city"></input></dd>
+              <dt>state</dt>
+              <dd>
+                <select name="state" v-model="loc.state">
+                  <option v-for="s in states" :key="s">{{ s }}</option>
+                </select>
+              </dd>
+              <dt>postal code</dt>
+              <dd><input v-model="loc.postalCode"></input></dd>
+            </dl>
+          </div>
+          <div class="column is-half">
+            <img :src="getMapUrl(loc)" alt="location">
+          </div>
         </div>
+
         <div class="has-text-centered content">
           <button
            class="button is-primary"
@@ -131,6 +137,8 @@ import {
 import VueScrollTo from "vue-scrollto";
 import { SweetModal } from "sweet-modal-vue";
 import statesHash from "utils/states_hash.json";
+import { mapGetters } from "vuex";
+// import {load, Map, Marker} from 'vue-google-maps'
 export default {
   components: {
     SweetModal
@@ -184,13 +192,13 @@ export default {
       });
     },
     locationSave(merchantLocationId) {
-      this.isLoading = true
+      this.isLoading = true;
       const location = this.locations.find(
         loc => loc.merchantLocationId === merchantLocationId
       );
       saveLocation(location, merchantLocationId)
         .then(res => {
-          this.isLoading = false
+          this.isLoading = false;
           this.locations = this.locations.map(loc => {
             if (loc.merchantLocationId === merchantLocationId) {
               loc.editable = false;
@@ -199,7 +207,7 @@ export default {
           });
         })
         .catch(err => {
-          this.isLoading = false
+          this.isLoading = false;
           console.log(err);
         });
     },
@@ -246,6 +254,13 @@ export default {
           window.alert("server is business, please try it later");
           console.log(err);
         });
+    },
+    getMapUrl(loc) {
+      // console.log(loc.latitude, loc.longitude)
+      const center = `${loc.latitude},${loc.longitude}`;
+      const markers = `color:blue%7clabel:S%7c${center}`;
+      return `https://maps.googleapis.com/maps/api/staticmap?center=${center}&zoom=15&size=300x200&
+markers=${markers}&${center}&key=${this.mapAPIKey}`;
     }
   },
   computed: {
@@ -256,6 +271,7 @@ export default {
       }
       return ss;
     },
+    ...mapGetters(["mapAPIKey"]),
     emptyLocation() {
       if (this.locations.length === 0) {
         return {

@@ -33,17 +33,17 @@
         </span>
       </div>
       <footer class="card-footer">
-        <router-link to="/profile/basic" class="card-footer-item">
+        <router-link to="/account/info" class="card-footer-item">
           <span>
-            Basic Info
+            Info
           </span>
         </router-link>
-        <router-link to="/profile/locations" class="card-footer-item">
+        <router-link to="/account/locations" class="card-footer-item">
           <span>
             Locations
           </span>
         </router-link>
-        <router-link to="/profile/billing" class="card-footer-item">
+        <router-link to="/account/billing" class="card-footer-item">
           <span>
             Billing
           </span>

@@ -1,13 +1,13 @@
 import lazyLoading from './lazyLoading'
 
 export default {
-  name: 'Help',
-  path: '/help',
+  name: 'Support',
+  path: '/support',
   meta: {
     icon: 'fa-question',
     expanded: false,
-    link: 'help/index.vue',
+    link: 'support/index.vue',
     auth: true
   },
-  component: lazyLoading('help', true)
+  component: lazyLoading('support', true)
 }
