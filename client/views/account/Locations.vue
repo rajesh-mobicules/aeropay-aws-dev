@@ -10,19 +10,24 @@
          <span class="delete-button" @click="confirmDelete(loc.merchantLocationId)"><button class="delete delete-sign" aria-label="delete"></button></span>
       </header>
       <div class="card-content" v-show="!loc.editable">
-        <div class="content">
-          <dl>
-            <dt>locaion id</dt>
-            <dd>{{loc.merchantLocationId || "_"}}</dd>
-            <dt>address</dt>
-            <dd>{{loc.address || "_"}}</dd>
-            <dt>city</dt>
-            <dd>{{loc.city || "_"}}</dd>
-            <dt>state</dt>
-            <dd>{{loc.state || "_"}}</dd>
-            <dt>postal code</dt>
-            <dd>{{loc.postalCode || "_"}}</dd>
-          </dl>
+        <div class="columns">
+          <div class="content column is-half">
+            <dl>
+              <dt>locaion id</dt>
+              <dd>{{loc.merchantLocationId || "_"}}</dd>
+              <dt>address</dt>
+              <dd>{{loc.address || "_"}}</dd>
+              <dt>city</dt>
+              <dd>{{loc.city || "_"}}</dd>
+              <dt>state</dt>
+              <dd>{{loc.state || "_"}}</dd>
+              <dt>postal code</dt>
+              <dd>{{loc.postalCode || "_"}}</dd>
+            </dl>
+          </div>
+          <div class="column is-half">
+            <img :src="getMapUrl(loc)" alt="location">
+          </div>
         </div>
         <div class="has-text-centered content">
           <router-link to="#" class="button is-primary">Add Device to This Location</router-link>
@@ -48,9 +53,7 @@
               <dd><input v-model="loc.postalCode"></input></dd>
             </dl>
           </div>
-          <div class="column is-half">
-            <img :src="getMapUrl(loc)" alt="location">
-          </div>
+
         </div>
 
         <div class="has-text-centered content">
