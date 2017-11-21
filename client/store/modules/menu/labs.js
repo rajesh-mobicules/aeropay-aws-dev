@@ -13,7 +13,7 @@ export default {
   children: [
     {
       name: 'Gallery',
-      path: 'labs/gallery',
+      path: 'gallery',
       meta: {
         link: 'labs/labs.vue',
         auth: true

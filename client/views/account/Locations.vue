@@ -168,7 +168,7 @@ export default {
   beforeMount() {
     getLocations()
       .then(locations => {
-        // console.log(locations)
+        console.log(locations)
 
         this.locations = locations.map(loc => {
           loc.editable = false;
@@ -206,6 +206,7 @@ export default {
             if (loc.merchantLocationId === merchantLocationId) {
               loc.editable = false;
             }
+            console.log(loc)
             return loc;
           });
         })
