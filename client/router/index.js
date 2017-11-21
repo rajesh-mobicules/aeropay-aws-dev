@@ -43,10 +43,6 @@ export default new Router({
       path: '/account',
       redirect: '/account/info'
     },
-    {
-      path: '/labs',
-      redirect: 'labs/gallery'
-    },
     ...generateRoutesFromMenu(menuModule.state.items),
     {
       path: '*',
