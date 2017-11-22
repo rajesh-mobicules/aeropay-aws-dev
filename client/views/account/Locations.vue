@@ -33,27 +33,26 @@
           <router-link to="#" class="button is-primary">Add Device to This Location</router-link>
         </div>
       </div>
-      <div class="card-content" v-show="loc.editable">
+      <div class="card-content" v-if="loc.editable">
         <div class="columns">
           <div class="content column is-half">
             <dl>
               <dt>Location Name</dt>
-              <dd><input v-model="loc.name"></input></dd>
+              <dd><input v-model="tempLocs.get(loc.merchantLocationId).name"></input></dd>
               <dt>address</dt>
-              <dd><input v-model="loc.address"></input></dd>
+              <dd><input v-model="tempLocs.get(loc.merchantLocationId).address"></input></dd>
               <dt>city</dt>
-              <dd><input v-model="loc.city"></input></dd>
+              <dd><input v-model="tempLocs.get(loc.merchantLocationId).city"></input></dd>
               <dt>state</dt>
               <dd>
-                <select name="state" v-model="loc.state">
+                <select name="state" v-model="tempLocs.get(loc.merchantLocationId).state">
                   <option v-for="s in states" :key="s">{{ s }}</option>
                 </select>
               </dd>
               <dt>postal code</dt>
-              <dd><input v-model="loc.postalCode"></input></dd>
+              <dd><input v-model="tempLocs.get(loc.merchantLocationId).postalCode"></input></dd>
             </dl>
           </div>
-
         </div>
 
         <div class="has-text-centered content">
@@ -61,6 +60,7 @@
            class="button is-primary"
            @click="locationSave(loc.merchantLocationId)"
            :class = "{'is-loading' : isLoading}">Save</button>
+           <button class="button" @click="cacelEdit(loc.merchantLocationId)">cancel</button>
         </div>
       </div>
     </div>
@@ -149,15 +149,8 @@ export default {
   data() {
     return {
       locations: [],
-      location: {
-        name: "",
-        address: "",
-        city: "",
-        state: "",
-        postalCode: "",
-        latitude: "",
-        longitude: ""
-      },
+      tempLocs: new Map(),
+      location: {},
       hasErr: false,
       errMessage: "",
       disabled: false,
@@ -168,7 +161,7 @@ export default {
   beforeMount() {
     getLocations()
       .then(locations => {
-        console.log(locations)
+        console.log(locations);
 
         this.locations = locations.map(loc => {
           loc.editable = false;
@@ -186,27 +179,38 @@ export default {
       };
       VueScrollTo.scrollTo("#profile-top", 500, options);
     },
+    cacelEdit(id) {
+      this.locations = this.locations.map(loc => {
+        if (loc.merchantLocationId === id) {
+          loc.editable = false;
+        }
+        return loc;
+      })
+    },
     editLocation(merchantLocationId) {
       this.locations = this.locations.map(loc => {
         if (loc.merchantLocationId === merchantLocationId) {
           loc.editable = true;
+          this.tempLocs.set(merchantLocationId, loc)
         }
         return loc;
       });
     },
-    locationSave(merchantLocationId) {
+    locationSave(id) {
       this.isLoading = true;
-      const location = this.locations.find(
-        loc => loc.merchantLocationId === merchantLocationId
-      );
-      saveLocation(location, merchantLocationId)
+      const location = this.tempLocs.get(id);
+      delete location.longitude;
+      delete location.latitude;
+      saveLocation(location, id)
         .then(res => {
+          const newLoc = JSON.parse(res.data.location.replace(/'/g, "\""))
+          console.log(newLoc)
           this.isLoading = false;
           this.locations = this.locations.map(loc => {
-            if (loc.merchantLocationId === merchantLocationId) {
+            if (loc.merchantLocationId === newLoc.merchantLocationId) {
+              loc = newLoc;
               loc.editable = false;
             }
-            console.log(loc)
             return loc;
           });
         })
@@ -230,6 +234,7 @@ export default {
             console.log(err);
             this.errMessage = err.message;
           });
+        this.location = {}
       }
     },
     confirmDelete(merchantLocationId) {
