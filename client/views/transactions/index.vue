@@ -1,26 +1,28 @@
 <template>
   <div>
-    <div class="field columns">
-      <div class="control has-icons-left column is-6">
-        <input class="input" type="text" placeholder="search transactions" v-model="keyword">
-        <span class="icon is-small is-left search-icon">
-          <i class="fa fa-search"></i>
-        </span>
-      </div>
-        <p class="column is-4">
-            <flat-pickr
-              v-model="dateRange"
-              :config="dateConfig"
-              placeholder="date range. (optional)"
-            >
-            </flat-pickr>
-            <div class="column">
-          <button class="button" type="button" title="Clear" @click.prevent="clearDates">
-            <i class="fa fa-close">
-              <span aria-hidden="true" class="sr-only">Clear</span>
-            </i>
-          </button>
+    <div>
+      <div class="field columns">
+        <div class="control has-icons-left column is-6">
+          <input class="input" type="text" placeholder="search transactions"
+          v-model="keyword" @keyup="searchWhenStop" @blur="clearAutoSearch">
+          <span class="icon is-small is-left search-icon">
+            <i class="fa fa-search"></i>
+          </span>
         </div>
+          <p class="column is-4">
+              <flat-pickr
+                v-model="dateRange"
+                :config="dateConfig"
+                placeholder="date range. (optional)"
+              >
+              </flat-pickr>
+              <div class="column">
+            <button class="button" type="button" title="Clear" @click.prevent="clearDates">
+              <i class="fa fa-close">
+                <span aria-hidden="true" class="sr-only">Clear</span>
+              </i>
+            </button>
+          </div>
         </p>
         <p class="column">
           <a class="button is-info" @click.prevent="search">
@@ -28,6 +30,22 @@
           </a>
         </p>
     </div>
+  </div>
+  <div class="auto-search-content">
+    <div class="card" v-if="this.tempTrans.length > 0">
+      <div v-for="(t, i) in this.tempTrans" :key="i">
+        <div class="card">
+          <p>
+            {{t.customerName}}
+            <span>{{t.createdDate}}</span>
+          </p>
+          <p :class="statusClass(t)">{{t.amount | renderCents}}</p>
+          <p>{{t.status}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
     <article class="box">
       <table class="table is-fullwidth">
         <thead>
@@ -45,7 +63,7 @@
             <td class="customer"><span class="span"></span>{{t.customerName}}</td>
             <td><span class="span">{{t.createdDate}}</span></td>
             <td><span class="status">{{t.status}}</span></td>
-            <td :class="{'is-processed': t.status === 'processed', 'is-pending': t.status === 'pending'}">{{t.amount | renderCents}}</td>
+            <td :class="statusClass(t)">{{t.amount | renderCents}}</td>
             <td><span>{{t.location || '_'}}|{{t.locationId || '_'}}|{{t.merchantName || '_'}}</span></td>
           </tr>
         </tbody>
@@ -79,6 +97,7 @@ export default {
   data() {
     return {
       transactions: [],
+      tempTrans: [],
       keyword: "",
       dateRange: null,
       dateConfig: {
@@ -87,7 +106,8 @@ export default {
         maxDate: "today",
         wrap: true,
         disable: []
-      }
+      },
+      timeout: null
     };
   },
   beforeMount() {
@@ -101,6 +121,12 @@ export default {
       .catch(err => console.log(err));
   },
   methods: {
+    statusClass(t) {
+      return {'is-processed': t.status === 'processed', 'is-pending': t.status === 'pending'}
+    },
+    clearAutoSearch() {
+      this.tempTrans = []
+    },
     clearDates() {
       this.dateRange = "";
     },
@@ -116,7 +142,27 @@ export default {
       this.SET_TRANS_PAGE(1);
       this.rawSearch(1, 10);
     },
+    searchWhenStop() {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(this.autoSearch, 500)
+    },
+    autoSearch() {
+      getTrasactionsByCondition(
+        this.keyword,
+        null,
+        this.transPage,
+        this.transLimit
+        )
+        .then(trans => {
+          console.log(trans);
+          this.tempTrans = trans.sort((a, b) => {
+            return new Date(b.createdDate) - new Date(a.createdDate);
+          });
+        })
+        .catch(err => console.log(err));
+    },
     rawSearch(transPage, transLimit) {
+      this.tempTrans = [];
       getTrasactionsByCondition(
         this.keyword,
         this.dateRange,
@@ -200,5 +246,11 @@ export default {
 }
 .trans-table {
   border: #dbdbdb;
+}
+.auto-search-content {
+  position: fixed;
+  margin-top: 10px;
+  width: 30%;
+  z-index: 1000;
 }
 </style>
