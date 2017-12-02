@@ -1,2 +1,4 @@
 build/build.js
 node_modules/*/*
+client/utils/aws_sdk/apigClient.js
+client/utils/aws_sdk/lib/*

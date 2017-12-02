@@ -8,82 +8,51 @@
     </p>
     <br>
     <div>
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <figure class="heat-map">
-            <img src="~assets/heat_map.png" alt="heat-map image">
-          </figure>
-        </div>
-        <div class="column auto">
-          <div class="card">
-            <header class="card-header">
-              <a class="card-header-title" href="about:blank" target="_blank">
-                Orders Heat Map View
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                This awesome heatmap, layering orders visulization per geographical areas per different time ranges.
-                <br>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <figure class="analytics-img">
-            <img src="~assets/analytics.png" alt="analytics image">
-          </figure>
-        </div>
-        <div class="column is-auto">
-          <div class="card">
-            <header class="card-header">
-              <a class="card-header-title" href="about:blank" target="_blank">
-                Live Business Analytics
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Live Business Analytics
-                <br>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <figure class="analytics-img">
-            <img src="~assets/leaderboard.png" alt="analytics image">
-          </figure>
-        </div>
-        <div class="column is-auto">
-          <div class="card">
-            <header class="card-header">
-              <a class="card-header-title" href="about:blank" target="_blank">
-                Leader Board
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Leader Board
-                <br>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- <feature-tab
+        imageUrl="assets/img/heat_map.png"
+        title="Orders Heat Map View"
+        description="This awesome heatmap, layering orders visulization per geographical areas per different time ranges."
+        link="about:blank"
+      /> -->
+      <feature-tab
+        title="Live Map"
+        description="Live Map"
+        link="about:blank"
+      >
+        <figure>
+          <img src="~assets/live-map.png" alt="Live Map">
+        </figure>
+      </feature-tab>
+      <feature-tab
+        title="Live Business Analytics"
+        description="Live Business Analytics"
+        link="/analytics"
+      >
+        <figure>
+          <img src="~assets/analytics.png" alt="Live Business Analytics">
+        </figure>
+      </feature-tab>
+      <feature-tab
+        title="Leader Board"
+        description="Leader Board"
+        link="about:blank"
+      >
+        <figure>
+          <img src="~assets/leaderboard.png" alt="Leader Board">
+        </figure>
+      </feature-tab>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import FeatureTab from './FeatureTab'
+// import heapMap from 'assets/heat_map.png'
+export default {
+  components: {
+    FeatureTab
+  }
+};
 </script>
 
 <style>

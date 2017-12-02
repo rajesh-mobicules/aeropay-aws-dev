@@ -253,4 +253,7 @@ export default {
   width: 30%;
   z-index: 1000;
 }
+input {
+  font-family: "adineue", serif;
+}
 </style>

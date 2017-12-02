@@ -13,8 +13,6 @@ export function registerMerchant (formData, idToken) {
       'Content-Type': 'application/json'
     }
   }
-  // console.log(config)
-  // const creatMerchantURL = 'http://merchant-dev.us-east-1.elasticbeanstalk.com/createBusiness'
   return new Promise((resolve, reject) => {
     axios.post(aeroConfig.creatMerchantURL, formData, config)
       .then(res => {

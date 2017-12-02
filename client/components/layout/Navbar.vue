@@ -24,7 +24,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-
 export default {
   components: {
   },
@@ -42,14 +41,8 @@ export default {
   methods: {
     ...mapActions(["toggleSidebar", "logout"]),
     logoutClick() {
-      this.isLoading = true;
-      this.logout()
-        .then(() => {
-          this.$router.push("/login");
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.logout();
+      this.$router.push('login');
     }
   }
 };

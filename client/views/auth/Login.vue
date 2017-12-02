@@ -67,86 +67,104 @@
 </template>
 
 <script>
-// import { awsAuthenticate } from '../../utils/aws_functions'
-import { mapActions } from 'vuex'
+// import { awsAuthenticate } from "utils/aws_functions";
+import { mapActions } from "vuex";
 export default {
-  data () {
+  data() {
     return {
       data: {
         body: {
-          email: '',
-          password: ''
+          email: "",
+          password: ""
         },
         rememberMe: false
       },
       hasErr: null,
-      errMessage: '',
+      errMessage: "",
       isLoading: false
-    }
+    };
   },
   methods: {
-    ...mapActions(['cognitoLogin', 'toggleSidebar']),
-    loginClick () {
+    ...mapActions(["cognitoLogin", "toggleSidebar"]),
+    resolveLogin() {
+      this.isLoading = false;
+      this.$router.push({ path: "/transactions" });
+    },
+    rejectLogin(err) {
+      this.err = err;
+      this.handleErr(err);
+      this.isLoading = false;
+    },
+    loginClick() {
+      const payload = {
+        userInfo: this.data.body,
+        resolveLogin: this.resolveLogin,
+        rejectLogin: this.rejectLogin
+      }
       if (!this.disabled) {
-        this.isLoading = true
-        this.cognitoLogin(this.data.body)
-          .then(() => {
-            this.isLoading = false
-            this.$router.push({ path: '/transactions' })
-          })
-          .catch(err => {
-            this.err = err
-            this.handleErr(err)
-            // console.log(err)
-            this.isLoading = false
-          })
+        this.isLoading = true;
+        this.cognitoLogin(
+          payload
+        );
+        // .then(() => {
+        //   this.isLoading = false;
+        //   this.$router.push({ path: "/transactions" });
+        // })
+        // .catch(err => {
+        //   this.err = err;
+        //   this.handleErr(err);
+        //   // console.log(err)
+        //   this.isLoading = false;
+        // });
       }
     },
-    handleErr (err) {
-      this.hasErr = true
-      this.errMessage = err.message
+    handleErr(err) {
+      this.hasErr = true;
+      this.errMessage = err.message;
     }
   },
   computed: {
-    disabled () {
-      return this.data.body.email === '' || this.data.body.password === ''
+    disabled() {
+      return this.data.body.email === "" || this.data.body.password === "";
     }
   }
-
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  // @import "../sass/utilities/initial-variables"
-  // @primary: #72d0eb
-  @import '~bulma';
-  .app-login {
-    margin-top: 30px;
-    margin-left: -100px;
-  }
-  .is-title {
-    text-transform: capitalize;
-  }
-  .aeroImg {
-    height: 234px;
-    width: 234px;
-    margin-bottom: 0px;
-    margin-top: -60px;
-  }
-  .portal {
-    // font-family: "futura-pt";
-    font-family: "Gotham";
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-  #submit {
-    width: 200px;
-  }
-  .error {
-    font-size: 20px;
-  }
-  .forgot-password {
-    float: right;
-    color: $blue;
-  }
+// @import "../sass/utilities/initial-variables"
+// @primary: #72d0eb
+@import "~bulma";
+.app-login {
+  margin-top: 30px;
+  margin-left: -100px;
+}
+.is-title {
+  text-transform: capitalize;
+}
+.aeroImg {
+  height: 234px;
+  width: 234px;
+  margin-bottom: 0px;
+  margin-top: -60px;
+}
+.portal {
+  // font-family: "futura-pt";
+  font-family: "Gotham";
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+#submit {
+  width: 200px;
+}
+.error {
+  font-size: 20px;
+}
+.forgot-password {
+  float: right;
+  color: $blue;
+}
+input {
+  font-family: "adineue", serif;
+}
 </style>

@@ -21,6 +21,7 @@ module.exports = {
     'semi': ['off'],
     'quotes': ['off'],
     'space-before-function-paren': ['off'],
-    'no-return-assign': ['off']
+    'no-return-assign': ['off'],
+    'prefer-promise-reject-errors': ['off']
   }
 }

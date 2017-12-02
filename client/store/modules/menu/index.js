@@ -33,9 +33,9 @@ const state = {
       component: lazyLoading('customers', true)
     },
     account,
-    labs,
     settings,
-    help
+    help,
+    labs
   ]
 }
 

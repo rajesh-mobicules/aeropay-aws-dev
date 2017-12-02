@@ -10,10 +10,10 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: [
     {
-      name: 'Home',
-      path: '/',
+      name: 'Analytics',
+      path: '/analytics',
       meta: {auth: true},
-      component: require('../views/dashboard')
+      component: require('../views/analytics')
     },
     {
       name: 'Login',
@@ -43,10 +43,14 @@ export default new Router({
       path: '/account',
       redirect: '/account/info'
     },
+    {
+      path: '/',
+      redirect: 'transactions'
+    },
     ...generateRoutesFromMenu(menuModule.state.items),
     {
       path: '*',
-      redirect: '/'
+      redirect: '/transacations'
     }
   ]
 })

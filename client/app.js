@@ -7,8 +7,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import * as filters from './filters'
-import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
+// import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
 import { ID_TOKEN, initHeader } from 'utils/auth_utils'
+import { checkAwsAuth } from 'utils/aws_functions'
 import VueScrollTo from 'vue-scrollto'
 Vue.use(VueScrollTo)
 
@@ -37,7 +38,7 @@ sync(store, router)
 
 const nprogress = new NProgress({ parent: '.nprogress-container' })
 
-const { state, getters } = store
+// const { state, getters } = store
 
 // const hasAccessRight = (auth, currenRole) => {
 
@@ -45,16 +46,20 @@ const { state, getters } = store
 
 router.beforeEach((to, from, next) => {
   // console.log(to.meta.auth, !getters.checkAuth)
-  if (!getters.checkAuth || !to.meta.auth) {
-    store.commit(TOGGLE_SIDEBAR, false)
-  } else if (!state.app.device.isMobile && !state.app.sidebar.opened) {
-    store.commit(TOGGLE_SIDEBAR, true)
-  }
-  if (to.meta.auth && !getters.checkAuth) {
-    console.log('redirecting')
-    next('/login')
-  }
-  next()
+  // if (!getters.checkAuth || !to.meta.auth) {
+  //   store.commit(TOGGLE_SIDEBAR, false)
+  // } else if (!state.app.device.isMobile && !state.app.sidebar.opened) {
+  //   store.commit(TOGGLE_SIDEBAR, true)
+  // }
+  // if (to.meta.auth && !getters.checkAuth) {
+  //   console.log('redirecting')
+  //   next('/login')
+  // }
+  // const togleSidebar = (status) => {
+  //   store.commit(TOGGLE_SIDEBAR, status)
+  // }
+  checkAwsAuth(to, from, next, store)
+  // next()
 })
 
 Object.keys(filters).forEach(key => {

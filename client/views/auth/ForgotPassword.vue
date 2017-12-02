@@ -108,4 +108,7 @@ export default {
   .error {
     font-size: 20px;
   }
+    input {
+  font-family: "adineue", serif;
+}
 </style>

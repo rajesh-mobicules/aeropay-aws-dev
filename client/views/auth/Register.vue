@@ -585,4 +585,7 @@
   .extra-info {
     text-transform: capitalize;
   }
+  input {
+  font-family: "adineue", serif;
+}
 </style>

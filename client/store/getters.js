@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode'
+// import { checkAwsAuth } from 'utils/aws_functions'
 const pkg = state => state.pkg
 const app = state => state.app
 const device = state => state.app.device
@@ -16,15 +17,12 @@ const email = state => {
   const decoded = jwtDecode(state.user.accessToken)
   return decoded.username
 }
-const checkAuth = state => {
-  const jwt = state.user.accessToken
-  if (jwt === null || jwt === '') return false
-  const decoded = jwtDecode(state.user.accessToken)
-  if (decoded.exp < Date.now() / 1000) {
-    return false
-  }
-  return true
-}
+// async function checkAuth (state) {
+//   const auth = await checkAwsAuth()
+//   if (auth === true) return true
+//   else return false
+// }
+const checkAuth = state => state.user.auth
 const showIavProfileButton = state => state.user.showIavProfileButton
 const componententry = state => {
   return state.menu.items.filter(c => c.meta && c.meta.label === 'Components')[0]
