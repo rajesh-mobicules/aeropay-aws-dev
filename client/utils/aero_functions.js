@@ -1,4 +1,4 @@
-import axios from 'axios'
+// import axios from 'axios'
 import { aeroConfig } from './configuration'
 // import { parsePJString } from 'utils/auth_utils'
 
@@ -12,13 +12,7 @@ function apiWithParam(apiClient, queryParams, path, method, body, addParams) {
   const additionalParams = {
     queryParams: queryParams
   }
-  if (addParams) {
-    for (let key in addParams) {
-      if (addParams.hasOwnProperty(key)) {
-        additionalParams.queryParams.key = addParams.key
-      }
-    }
-  }
+  additionalParams.queryParams = Object.assign(additionalParams.queryParams, addParams)
   return apiClient.invokeApi({}, path, method.toUpperCase(), additionalParams, body)
 }
 
@@ -139,28 +133,6 @@ export function uploadSsn(apiClient, ssn) {
 }
 
 export function refreshIav(apiClient) {
-  // const config = {
-  //   headers: {
-  //     'requestAuthorization': idToken,
-  //     'Content-Type': 'application/json'
-  //   }
-  // }
-  // console.log(idToken)
-  // return new Promise((resolve, reject) => {
-  //   axios.get(aeroConfig.iavTokenForMerchant, config)
-  //     .then(res => {
-  //       console.log(res)
-  //       if (res.data !== null && typeof res.data === 'object' && 'iavToken' in res.data) {
-  //         resolve(res.data.iavToken)
-  //       } else {
-  //         reject(res.data.message ? res.data.message : '')
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //       reject(err)
-  //     })
-  // })
   return apiWithParam(apiClient, {}, 'iavTokenForMerchant', 'GET');
 }
 
@@ -180,33 +152,6 @@ export function saveLocation(apiClient, location, merchantLocationId) {
   return apiWithParam(apiClient, {merchantLocationId}, 'locationForMerchant', 'PUT', location)
 }
 
-export function getTransacations(apiClient, merchantId) {
-  // const pathTemplate = 'sls/searchTransactionsForMerchant'
-  // const method = 'GET'
-  // const additionalParams = {
-  //   queryParams: {
-  //     keyword: ''
-  //   }
-  // }
-  // return new Promise((resolve, reject) => {
-  //   apiClient.invokeApi({}, pathTemplate, method, additionalParams)
-  //     .then(function (res) {
-  //       let data = res.data
-  //       try {
-  //         resolve(data.transactions)
-  //       } catch (err) {
-  //         reject(data.message)
-  //       }
-  //       // Add success callback code here.
-  //     })
-  //     .catch(function (err) {
-  //       reject(err)
-  //       // Add error callback code here.
-  //     })
-  // })
-  return apiWithParam(apiClient, {merchantId}, 'searchTransactionsForMerchant', 'GET')
-}
-
 export function getProfile(apigClient, email) {
   const pathTemplate = 'profileForMerchant'
   const method = 'GET'
@@ -222,42 +167,18 @@ export function getBillings(apiClient, merchantId) {
   return apiWithParam(apiClient, {merchantId}, 'bankAccountForMerchant', 'GET')
 }
 
-export function getTransactionSummary(idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken
-    }
-  }
-  return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.userTransactionSummaryForMerchant, config)
-      .then(res => {
-        const data = res.data
-        try {
-          resolve(data.transactions)
-        } catch (err) {
-          reject(data.error)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        reject(err)
-      })
-  })
+export function getCustomers(apiClient, merchantId, addParam) {
+  return apiWithParam(apiClient, {merchantId}, 'searchCustomersForMerchant', 'GET', {}, addParam)
 }
 
-export function getTrasactionsByCondition(keyword, dateRange, page, limit) {
-  let url;
-  const pageLimit = `&page=${page}&limit=${limit}`
-  if (dateRange !== null && dateRange.includes("to")) {
-    const dates = dateRange.split("to")
-    const from = dates[0].trim()
-    const to = dates[1].trim()
-    url = `${aeroConfig.searchTransactionsForMerchant}?keyword=${keyword}&dateFrom=${from}&dateTo=${to}`
-  } else {
-    url = `${aeroConfig.searchTransactionsForMerchant}?keyword=${keyword}`
+export function getTransacations(apiClient, merchantId, condition) {
+  if (condition) {
+    if (condition.dateRange && condition.dateRange.includes("to")) {
+      const dates = condition.dateRange.split("to")
+      condition.dateFrom = dates[0].trim()
+      condition.dateTo = dates[1].trim()
+    }
   }
-  url += pageLimit
-  return axios.get(url)
-    .then(res => res.data.transactions)
-    .catch(err => err)
+  delete condition.dateRange
+  return apiWithParam(apiClient, {merchantId}, 'searchTransactionsForMerchant', 'GET', {}, condition)
 }
