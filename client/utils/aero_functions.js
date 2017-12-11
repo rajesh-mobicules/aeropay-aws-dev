@@ -179,6 +179,6 @@ export function getTransacations(apiClient, merchantId, condition) {
       condition.dateTo = dates[1].trim()
     }
   }
-  delete condition.dateRange
+  // delete condition.dateRange
   return apiWithParam(apiClient, {merchantId}, 'searchTransactionsForMerchant', 'GET', {}, condition)
 }
