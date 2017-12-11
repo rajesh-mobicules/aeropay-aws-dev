@@ -36,8 +36,8 @@ export default new Router({
     {
       name: 'Iav',
       path: '/iav',
-      meta: {auth: 'admin'},
-      component: require('../views/iav')
+      meta: {auth: true},
+      component: require('../views/iav/index.vue')
     },
     {
       path: '/account',
@@ -50,7 +50,7 @@ export default new Router({
     ...generateRoutesFromMenu(menuModule.state.items),
     {
       path: '*',
-      redirect: '/transacations'
+      redirect: '/transactions'
     }
   ]
 })

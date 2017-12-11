@@ -111,14 +111,19 @@ export default {
     };
   },
   beforeMount() {
-    getTransacations()
-      .then(transactions => {
-        console.log(transactions);
-        this.transactions = transactions.sort((a, b) => {
-          return new Date(b.createdDate) - new Date(a.createdDate);
-        });
+    getTransacations(this.apiClient, this.merchant.merchantId)
+      .then(({data}) => {
+        console.log(data)
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+    // getTransacations(this.apiClient)
+    //   .then(transactions => {
+    //     console.log(transactions);
+    //     this.transactions = transactions.sort((a, b) => {
+    //       return new Date(b.createdDate) - new Date(a.createdDate);
+    //     });
+    //   })
+    //   .catch(err => console.log(err));
   },
   methods: {
     statusClass(t) {
@@ -198,7 +203,7 @@ export default {
     trans_num() {
       return this.transactions.length;
     },
-    ...mapGetters(["transPage", "transLimit"])
+    ...mapGetters(["transPage", "transLimit", "apiClient", "merchant"])
   },
 
   filters: {

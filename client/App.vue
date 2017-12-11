@@ -10,9 +10,9 @@
 
 <script>
 import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
-import { Navbar, Sidebar, AppMain, FooterBar } from 'components/layout/'
+import { Navbar, Sidebar, AppMain, FooterBar } from 'components/layout'
 import { mapGetters, mapActions } from 'vuex'
-
+// import { setApiClient } from 'utils/aws_functions'
 export default {
   components: {
     Navbar,
@@ -34,7 +34,7 @@ export default {
         if (isMobile) this.toggleSidebar(false)
       }
     }
-
+    // setApiClient(this.$store)
     document.addEventListener('visibilitychange', handler)
     window.addEventListener('DOMContentLoaded', handler)
     window.addEventListener('resize', handler)

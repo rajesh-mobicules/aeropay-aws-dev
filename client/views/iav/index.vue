@@ -2,7 +2,7 @@
   <div>
     <div id="iavContainer"></div>
     <div class="has-text-centered">
-      <router-link to="/profile" v-show="showIavProfileButton" class="button is-primary">Go To Profile</router-link>
+      <router-link to="/profile" v-show="showButton" class="button is-primary">Go To Profile</router-link>
     </div>
   </div>
 </template>
@@ -12,25 +12,33 @@
   import { refreshIav, dwollaIav } from 'utils/aero_functions'
   export default {
     name: 'iav-page',
+    data () {
+      return {
+        showButton: false
+      }
+    },
     mounted () {
-      this.SET_IAV_BUTTON(false)
-      refreshIav(this.idToken)
-        .then(iavToken => {
-          dwollaIav(iavToken, this.SET_FUNDING_SOURCE, this.SET_IAV_BUTTON, this.idToken)
+      this.toggleButton(false)
+      refreshIav(this.apiClient)
+        .then(({data}) => {
+          console.log(data.iavToken)
+          dwollaIav(this.apiClient, data.iavToken, this.SET_FUNDING_SOURCE, this.toggleButton)
         })
         .catch(err => {
           console.log(err)
-          dwollaIav(err, this.SET_FUNDING_SOURCE, this.SET_IAV_BUTTON, this.idToken)
+          // dwollaIav(err, this.SET_FUNDING_SOURCE, this.toggleButton, this.idToken)
         })
     },
     methods: {
       ...mapMutations([
-        'SET_FUNDING_SOURCE',
-        'SET_IAV_BUTTON'
-      ])
+        'SET_FUNDING_SOURCE'
+      ]),
+      toggleButton (status) {
+        this.showButton = status
+      }
     },
     computed: {
-      ...mapGetters(['showIavProfileButton', 'idToken', 'fundingSource'])
+      ...mapGetters(['fundingSource', 'apiClient'])
     }
   }
 </script>

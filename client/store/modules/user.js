@@ -1,6 +1,8 @@
 import { awsAuthenticate, awsSignout } from 'utils/aws_functions'
 import { registerMerchant } from 'utils/aero_functions'
-import { ID_TOKEN, initHeader } from 'utils/auth_utils'
+import { ID_TOKEN } from 'utils/auth_utils'
+import { buildApiClient } from 'utils/apiClient'
+var jwtDecode = require('jwt-decode');
 // var getLocal = window.localStorage.getItem
 const user = {
   state: {
@@ -11,10 +13,14 @@ const user = {
     // refreshToken: window.localStorage.getItem('refreshToken'),
     accountAdded: false,
     fundingSource: null,
-    showIavProfileButton: false,
     userVerified: true,
-    companyVerified: true
-    // mapAPIKey: 'AIzaSyBXMeMOyfE70CibQn4NaxtHKW7lDqWfgUg'
+    companyVerified: true,
+    apiConfig: {},
+    apiClient: null,
+    profile: null,
+    merchant: null,
+    mapAPIKey: 'AIzaSyBXMeMOyfE70CibQn4NaxtHKW7lDqWfgUg',
+    decoded: {}
   },
   mutations: {
     SET_EMAIL: (state, email) => {
@@ -24,20 +30,30 @@ const user = {
       // console.log(tokens)
       state.idToken = token
       window.localStorage.setItem(ID_TOKEN, token)
-      initHeader(token)
+      // initHeader(token)
     },
-    DELETE_TOKEN: (state) => {
-      state.idToken = null
+    REMOVE_ID_TOKEN: (state) => {
       window.localStorage.removeItem(ID_TOKEN)
+      state.idToken = null
     },
+    // DELETE_TOKEN: (state) => {
+    //   state.idToken = null
+    //   window.localStorage.removeItem(ID_TOKEN)
+    // },
     SET_FUNDING_SOURCE: (state, source) => {
       state.fundingSource = source
     },
-    SET_IAV_BUTTON: (state, status) => {
-      state.showIavProfileButton = status
+    SET_API_CLIENT: (state, apiClient) => {
+      state.apiClient = apiClient
     },
-    SET_AUTH: (state, status) => {
-      state.auth = status
+    SET_DECODED: (state, decoded) => {
+      state.decoded = decoded
+    },
+    SET_PROFILE: (state, profile) => {
+      state.profile = profile
+    },
+    SET_MERCHANT: (state, merchant) => {
+      state.merchant = merchant
     }
   },
 
@@ -46,53 +62,75 @@ const user = {
       const email = userInfo.email.trim()
       const password = userInfo.password
       function resolveL (token) {
-        commit('SET_AUTH', true);
         commit('SET_ID_TOKEN', token)
+        commit('SET_EMAIL', email)
         resolveLogin();
       }
       function rejectL (err) {
-        commit('SET_AUTH', false);
+        commit('REMOVE_ID_TOKEN');
         rejectLogin(err)
       }
       awsAuthenticate(email, password, resolveL, rejectL)
     },
-    // checkAuth({ commit }) {
-    //   const resolveAuth = () => {
-    //     commit('SET_AUTH', true)
-    //   }
-    //   const rejectAuth = (err) => {
-    //     console.log(err)
-    //     commit('SET_AUTH', false)
-    //   }
-    //   checkAwsAuth(resolveAuth, rejectAuth)
-    // },
-    loginAndRegMerchant ({ commit }, userInfo) {
-      const email = userInfo.email.trim()
-      const password = userInfo.password
-      return new Promise((resolve, reject) => {
-        awsAuthenticate({ email, password })
-          .then(tokens => {
-            // console.log(tokens.idToken)
-            commit('SET_TOKEN', tokens)
-            commit('SET_EMAIL', email)
-            // console.log('token set')
-            registerMerchant(userInfo.data(), tokens.idToken)
-              .then(res => {
-                resolve(res)
-              })
-              .catch(err => {
-                reject(err)
-              })
-          })
-          .catch(error => {
-            reject(error)
-          })
-      })
+    checkAuth({ commit, state }) {
+      // const resolveAuth = () => {
+      //   commit('SET_AUTH', true)
+      // }
+      // const rejectAuth = (err) => {
+      //   console.log(err)
+      //   commit('SET_AUTH', false)
+      // }
+      const decoded = jwtDecode(state.idToken)
+      commit('SET_DECODED', decoded)
     },
-    logout ({ commit }) {
-      commit('SET_AUTH', false);
-      commit('DELETE_TOKEN')
+    loginAndRegMerchant ({ commit, getters }, {formData, resolveData, rejectData}) {
+      const email = formData.email.trim()
+      const password = formData.password
+      // function register (token) {
+      //   registerMerchant(token, formData)
+      //     .then(() => resolveData())
+      //     .catch(err => rejectData(err))
+      // }
+      function register (apiClient) {
+        registerMerchant(apiClient, formData)
+          .then(() => resolveData())
+          .catch(err => rejectData(err.message))
+      }
+      function resolveL (token) {
+        commit('SET_ID_TOKEN', token)
+        commit('SET_EMAIL', email)
+        // register(token)
+        buildApiClient(commit, getters, register)
+      }
+      function rejectL (err) {
+        commit('REMOVE_ID_TOKEN');
+        rejectData(err)
+      }
+      awsAuthenticate(email, password, resolveL, rejectL)
+      // return new Promise((resolve, reject) => {
+          // .then(tokens => {
+          //   // console.log(tokens.idToken)
+          //   commit('SET_TOKEN', tokens)
+          //   commit('SET_EMAIL', email)
+          //   // console.log('token set')
+          //   registerMerchant(formData.data(), tokens.idToken)
+          //     .then(res => {
+          //       resolve(res)
+          //     })
+          //     .catch(err => {
+          //       reject(err)
+          //     })
+          // })
+          // .catch(error => {
+          //   reject(error)
+          // })
+      // })
+    },
+    logout ({ commit }, router) {
+      commit('REMOVE_ID_TOKEN');
+      commit('SET_API_CLIENT', null);
       awsSignout();
+      router.push('/login')
       // return new Promise(resolve => {
       //   commit('DELETE_TOKEN', 'accessToken')
       //   commit('DELETE_TOKEN', 'idToken')

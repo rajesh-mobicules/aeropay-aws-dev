@@ -141,8 +141,10 @@ import VueScrollTo from "vue-scrollto";
 import { SweetModal } from "sweet-modal-vue";
 import statesHash from "utils/states_hash.json";
 import { mapGetters } from "vuex";
+import { parsePJString } from 'utils/auth_utils'
 // import {load, Map, Marker} from 'vue-google-maps'
 export default {
+  // props: ['profile'],
   components: {
     SweetModal
   },
@@ -159,14 +161,15 @@ export default {
     };
   },
   beforeMount() {
-    getLocations()
-      .then(locations => {
-        console.log(locations);
-
-        this.locations = locations.map(loc => {
-          loc.editable = false;
-          return loc;
-        });
+    getLocations(this.apiClient, this.merchant.merchantId)
+      .then(({data}) => {
+        console.log(data);
+        if (data.locations) {
+          this.locations = data.locations.map(loc => {
+            loc.editable = false;
+            return loc;
+          });
+        } else console.log(data.message)
       })
       .catch(err => console.log(err));
   },
@@ -201,9 +204,9 @@ export default {
       const location = this.tempLocs.get(id);
       delete location.longitude;
       delete location.latitude;
-      saveLocation(location, id)
-        .then(res => {
-          const newLoc = JSON.parse(res.data.location.replace(/'/g, "\""))
+      saveLocation(this.apiClient, location, id)
+        .then(({data}) => {
+          const newLoc = parsePJString(data.location)
           console.log(newLoc)
           this.isLoading = false;
           this.locations = this.locations.map(loc => {
@@ -222,8 +225,9 @@ export default {
     addLocationSubmit() {
       if (!this.disabled) {
         this.isLoading = true;
-        createLocation(this.location)
-          .then(location => {
+        createLocation(this.apiClient, this.merchant.merchantId, this.location)
+          .then(({data}) => {
+            const location = parsePJString(data.location)
             this.isLoading = false;
             this.locations.push(location);
             this.$refs.locationCreater.close();
@@ -248,7 +252,7 @@ export default {
     },
     deleteLocationSubmit() {
       this.isLoading = true;
-      deleteLocation(this.selectedLocationId)
+      deleteLocation(this.apiClient, this.selectedLocationId)
         .then(res => {
           this.isLoading = false;
           this.locations = this.locations.filter(
@@ -280,7 +284,7 @@ markers=${markers}&${center}&key=${this.mapAPIKey}`;
       }
       return ss;
     },
-    ...mapGetters(["mapAPIKey"]),
+    ...mapGetters(["mapAPIKey", "apiClient", "profile", "merchant"]),
     emptyLocation() {
       if (this.locations.length === 0) {
         return {

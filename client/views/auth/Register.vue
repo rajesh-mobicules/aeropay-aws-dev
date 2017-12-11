@@ -356,43 +356,55 @@
           this.form['select-industry-classification-field'] = this.buizClassifications.industryDict[industryName]
           // console.log(this.form.data())
           awsRegister(this.form.data())
-            .then(response => {
-              this.onSuccess(response)
+            .then(() => {
+              this.onSuccess()
             })
             .catch(err => {
               this.onFail(err)
             })
         }
       },
-      resolveData (data) {
+      resolveData () {
         this.isLoading = false
         this.registerSuccess = true
       },
-      onSuccess (response) {
+      onSuccess () {
         // console.log(response)
-        this.loginAndRegMerchant(this.form)
-          .then(data => {
-            this.resolveData(data)
-          })
-          .catch(err => {
-            this.handleError(err)
-          })
+        const payLoad = {
+          apiClient: this.apiClient,
+          formData: this.form.data(),
+          resolveData: this.resolveData,
+          rejectData: this.handleError
+        }
+        this.loginAndRegMerchant(payLoad)
+          // .then(data => {
+          //   this.resolveData(data)
+          // })
+          // .catch(err => {
+          //   this.handleError(err)
+          // })
       },
       handleError (err) {
         this.isLoading = false
-        this.errors.overall = err.error
+        this.errors.overall = err
       },
       onFail (error) {
         if (error.code === 'UsernameExistsException') {
           // this.errors.email = true
           // regMerchant()
-          this.loginAndRegMerchant(this.form)
-            .then(res => {
-              this.resolveData(res)
-            })
-            .catch(err => {
-              this.handleError(err)
-            })
+          const payLoad = {
+            apiClient: this.apiClient,
+            formData: this.form.data(),
+            resolveData: this.resolveData,
+            rejectData: this.handleError
+          }
+          this.loginAndRegMerchant(payLoad)
+            // .then(res => {
+            //   this.resolveData(res)
+            // })
+            // .catch(err => {
+            //   this.handleError(err)
+            // })
         } else if (error.code === 'InvalidPasswordException') {
           this.errors.password = true
           this.isLoading = false

@@ -7,9 +7,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import * as filters from './filters'
-// import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
+import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
 import { ID_TOKEN, initHeader } from 'utils/auth_utils'
-import { checkAwsAuth } from 'utils/aws_functions'
+import { withApiClient } from 'utils/apiClient'
+// import { checkAwsAuth } from 'utils/aws_functions'
 import VueScrollTo from 'vue-scrollto'
 Vue.use(VueScrollTo)
 
@@ -38,7 +39,7 @@ sync(store, router)
 
 const nprogress = new NProgress({ parent: '.nprogress-container' })
 
-// const { state, getters } = store
+const { state, getters, commit } = store
 
 // const hasAccessRight = (auth, currenRole) => {
 
@@ -46,19 +47,40 @@ const nprogress = new NProgress({ parent: '.nprogress-container' })
 
 router.beforeEach((to, from, next) => {
   // console.log(to.meta.auth, !getters.checkAuth)
+  // if (to.meta.auth && !getters.checkAuth) {
+  //   console.log('redirecting')
+  //   next('/login')
+  // }
   // if (!getters.checkAuth || !to.meta.auth) {
   //   store.commit(TOGGLE_SIDEBAR, false)
   // } else if (!state.app.device.isMobile && !state.app.sidebar.opened) {
   //   store.commit(TOGGLE_SIDEBAR, true)
   // }
-  // if (to.meta.auth && !getters.checkAuth) {
-  //   console.log('redirecting')
-  //   next('/login')
+  // if (getters.checkAuth && (to.path === '/login' || to.path === '/register')) {
+  //   next('/transactions')
   // }
+  if (!getters.checkAuth) {
+    if (to.meta.auth) {
+      console.log('redirecting')
+      next('/login')
+    } else {
+      commit(TOGGLE_SIDEBAR, false)
+      next()
+    }
+  } else {
+    if (!state.app.device.isMobile && !state.app.sidebar.opened) {
+      commit(TOGGLE_SIDEBAR, true)
+    }
+    if (to.path === '/login' || to.path === '/register') {
+      next('/transactions')
+    }
+    withApiClient(next, store);
+  }
+
   // const togleSidebar = (status) => {
   //   store.commit(TOGGLE_SIDEBAR, status)
   // }
-  checkAwsAuth(to, from, next, store)
+  // checkAwsAuth(to, from, next, store)
   // next()
 })
 

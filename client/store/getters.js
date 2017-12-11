@@ -1,29 +1,35 @@
-import jwtDecode from 'jwt-decode'
 // import { checkAwsAuth } from 'utils/aws_functions'
+import {decodeJwt} from 'utils/auth_utils'
 const pkg = state => state.pkg
 const app = state => state.app
 const device = state => state.app.device
 const sidebar = state => state.app.sidebar
 const effect = state => state.app.effect
 const menuitems = state => state.menu.items
-const accessToken = state => state.user.accessToken
 const idToken = state => state.user.idToken
-const refreshToken = state => state.user.refreshToken
+export const profile = state => state.user.profile
+export const merchant = state => state.user.merchant
 const fundingSource = state => state.user.fundingSource
 const mapAPIKey = state => state.user.mapAPIKey
 const email = state => {
-  const jwt = state.user.accessToken
-  if (jwt === null || jwt === '') return ''
-  const decoded = jwtDecode(state.user.accessToken)
-  return decoded.username
+  const jwt = state.user.idToken
+  const decoded = decodeJwt(jwt)
+  return decoded === null ? '' : decoded.email
+}
+const checkAuth = state => {
+  const jwt = state.user.idToken
+  if (jwt === null || jwt === undefined || jwt === '') return false
+  const decoded = decodeJwt(jwt)
+  return decoded === null ? false : decoded.exp > Date.now() / 1000
 }
 // async function checkAuth (state) {
 //   const auth = await checkAwsAuth()
 //   if (auth === true) return true
 //   else return false
 // }
-const checkAuth = state => state.user.auth
-const showIavProfileButton = state => state.user.showIavProfileButton
+// const email = state => state.user.email
+// const checkAuth = state => state.user.auth
+const apiClient = state => state.user.apiClient
 const componententry = state => {
   return state.menu.items.filter(c => c.meta && c.meta.label === 'Components')[0]
 }
@@ -41,10 +47,7 @@ export {
   effect,
   fundingSource,
   menuitems,
-  accessToken,
   idToken,
-  refreshToken,
-  showIavProfileButton,
   email,
   checkAuth,
   componententry,
@@ -52,5 +55,6 @@ export {
   companyVerified,
   transPage,
   transLimit,
+  apiClient,
   mapAPIKey
 }

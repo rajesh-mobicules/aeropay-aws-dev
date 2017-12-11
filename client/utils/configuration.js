@@ -4,22 +4,28 @@ const awsProdBaseUrl = 'https://waas395lu9.execute-api.us-east-1.amazonaws.com/p
 
 const awsStagingBaseUrl = 'https://vwyvoq678a.execute-api.us-east-1.amazonaws.com/staging/'
 
+export const awsRegion = 'us-east-1'
+
 const awsDevConfig = {
   UserPoolId: 'us-east-1_nhF9sTRVD',
   ClientId: '3drob3qfmheloo0790eobjgc5g',
-  IdentityPoolId: 'us-east-1:53a53b4e-f09c-48ed-b8d2-a9927d0e9c8f'
+  // ClientId: 'nph6nt7s3rv59agqbdd01qrh8',
+  IdentityPoolId: 'us-east-1:53a53b4e-f09c-48ed-b8d2-a9927d0e9c8f',
+  LoginsId: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_nhF9sTRVD'
 }
 
 const awsStagingConfig = {
   UserPoolId: 'us-east-1_ndcMY47H8',
   ClientId: '1plv2dp67uc91ubgkt58gm5ahk',
-  IdentityPoolId: ''
+  IdentityPoolId: '',
+  LoginsId: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_ndcMY47H8'
 }
 
 const awsProdConfig = {
   UserPoolId: 'us-east-1_fWjpODvHX',
   ClientId: '4ho9ffdaapbhgpmdn43tasjtgj',
-  IdentityPoolId: ''
+  IdentityPoolId: '',
+  LoginsId: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_fWjpODvHX'
 }
 
 let awsBaseUrl
@@ -44,10 +50,10 @@ export { awsConfig, awsBaseUrl }
 export const iavCss = 'https://portal.aeropayments.com/iavcss/iav.css'
 
 export const aeroConfig = {
-  creatMerchantURL: awsBaseUrl + 'createBusiness',
+  createBusiness: awsBaseUrl + 'createBusiness',
   getTransactionURL: awsBaseUrl + 'transactionsForMerchant',
-  addFundingURL: awsBaseUrl + 'addBankAccount',
-  refreshIavURL: awsBaseUrl + 'iavTokenForMerchant',
+  addBankAccount: awsBaseUrl + 'addBankAccount',
+  iavTokenForMerchant: awsBaseUrl + 'iavTokenForMerchant',
   iavCss: iavCss,
   dwollaEnv: dwollaEnv,
   microDeposits: true,

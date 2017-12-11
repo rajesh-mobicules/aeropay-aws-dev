@@ -10,7 +10,7 @@
         <div class="content">
           <dl>
             <dt>name</dt>
-            <dd>{{merchant.firstName}}</dd>
+            <dd>{{profile.firstName}}</dd>
           </dl>
         </div>
       </div>
@@ -27,17 +27,17 @@
         <div class="content">
           <dl>
             <dt>email</dt>
-            <dd>{{merchant.email}}</dd>
+            <dd>{{profile.email}}</dd>
             <dt>address 1</dt>
-            <dd>{{merchant.address1 || "_"}}</dd>
+            <dd>{{profile.address1 || "_"}}</dd>
             <!-- <dt>address 2</dt> -->
             <!-- <dd>{{mercahnt.address2 || "_"}}</dd> -->
             <dt>city</dt>
-            <dd>{{merchant.city || "_"}}</dd>
+            <dd>{{profile.city || "_"}}</dd>
             <dt>state</dt>
-            <dd>{{merchant.state || "_"}}</dd>
+            <dd>{{profile.state || "_"}}</dd>
             <dt>zip</dt>
-            <dd>{{merchant.postalCode || "_"}}</dd>
+            <dd>{{profile.postalCode || "_"}}</dd>
           </dl>
         </div>
       </div>
@@ -54,7 +54,7 @@
         <div class="content">
         <dl>
           <dt>company</dt>
-          <dd>{{merchant.businessName}}</dd>
+          <dd>{{profile.businessName}}</dd>
         </dl>
 
         </div>
@@ -68,16 +68,16 @@
   // import { getProfile } from 'utils/aero_functions'
   // import { mapGetters } from 'vuex'
   export default {
-    props: ['merchant'],
+    props: ['profile'],
     data () {
       return {
       }
     }
     // beforeMount () {
     //   getProfile(this.idToken)
-    //     .then(merchant => {
-    //       console.log(merchant)
-    //       this.merchant = merchant
+    //     .then(profile => {
+    //       console.log(profile)
+    //       this.profile = profile
     //     })
     //     .catch(err => {
     //       console.log(err)

@@ -63,15 +63,17 @@
       }
     },
     beforeMount () {
-      getBillings(this.idToken)
-        .then(bankAccount => {
-          console.log(bankAccount)
-          this.bankAccount = bankAccount
+      getBillings(this.apiClient, this.merchant.merchantId)
+        .then(({data}) => {
+          console.log(data)
+          if (data.bankAccount) {
+            this.bankAccount = data.bankAccount
+          }
         })
         .catch(err => console.log(err))
     },
     computed: {
-      ...mapGetters(['idToken']),
+      ...mapGetters(['apiClient', 'merchant']),
       statusClass () {
         const cls = {
           sub: true,

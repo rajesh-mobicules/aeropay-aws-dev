@@ -3,30 +3,30 @@
     <div class="card box" id="profile-top">
       <div class="card-content">
         <p class="title p-name">
-          {{merchant.firstName}} {{merchant.lastName}}
+          {{profile.firstName}} {{profile.lastName}}
         </p>
         <span class="sub">
           <i class="fa fa-envelope-o"></i>
-          {{merchant.email}}
+          {{profile.email}}
         </span>
         <span>
-          <span class="verified" v-show="merchant.status === status.verified || merchant.status === status.reviewed" >{{verifiedMsg}}</span>
-          <span class="pending" v-show="merchant.status === status.pending">pending</span>
+          <span class="verified" v-show="profile.status === status.verified || profile.status === status.reviewed" >{{verifiedMsg}}</span>
+          <span class="pending" v-show="profile.status === status.pending">pending</span>
           <a class="document"
-            v-show="merchant.status === status.document && merchant.type === types.verifyWithDocument"
+            v-show="profile.status === profile.document && profile.type === types.verifyWithDocument"
             @click.stop.prevent="customerUploader">
               <i class="fa fa-exclamation-circle"></i>  {{documentMsg}}
           </a>
           <a class="document"
-            v-show="merchant.status === status.document
-            && (merchant.type === types.verifyBusinessWithDocument
-            || merchant.type === types.verifyBusinessId
-            || merchant.type === types.business)"
+            v-show="profile.status === status.document
+            && (profile.type === types.verifyBusinessWithDocument
+            || profile.type === types.verifyBusinessId
+            || profile.type === types.business)"
             @click.stop.prevent="businessUploader">
               <i class="fa fa-exclamation-circle"></i>  {{documentMsg}}
           </a>
           <a class="retry"
-            v-show="merchant.status === status.retry"
+            v-show="profile.status === status.retry"
             @click.stop.prevent="openRetryModal">
               <i class="fa fa-exclamation-circle"></i>  {{retryMsg}}
           </a>
@@ -52,7 +52,7 @@
       <div class="under-score" :style="{left: offset}"></div>
     </div>
     <br>
-    <router-view :merchant="merchant"></router-view>
+    <router-view :profile="profile"></router-view>
     <div class="businessUploader">
       <sweet-modal class="aero-modal" ref="businessUploader" title="We need some additional information.">
         <sweet-modal-tab title="description" id="description">
@@ -145,7 +145,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { getProfile, uploadFile, uploadSsn } from 'utils/aero_functions'
+  import { uploadFile, uploadSsn } from 'utils/aero_functions'
   import { SweetModal, SweetModalTab } from 'sweet-modal-vue'
   import Dropzone from 'vue2-dropzone'
   import { documentUploadURL } from 'utils/configuration'
@@ -178,8 +178,8 @@
           parallelUploads: 1
         },
         base64file: null,
-        merchant: {
-        },
+        // merchant: {},
+        // profile: {},
         status: {
           document: 'document',
           retry: 'retry',
@@ -212,16 +212,17 @@
       }
     },
     beforeMount () {
-      getProfile(this.idToken)
-        .then(merchant => {
-          console.log(merchant)
-          // merchant.status = 'unverified'
-          // merchant.status = 'retry'
-          this.merchant = merchant
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      // getProfile(this.apiClient, this.email)
+      //   .then(({merchant, profile}) => {
+      //     console.log()
+      //     // merchant.status = 'unverified'
+      //     // merchant.status = 'retry'
+      //     this.merchant = merchant
+      //     this.profile = profile
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
     },
     methods: {
       getBase64 (file, cb) {
@@ -272,10 +273,15 @@
       onSubmit () {
         if (this.base64file !== null) {
           this.isLoading = true
-          uploadFile(this.base64file, this.fileType, this.idToken)
-            .then(res => {
+          uploadFile(this.apiClient, this.merchant.merchantId, this.base64file, this.fileType)
+            .then(({data}) => {
               this.isLoading = false
-              window.alert('submit success')
+              if (data.success) {
+                window.alert('submit success')
+              } else {
+                window.alert('server is busy, try it later!')
+                console.log(data)
+              }
             })
             .catch(err => {
               this.isLoading = false
@@ -291,10 +297,15 @@
         } else {
           this.ssnError = null
           this.isLoading = true
-          uploadSsn(ssn, this.idToken)
-            .then(res => {
+          uploadSsn(this.apiClient, ssn)
+            .then(({data}) => {
               this.isLoading = false
-              window.alert('submit success')
+              if (data.success) {
+                window.alert('submit success')
+              } else {
+                console.log(data)
+                window.alert('server is busiy, try it later!')
+              }
             })
             .catch(err => {
               this.isLoading = false
@@ -305,7 +316,7 @@
       }
     },
     computed: {
-      ...mapGetters(['email', 'idToken']),
+      ...mapGetters(['email', 'idToken', 'apiClient', 'profile', 'merchant']),
       offset () {
         // console.log(this.$route.name)
         if (this.$route.name === 'Locations') return '33.3%'

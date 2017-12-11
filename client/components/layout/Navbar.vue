@@ -41,8 +41,8 @@ export default {
   methods: {
     ...mapActions(["toggleSidebar", "logout"]),
     logoutClick() {
-      this.logout();
-      this.$router.push('login');
+      this.logout(this.$router);
+      // this.$router.push('login');
     }
   }
 };

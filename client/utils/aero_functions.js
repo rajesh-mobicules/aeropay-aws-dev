@@ -1,35 +1,52 @@
 import axios from 'axios'
 import { aeroConfig } from './configuration'
+// import { parsePJString } from 'utils/auth_utils'
 
-const config = {
-  headers: {
-    'Content-Type': 'application/json'
+// const config = {
+//   headers: {
+//     'Content-Type': 'application/json'
+//   }
+// }
+
+function apiWithParam(apiClient, queryParams, path, method, body, addParams) {
+  const additionalParams = {
+    queryParams: queryParams
   }
-}
-export function registerMerchant (formData, idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken,
-      'Content-Type': 'application/json'
+  if (addParams) {
+    for (let key in addParams) {
+      if (addParams.hasOwnProperty(key)) {
+        additionalParams.queryParams.key = addParams.key
+      }
     }
   }
-  return new Promise((resolve, reject) => {
-    axios.post(aeroConfig.creatMerchantURL, formData, config)
-      .then(res => {
-        // console.log(res)
-        if ('error' in res.data) {
-          reject(res.data)
-        } else {
-          resolve(res.data)
-        }
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
+  return apiClient.invokeApi({}, path, method.toUpperCase(), additionalParams, body)
 }
 
-export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON, idToken) {
+export function registerMerchant(apiClient, formData) {
+  return apiWithParam(apiClient, {}, 'createBusiness', 'POST', formData)
+  // const config = {
+  //   headers: {
+  //     'requestAuthorization': idToken,
+  //     'Content-Type': 'application/json'
+  //   }
+  // }
+  // return new Promise((resolve, reject) => {
+  //   axios.post(aeroConfig.createBusiness, formData, config)
+  //     .then(res => {
+  //       console.log(res)
+  //       if ('error' in res.data) {
+  //         reject(res.data)
+  //       } else {
+  //         resolve(res.data)
+  //       }
+  //     })
+  //     .catch(error => {
+  //       reject(error)
+  //     })
+  // })
+}
+
+export function dwollaIav(apiClient, iavToken, SET_FUNDING_SOURCE, toggleButton) {
   const dwolla = window.dwolla
   // var iavToken = 'bL5MU6FIRmZ8XEuQmYXjaxYMqf8mbfFrecvch4dYQttRUIwikA'
   dwolla.configure(aeroConfig.dwollaEnv)
@@ -58,10 +75,12 @@ export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON, idToken
             var fundingSourceId = hArray[hArray.length - 1]
             const aeroPayUrl = 'aeropay://fundingSource/' + fundingSourceId
             SET_FUNDING_SOURCE(fundingSourceId)
-            SET_IAV_BUTTON(true)
             console.log(aeroPayUrl)
-            addFundingSource(fundingSourceId, idToken)
-              .then(res => console.log(res))
+            addFundingSource(apiClient, fundingSourceId)
+              .then(({data}) => {
+                console.log(data)
+                toggleButton(true)
+              })
               .catch(error => console.log(error))
             // window.location.href = aeroPayUrl
           }
@@ -71,189 +90,139 @@ export function dwollaIav (iavToken, SET_FUNDING_SOURCE, SET_IAV_BUTTON, idToken
   })
 }
 
-function addFundingSource (fundingSource, idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken,
-      'Content-Type': 'application/json'
-    }
-  }
+function addFundingSource(apiClient, fundingSource) {
   const data = { fundingSourceId: fundingSource }
 
-  return new Promise((resolve, reject) => {
-    axios.post(aeroConfig.addFundingURL, data, config)
-      .then(res => {
-        if (res.data.error === null) resolve('successly added funding source')
-        else reject(res.data.error)
-      })
-      .catch(err => reject(err))
-  })
+  return apiWithParam(apiClient, {}, 'addBankAccount', 'POST', data)
 }
 
-export function uploadFile (base64file, fileType, idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken,
-      'Content-Type': 'application/json'
-    }
-  }
-  const data = { document: base64file, type: fileType }
-  return new Promise((resolve, reject) => {
-    axios.post(aeroConfig.uploadDocumentForMerchant, data, config)
-      .then(res => {
-        if (res.data.success === true) resolve('successly upload file!')
-        else reject(res.data.error)
-      })
-      .catch(err => reject(err))
-  })
-}
-
-export function uploadSsn (ssn, idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken,
-      'Content-Type': 'application/json'
-    }
-  }
-  const data = { ssn: ssn }
-  return new Promise((resolve, reject) => {
-    axios.post(aeroConfig.retryCreateBusiness, data, config)
-      .then(res => {
-        if (res.data.success === true) resolve('successly submit ssn!')
-        else reject(res.data.error)
-      })
-      .catch(err => reject(err))
-  })
-}
-
-export function refreshIav (idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken,
-      'Content-Type': 'application/json'
-    }
-  }
-  console.log(idToken)
-  return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.refreshIavURL, config)
-      .then(res => {
-        console.log(res)
-        if (res.data !== null && typeof res.data === 'object' && 'iavToken' in res.data) {
-          resolve(res.data.iavToken)
-        } else {
-          reject(res.data.message ? res.data.message : '')
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        reject(err)
-      })
-  })
-}
-
-export function getLocations () {
-  return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.locationsForMerchant, config)
-      .then(res => {
-        const data = res.data
-        try {
-          resolve(data.locations)
-        } catch (err) {
-          reject(data.message)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        reject(err)
-      })
-  })
-}
-
-export function createLocation (location) {
-  return new Promise((resolve, reject) => {
-    axios.post(aeroConfig.locationForMerchant, location, config)
-      .then(res => resolve(JSON.parse(res.data.location.replace(/'/g, '"'))))
-      .catch(err => reject(err))
-  })
-}
-
-export function deleteLocation (merchantLocationId) {
-  return new Promise((resolve, reject) => {
-    axios.delete(aeroConfig.locationForMerchant + '?merchantLocationId=' + merchantLocationId)
-      .then(res => resolve(res))
-      .catch(err => reject(err))
-  })
-}
-export function saveLocation (location, merchantLocationId) {
-  return new Promise((resolve, reject) => {
-    axios.put(aeroConfig.locationForMerchant + '?merchantLocationId=' + merchantLocationId, location)
-      .then(res => resolve(res))
-      .catch(err => reject(err))
-  })
-}
-
-export function getTransacations () {
-  return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.searchTransactionsForMerchant + '?keyword=')
-      .then(res => {
-        const data = res.data
-        try {
-          resolve(data.transactions)
-        } catch (err) {
-          reject(data.message)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        reject(err)
-      })
-  })
-}
-
-export function getProfile (idToken) {
+export function uploadFile(apiClient, merchantId, base64file, fileType) {
   // const config = {
   //   headers: {
-  //     'requestAuthorization': idToken
+  //     'requestAuthorization': idToken,
+  //     'Content-Type': 'application/json'
   //   }
   // }
-  return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.profileForMerchant)
-      .then(res => {
-        const data = res.data
-        if (data.success) resolve(data.merchant)
-        else reject(data.message)
-      })
-      .catch(err => {
-        console.log(err)
-        reject(err)
-      })
-  })
+  // const data = { document: base64file, type: fileType }
+  // return new Promise((resolve, reject) => {
+  //   axios.post(aeroConfig.uploadDocumentForMerchant, data, config)
+  //     .then(res => {
+  //       if (res.data.success === true) resolve('successly upload file!')
+  //       else reject(res.data.error)
+  //     })
+  //     .catch(err => reject(err))
+  // })
+  const body = {
+    document: base64file,
+    type: fileType
+  }
+  return apiWithParam(apiClient, {merchantId}, 'uploadDocumentForMerchant', 'POST', body)
 }
 
-export function getBillings (idToken) {
-  const config = {
-    headers: {
-      'requestAuthorization': idToken
+export function uploadSsn(apiClient, ssn) {
+  // const config = {
+  //   headers: {
+  //     'requestAuthorization': idToken,
+  //     'Content-Type': 'application/json'
+  //   }
+  // }
+  const data = { ssn: ssn }
+  return apiWithParam(apiClient, {}, 'retryCreateBusiness', 'POST', data)
+  // return new Promise((resolve, reject) => {
+  //   axios.post(aeroConfig.retryCreateBusiness, data, config)
+  //     .then(res => {
+  //       if (res.data.success === true) resolve('successly submit ssn!')
+  //       else reject(res.data.error)
+  //     })
+  //     .catch(err => reject(err))
+  // })
+}
+
+export function refreshIav(apiClient) {
+  // const config = {
+  //   headers: {
+  //     'requestAuthorization': idToken,
+  //     'Content-Type': 'application/json'
+  //   }
+  // }
+  // console.log(idToken)
+  // return new Promise((resolve, reject) => {
+  //   axios.get(aeroConfig.iavTokenForMerchant, config)
+  //     .then(res => {
+  //       console.log(res)
+  //       if (res.data !== null && typeof res.data === 'object' && 'iavToken' in res.data) {
+  //         resolve(res.data.iavToken)
+  //       } else {
+  //         reject(res.data.message ? res.data.message : '')
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //       reject(err)
+  //     })
+  // })
+  return apiWithParam(apiClient, {}, 'iavTokenForMerchant', 'GET');
+}
+
+export function getLocations(apiClient, merchantId) {
+  return apiWithParam(apiClient, {merchantId}, 'locationsForMerchant', 'GET')
+}
+
+export function createLocation(apiClient, merchantId, location) {
+  return apiWithParam(apiClient, {merchantId}, 'locationForMerchant', 'POST', location)
+}
+
+export function deleteLocation(apiClient, merchantLocationId) {
+  return apiWithParam(apiClient, {merchantLocationId}, 'locationForMerchant', 'DELETE')
+}
+
+export function saveLocation(apiClient, location, merchantLocationId) {
+  return apiWithParam(apiClient, {merchantLocationId}, 'locationForMerchant', 'PUT', location)
+}
+
+export function getTransacations(apiClient, merchantId) {
+  // const pathTemplate = 'sls/searchTransactionsForMerchant'
+  // const method = 'GET'
+  // const additionalParams = {
+  //   queryParams: {
+  //     keyword: ''
+  //   }
+  // }
+  // return new Promise((resolve, reject) => {
+  //   apiClient.invokeApi({}, pathTemplate, method, additionalParams)
+  //     .then(function (res) {
+  //       let data = res.data
+  //       try {
+  //         resolve(data.transactions)
+  //       } catch (err) {
+  //         reject(data.message)
+  //       }
+  //       // Add success callback code here.
+  //     })
+  //     .catch(function (err) {
+  //       reject(err)
+  //       // Add error callback code here.
+  //     })
+  // })
+  return apiWithParam(apiClient, {merchantId}, 'searchTransactionsForMerchant', 'GET')
+}
+
+export function getProfile(apigClient, email) {
+  const pathTemplate = 'profileForMerchant'
+  const method = 'GET'
+  const additionalParams = {
+    queryParams: {
+      email: email
     }
   }
-  return new Promise((resolve, reject) => {
-    axios.get(aeroConfig.bankAccountForMerchant, config)
-      .then(res => {
-        const data = res.data
-        try {
-          resolve(data.bankAccount)
-        } catch (err) {
-          reject(data.error)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        reject(err)
-      })
-  })
+  return apigClient.invokeApi({}, pathTemplate, method, additionalParams)
 }
 
-export function getTransactionSummary (idToken) {
+export function getBillings(apiClient, merchantId) {
+  return apiWithParam(apiClient, {merchantId}, 'bankAccountForMerchant', 'GET')
+}
+
+export function getTransactionSummary(idToken) {
   const config = {
     headers: {
       'requestAuthorization': idToken
@@ -276,7 +245,7 @@ export function getTransactionSummary (idToken) {
   })
 }
 
-export function getTrasactionsByCondition (keyword, dateRange, page, limit) {
+export function getTrasactionsByCondition(keyword, dateRange, page, limit) {
   let url;
   const pageLimit = `&page=${page}&limit=${limit}`
   if (dateRange !== null && dateRange.includes("to")) {
