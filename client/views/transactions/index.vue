@@ -71,8 +71,8 @@
       </table>
       <div class="columns">
         <div class="column is-offset-4 is-4 has-text-centered">
-          <button class="button is-primary" @click="prevPage" v-if="transPage > 1">previous page</button>
-          <button class="button is-success" @click="nextPage">next page</button>
+          <button class="button is-primary" :class="{'is-loading': loading}" @click="prevPage" v-if="transPage > 1">previous page</button>
+          <button class="button is-success" @click="nextPage" :class="{'is-loading': loading}">next page</button>
         </div>
       </div>
     </article>
@@ -98,6 +98,7 @@ export default {
       tempTrans: [],
       keyword: "",
       dateRange: null,
+      loading: false,
       dateConfig: {
         dateFormat: "Y-m-d",
         mode: "range",
@@ -136,15 +137,15 @@ export default {
     },
     nextPage() {
       this.SET_TRANS_PAGE(this.transPage + 1);
-      this.rawSearch(this.transPage, this.transLimit);
+      this.rawSearch();
     },
     prevPage() {
       this.SET_TRANS_PAGE(this.transPage - 1);
-      this.rawSearch(this.transPage, this.transLimit);
+      this.rawSearch();
     },
     search() {
       this.SET_TRANS_PAGE(1);
-      this.rawSearch(1, 10);
+      this.rawSearch();
     },
     // searchWhenStop() {
     //   clearTimeout(this.timeout)
@@ -165,12 +166,15 @@ export default {
     //     })
     //     .catch(err => console.log(err));
     // },
-    rawSearch(transPage, transLimit) {
+    rawSearch() {
       this.tempTrans = [];
       const condition = {
         dateRange: this.dateRange,
-        keyword: this.keyword
+        keyword: this.keyword,
+        page: this.transPage,
+        limit: this.transLimit
       }
+      this.loading = true
       getTransacations(
         this.apiClient,
         this.merchant.merchantId,
@@ -178,6 +182,7 @@ export default {
       )
         .then(({data}) => {
           console.log(data);
+          this.loading = false;
           let trans = data.transactions
           if (trans) {
             this.transactions = trans.sort((a, b) => {
@@ -187,7 +192,10 @@ export default {
             this.transactions = []
           }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          this.loading = false
+          console.log(err)
+        });
     },
     ...mapMutations(["SET_TRANS_PAGE", "SET_TRANS_LIMIT"])
   },

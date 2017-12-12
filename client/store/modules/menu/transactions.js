@@ -6,7 +6,7 @@ export default {
   meta: {
     icon: 'fa-usd',
     expanded: false,
-    link: 'transactions/index.vue',
+    // link: 'transactions/index.vue',
     auth: true
   },
   component: lazyLoading('transactions', true),
