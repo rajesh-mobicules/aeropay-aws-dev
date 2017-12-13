@@ -71,8 +71,10 @@
       </table>
       <div class="columns">
         <div class="column is-offset-4 is-4 has-text-centered">
-          <button class="button is-primary" :class="{'is-loading': loading}" @click="prevPage" v-if="transPage > 1">previous page</button>
-          <button class="button is-success" @click="nextPage" :class="{'is-loading': loading}">next page</button>
+          <!--<button class="button is-primary" :class="{'is-loading': loading}" @click="prevPage" v-if="$router.params.page > 1">previous page</button>-->
+          <!--<button class="button is-success" @click="nextPage" :class="{'is-loading': loading}">next page</button>-->
+          <router-link class="button is-primary" :to="`/transactions/${page-1}`" v-if="page > 1">previous page</router-link>
+          <router-link class="button is-success" :to="`/transactions/${page+1}`">next page</router-link>
         </div>
       </div>
     </article>
@@ -110,12 +112,16 @@ export default {
     };
   },
   beforeMount() {
-    getTransacations(this.apiClient, this.merchant.merchantId)
-      .then(({data}) => {
-        console.log(data)
-        this.transactions = data.transactions
-      })
-      .catch(err => console.log(err))
+    this.rawSearch()
+    // const condition = {
+    //   page: this.$route.params.page
+    // }
+    // getTransacations(this.apiClient, this.merchant.merchantId, condition)
+    //   .then(({data}) => {
+    //     console.log(data)
+    //     this.transactions = data.transactions
+    //   })
+    //   .catch(err => console.log(err))
     // getTransacations(this.apiClient)
     //   .then(transactions => {
     //     console.log(transactions);
@@ -136,8 +142,9 @@ export default {
       this.dateRange = "";
     },
     nextPage() {
-      this.SET_TRANS_PAGE(this.transPage + 1);
-      this.rawSearch();
+      this.$router.go(`/transactions/${parseInt(this.$route.params.page) + 1}`)
+      // this.SET_TRANS_PAGE(this.transPage + 1);
+      // this.rawSearch();
     },
     prevPage() {
       this.SET_TRANS_PAGE(this.transPage - 1);
@@ -171,7 +178,7 @@ export default {
       const condition = {
         dateRange: this.dateRange,
         keyword: this.keyword,
-        page: this.transPage,
+        page: this.page,
         limit: this.transLimit
       }
       this.loading = true
@@ -218,6 +225,9 @@ export default {
     trans_num() {
       return this.transactions.length;
     },
+    page() {
+      return parseInt(this.$route.params.page);
+    },
     ...mapGetters(["transPage", "transLimit", "apiClient", "merchant"])
   },
 
@@ -226,6 +236,13 @@ export default {
       if (!value) value = 0;
       value = value / 100;
       return "$" + value.toFixed(2);
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.transactions = []
+      this.loading = true
+      this.rawSearch()
     }
   }
 };

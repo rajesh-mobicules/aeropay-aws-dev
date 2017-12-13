@@ -5,7 +5,7 @@
     </p>
     <ul class="menu-list">
       <li v-for="(item, index) in menu" :key="index">
-        <router-link :to="item.path" :exact="isExpanedAble(item)" :aria-expanded="isExpanded(item) ? 'true' : 'false'" v-if="item.path" @click.native="toggle(index, item)">
+        <router-link :to="getPath(item)" :exact="isExpanedAble(item)" :aria-expanded="isExpanded(item) ? 'true' : 'false'" v-if="item.path" @click.native="toggle(index, item)">
           <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span>
           {{ item.meta.label || item.name }}
           <span class="icon is-small is-angle" v-if="isExpanedAble(item)">
@@ -67,7 +67,12 @@ export default {
 
   methods: {
     ...mapActions(["expandMenu"]),
-
+    getPath(item) {
+      if (item.name === 'Transactions') {
+        return '/transactions/1'
+      }
+      return item.path
+    },
     isExpanded(item) {
       return item.meta.expanded;
     },

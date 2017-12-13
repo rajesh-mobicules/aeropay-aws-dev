@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="bg">
     <nprogress-container></nprogress-container>
-    <navbar v-show="true"></navbar>
+    <navbar v-show="navbar.show"></navbar>
     <sidebar :show="sidebar.opened && !sidebar.hidden"></sidebar>
     <app-main></app-main>
     <footer-bar></footer-bar>
@@ -12,7 +12,6 @@
 import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
 import { Navbar, Sidebar, AppMain, FooterBar } from 'components/layout'
 import { mapGetters, mapActions } from 'vuex'
-// import { setApiClient } from 'utils/aws_functions'
 export default {
   components: {
     Navbar,
@@ -42,17 +41,16 @@ export default {
 
   computed: mapGetters({
     sidebar: 'sidebar',
+    navbar: 'navbar',
     userVerified: 'userVerified',
     c: 'companyVerified'
   }),
 
   methods: mapActions([
     'toggleDevice',
-    'toggleSidebar'
-  ]),
-  showVerification () {
-    return !(this.userVerified && this.userVerified)
-  }
+    'toggleSidebar',
+    'toggleNavbar'
+  ])
 }
 </script>
 

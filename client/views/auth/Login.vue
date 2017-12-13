@@ -88,7 +88,7 @@ export default {
     ...mapActions(["cognitoLogin", "toggleSidebar"]),
     resolveLogin() {
       this.isLoading = false;
-      this.$router.push({ path: "/transactions" });
+      this.$router.push({ path: "/" });
     },
     rejectLogin(err) {
       this.err = err;

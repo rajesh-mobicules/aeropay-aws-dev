@@ -44,13 +44,17 @@ export default new Router({
       redirect: '/account/info'
     },
     {
+      path: '/transactions',
+      redirect: '/transactions/1'
+    },
+    {
       path: '/',
-      redirect: 'transactions'
+      redirect: '/transactions/1'
     },
     ...generateRoutesFromMenu(menuModule.state.items),
     {
       path: '*',
-      redirect: '/transactions'
+      redirect: '/transactions/1'
     }
   ]
 })

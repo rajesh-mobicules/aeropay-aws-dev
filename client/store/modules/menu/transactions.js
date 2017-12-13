@@ -2,7 +2,7 @@ import lazyLoading from './lazyLoading'
 
 export default {
   name: 'Transactions',
-  path: '/transactions/',
+  path: '/transactions/:page',
   meta: {
     icon: 'fa-usd',
     expanded: false,

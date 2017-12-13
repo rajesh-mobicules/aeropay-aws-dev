@@ -11,6 +11,9 @@ const state = {
   },
   effect: {
     translate3d: true
+  },
+  navbar: {
+    show: true
   }
 }
 
@@ -28,10 +31,16 @@ const mutations = {
     // }
     state.sidebar.opened = opened
   },
+  TOGGLE_SIDEBAR_HIDDEN (state, hidden) {
+    state.sidebar.hidden = hidden
+  },
   [types.SWITCH_EFFECT] (state, effectItem) {
     for (let name in effectItem) {
       state.effect[name] = effectItem[name]
     }
+  },
+  TOGGLE_NAVBAR (state, show) {
+    state.navbar.show = show
   }
 }
 
