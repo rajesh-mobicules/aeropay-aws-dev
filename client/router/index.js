@@ -48,6 +48,10 @@ export default new Router({
       redirect: '/transactions/1'
     },
     {
+      path: '/customers',
+      redirect: '/customers/1'
+    },
+    {
       path: '/',
       redirect: '/transactions/1'
     },

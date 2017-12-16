@@ -40,6 +40,8 @@ const companyVerified = state => state.user.companyVerified
 const transPage = state => state.transactions.page
 const transLimit = state => state.transactions.limit
 
+export const cusPage = state => state.customer.page
+export const cusLimit = state => state.customer.limit
 export {
   pkg,
   app,

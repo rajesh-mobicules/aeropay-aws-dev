@@ -24,7 +24,7 @@ const state = {
     transactions,
     {
       name: 'Customers',
-      path: '/customers',
+      path: '/customers/:page',
       meta: {
         icon: 'fa-address-card-o',
         link: 'customers/index.vue',

@@ -71,6 +71,9 @@ export default {
       if (item.name === 'Transactions') {
         return '/transactions/1'
       }
+      if (item.name === 'Customers') {
+        return '/customers/1'
+      }
       return item.path
     },
     isExpanded(item) {

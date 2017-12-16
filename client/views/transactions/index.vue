@@ -48,27 +48,46 @@
   </div>
   <br>
     <article class="box">
-      <table class="table is-fullwidth">
-        <thead>
-          <p class="trans_num">{{trans_num}} Transactions</p>
-          <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Amount</th>
-            <th>Others</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(t, i) in totalTrans" :key="i">
-            <td class="customer"><span class="span"></span>{{t.customerName}}</td>
-            <td><span class="span">{{t.createdDate}}</span></td>
-            <td><span class="status">{{t.status}}</span></td>
-            <td :class="statusClass(t)">{{t.amount | renderCents}}</td>
-            <td><span>{{t.location || '_'}}|{{t.locationId || '_'}}|{{t.merchantName || '_'}}</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <p class="trans_num">{{trans_num}} Transactions</p>
+      <el-table
+        :data="totalTrans"
+        style="width: 100%">
+        <el-table-column
+          type="index"
+          width="50">
+        </el-table-column>
+        <el-table-column
+          prop="customerName"
+          label="name"
+          sortable
+          width="180"
+          :formatter="nameFormater">
+        </el-table-column>
+        <el-table-column
+          prop="createdDate"
+          label="date"
+          width="180"
+          sortable>
+        </el-table-column>
+        <el-table-column
+          prop="status"
+          label="status"
+          sortable
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="amount"
+          label="amount"
+          sortable
+          width="180"
+          :formatter="amountFormater">
+        </el-table-column>
+        <el-table-column
+          prop="location"
+          label="others"
+          :formatter="othersFormater">
+        </el-table-column>
+      </el-table>
       <div class="columns">
         <div class="column is-offset-4 is-4 has-text-centered">
           <!--<button class="button is-primary" :class="{'is-loading': loading}" @click="prevPage" v-if="$router.params.page > 1">previous page</button>-->
@@ -204,15 +223,25 @@ export default {
           console.log(err)
         });
     },
+    amountFormater(row, col) {
+      let value = row.amount;
+      if (!value) value = 0;
+      value = value / 100;
+      return "$" + value.toFixed(2);
+    },
+    othersFormater(row, col) {
+      const {location, locationId, merchantName} = row;
+      return `${location} | ${locationId} | ${merchantName}`;
+    },
     ...mapMutations(["SET_TRANS_PAGE", "SET_TRANS_LIMIT"])
   },
   computed: {
-    merchantName() {
-      if (this.transactions === null || this.transactions.length === 0) {
-        return "";
-      }
-      return this.transactions[0]["merchantName"];
-    },
+    // merchantName() {
+    //   if (this.transactions === null || this.transactions.length === 0) {
+    //     return "";
+    //   }
+    //   return this.transactions[0]["merchantName"];
+    // },
     totalTrans() {
       const pending = this.transactions.filter(
         t => t.status.toLowerCase() === "pending"
@@ -241,7 +270,6 @@ export default {
   watch: {
     '$route' (to, from) {
       this.transactions = []
-      this.loading = true
       this.rawSearch()
     }
   }

@@ -12,6 +12,11 @@ function apiWithParam(apiClient, queryParams, path, method, body, addParams) {
   const additionalParams = {
     queryParams: queryParams
   }
+  for (let key in addParams) {
+    if (!addParams[key]) {
+      delete addParams[key]
+    }
+  }
   additionalParams.queryParams = Object.assign(additionalParams.queryParams, addParams)
   return apiClient.invokeApi({}, path, method.toUpperCase(), additionalParams, body)
 }

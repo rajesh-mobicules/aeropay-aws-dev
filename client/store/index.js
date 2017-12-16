@@ -8,6 +8,7 @@ import app from './modules/app'
 import menu from './modules/menu'
 import user from './modules/user'
 import transactions from './modules/transactions'
+import customers from './modules/customers'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -18,7 +19,8 @@ const store = new Vuex.Store({
     app,
     menu,
     user,
-    transactions
+    transactions,
+    customers
   },
   state: {
     pkg
