@@ -40,6 +40,9 @@
       watch: {
         dataNum () {
           this.setOptions()
+        },
+        options (newOptions) {
+          this.setOptions(newOptions)
         }
       },
       mounted () {
@@ -51,8 +54,12 @@
           this.chart = echarts.init(document.getElementById(this.id))
           this.setOptions()
         },
-        setOptions () {
-          this.chart.setOption(this.options)
+        setOptions (newOptions) {
+          if (newOptions) {
+            this.chart.setOption(newOptions)
+          } else {
+            this.chart.setOption(this.options)
+          }
         }
       }
     }

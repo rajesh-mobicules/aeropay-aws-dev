@@ -11,7 +11,7 @@ export default new Router({
   routes: [
     {
       name: 'Analytics',
-      path: '/analytics',
+      path: '/labs/analytics',
       meta: {auth: true},
       component: require('../views/analytics')
     },

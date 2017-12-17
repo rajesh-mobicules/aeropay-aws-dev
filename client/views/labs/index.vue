@@ -26,7 +26,7 @@
       <feature-tab
         title="Live Business Analytics"
         description="Live Business Analytics"
-        link="/analytics"
+        link="/labs/analytics"
       >
         <figure>
           <img src="~assets/analytics.png" alt="Live Business Analytics">

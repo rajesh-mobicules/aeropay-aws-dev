@@ -20,7 +20,8 @@ const user = {
     profile: null,
     merchant: null,
     mapAPIKey: 'AIzaSyBXMeMOyfE70CibQn4NaxtHKW7lDqWfgUg',
-    decoded: {}
+    decoded: {},
+    transSum: {}
   },
   mutations: {
     SET_EMAIL: (state, email) => {
@@ -54,6 +55,9 @@ const user = {
     },
     SET_MERCHANT: (state, merchant) => {
       state.merchant = merchant
+    },
+    SET_TRANS_SUMMARY: (state, transSum) => {
+      state.transSum = transSum
     }
   },
 

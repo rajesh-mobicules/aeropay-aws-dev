@@ -187,3 +187,7 @@ export function getTransacations(apiClient, merchantId, condition) {
   // delete condition.dateRange
   return apiWithParam(apiClient, {merchantId}, 'searchTransactionsForMerchant', 'GET', {}, condition)
 }
+
+export function getAnalatics(apiClient, merchantId) {
+  return apiWithParam(apiClient, {merchantId}, 'analytics/transactionSummary', 'GET', {})
+}

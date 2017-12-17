@@ -5,9 +5,12 @@
         <img src="~assets/AP.png" alt="Aero Payments">
       </a>
       <p v-if="checkAuth" class="navbar-item">
-          revenue<span class="aero-number">&nbsp;$6200</span>
-          &nbsp;&nbsp;&nbsp;transactions <span class="aero-number">&nbsp;49</span>
-           &nbsp;&nbsp;&nbsp;this month<span class="aero-number">&nbsp;$5000</span>
+          revenue<span class="aero-number">&nbsp;{{transSum.totalAmount | money}}</span>
+          &nbsp;&nbsp;&nbsp;transactions <span class="aero-number">&nbsp;{{transSum.totalCount | count}}</span>
+           &nbsp;&nbsp;&nbsp;this month
+            <span class="aero-number">
+              &nbsp;{{thisMonth | money}}
+            </span>
         </p>
     </div>
 
@@ -32,17 +35,36 @@ export default {
     show: Boolean
   },
 
-  computed: mapGetters({
-    pkginfo: "pkg",
-    sidebar: "sidebar",
-    checkAuth: "checkAuth"
-  }),
-
+  computed: {
+    ...mapGetters({
+      pkginfo: "pkg",
+      sidebar: "sidebar",
+      checkAuth: "checkAuth",
+      transSum: "transSum"
+    }),
+    thisMonth () {
+      const { monthlyAmount } = this.transSum;
+      if (!monthlyAmount || monthlyAmount.length === 0) {
+        return 0;
+      }
+      return monthlyAmount[monthlyAmount.length - 1].totalAmount
+    }
+  },
   methods: {
     ...mapActions(["toggleSidebar", "logout"]),
     logoutClick() {
       this.logout(this.$router);
       // this.$router.push('login');
+    }
+  },
+  filters: {
+    money(value) {
+      if (!value) value = 0;
+      return "$" + value.toFixed(2);
+    },
+    count(value) {
+      if (!value) return 0;
+      return value;
     }
   }
 };

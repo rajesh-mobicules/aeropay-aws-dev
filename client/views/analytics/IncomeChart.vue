@@ -10,14 +10,18 @@
     components: {
       VueChart
     },
-    props: {
-      userData: {
-        type: Object,
-        required: true,
-        default: () => ({})
-      }
-    },
+    props: ['moneyByMonth'],
+    // props: {
+    //   moneyByMonth: {
+    //     type: Array,
+    //     required: true,
+    //     default: () => ([])
+    //   }
+    // },
     computed: {
+      money () {
+        return this.moneyByMonth;
+      },
       options () {
         return {
           // backgroundColor: '#394056',
@@ -38,7 +42,7 @@
             data: ['Customers']
           },
           xAxis: {
-            data: ['1', '2', '3', '4', '5', '6', '7', '8'],
+            data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
             axisLine: {
               show: false
             },
@@ -73,7 +77,7 @@
             {
               name: '$',
               type: 'line',
-              data: this.userData.moneyByMonth,
+              data: this.money,
               markPoint: {
                 data: [
                     { type: 'max', name: 'max' },
@@ -114,5 +118,5 @@
 </script>
 
 <style scoped lang="scss">
-  
+
 </style>

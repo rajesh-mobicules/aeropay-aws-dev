@@ -60,8 +60,7 @@
           prop="customerName"
           label="name"
           sortable
-          width="180"
-          :formatter="nameFormater">
+          width="180">
         </el-table-column>
         <el-table-column
           prop="createdDate"

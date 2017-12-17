@@ -10,13 +10,7 @@
     components: {
       VueChart
     },
-    props: {
-      userData: {
-        type: Object,
-        required: true,
-        default: () => ({})
-      }
-    },
+    props: ['customersByMonth'],
     computed: {
       options () {
         return {
@@ -28,14 +22,14 @@
             data: ['Customers']
           },
           xAxis: {
-            data: ['1', '2', '3', '4', '5', '6', '7', '8']
+            data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
           },
           yAxis: {},
           series: [
             {
               name: 'customer number',
               type: 'bar',
-              data: this.userData.newCustomers
+              data: this.customersByMonth
             }
           ]
         }
@@ -45,5 +39,5 @@
 </script>
 
 <style scoped lang="scss">
-  
+
 </style>

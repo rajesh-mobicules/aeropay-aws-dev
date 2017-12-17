@@ -1,8 +1,10 @@
 <template>
   <div id="app" class="bg">
     <nprogress-container></nprogress-container>
-    <navbar v-show="navbar.show"></navbar>
-    <sidebar :show="sidebar.opened && !sidebar.hidden"></sidebar>
+    <template v-if="!inLab">
+      <navbar v-show="navbar.show"></navbar>
+      <sidebar :show="sidebar.opened && !sidebar.hidden"></sidebar>
+    </template>
     <app-main></app-main>
     <footer-bar></footer-bar>
   </div>
@@ -19,6 +21,11 @@ export default {
     AppMain,
     FooterBar,
     NprogressContainer
+  },
+  data () {
+    return {
+      inLab: false
+    }
   },
   beforeMount () {
     const { body } = document
@@ -38,14 +45,25 @@ export default {
     window.addEventListener('DOMContentLoaded', handler)
     window.addEventListener('resize', handler)
   },
-
-  computed: mapGetters({
+  computed: {...mapGetters({
     sidebar: 'sidebar',
     navbar: 'navbar',
     userVerified: 'userVerified',
     c: 'companyVerified'
-  }),
-
+  })
+    // inLab () {
+    //   return this.$route.path.startsWith('labs')
+    // }
+  },
+  watch: {
+    '$route' (to, from) {
+      if (to.path === '/labs/analytics') {
+        this.inLab = true
+      } else {
+        this.inLab = false
+      }
+    }
+  },
   methods: mapActions([
     'toggleDevice',
     'toggleSidebar',
