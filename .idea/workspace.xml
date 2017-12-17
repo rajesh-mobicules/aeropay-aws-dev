@@ -3,19 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d17bd531-9787-496c-931c-ec4ab1fe60e9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/client/App.vue" afterPath="$PROJECT_DIR$/client/App.vue" />
-      <change beforePath="$PROJECT_DIR$/client/components/charts/VueChart.vue" afterPath="$PROJECT_DIR$/client/components/charts/VueChart.vue" />
-      <change beforePath="$PROJECT_DIR$/client/components/layout/Navbar.vue" afterPath="$PROJECT_DIR$/client/components/layout/Navbar.vue" />
-      <change beforePath="$PROJECT_DIR$/client/router/index.js" afterPath="$PROJECT_DIR$/client/router/index.js" />
-      <change beforePath="$PROJECT_DIR$/client/store/getters.js" afterPath="$PROJECT_DIR$/client/store/getters.js" />
-      <change beforePath="$PROJECT_DIR$/client/store/modules/user.js" afterPath="$PROJECT_DIR$/client/store/modules/user.js" />
-      <change beforePath="$PROJECT_DIR$/client/utils/aero_functions.js" afterPath="$PROJECT_DIR$/client/utils/aero_functions.js" />
-      <change beforePath="$PROJECT_DIR$/client/utils/apiClient.js" afterPath="$PROJECT_DIR$/client/utils/apiClient.js" />
-      <change beforePath="$PROJECT_DIR$/client/views/analytics/CustomerChart.vue" afterPath="$PROJECT_DIR$/client/views/analytics/CustomerChart.vue" />
-      <change beforePath="$PROJECT_DIR$/client/views/analytics/IncomeChart.vue" afterPath="$PROJECT_DIR$/client/views/analytics/IncomeChart.vue" />
-      <change beforePath="$PROJECT_DIR$/client/views/analytics/index.vue" afterPath="$PROJECT_DIR$/client/views/analytics/index.vue" />
-      <change beforePath="$PROJECT_DIR$/client/views/labs/index.vue" afterPath="$PROJECT_DIR$/client/views/labs/index.vue" />
-      <change beforePath="$PROJECT_DIR$/client/views/transactions/index.vue" afterPath="$PROJECT_DIR$/client/views/transactions/index.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -293,12 +280,12 @@
       <workItem from="1513175320740" duration="5374000" />
       <workItem from="1513263578845" duration="944000" />
       <workItem from="1513409223265" duration="220000" />
-      <workItem from="1513438037180" duration="12702000" />
+      <workItem from="1513438037180" duration="12904000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28167000" />
+    <option name="totallyTimeSpent" value="28369000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
