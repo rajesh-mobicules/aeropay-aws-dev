@@ -64,6 +64,11 @@ router.beforeEach((to, from, next) => {
   // if (getters.checkAuth && (to.path === '/login' || to.path === '/register')) {
   //   next('/transactions')
   // }
+  if (to.path === '/labs/analytics') {
+    commit('SET_IN_LAB', true)
+  } else {
+    commit('SET_IN_LAB', false)
+  }
   if (!getters.checkAuth) {
     if (to.meta.auth) {
       console.log('redirecting')

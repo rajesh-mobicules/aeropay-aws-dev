@@ -3,7 +3,7 @@
     <nprogress-container></nprogress-container>
     <template v-if="!inLab">
       <navbar v-show="navbar.show"></navbar>
-      <sidebar :show="sidebar.opened && !sidebar.hidden"></sidebar>
+      <sidebar :show="sidebar.opened && !sidebar.hidden && !loadingApi"></sidebar>
     </template>
     <app-main></app-main>
     <footer-bar></footer-bar>
@@ -24,7 +24,6 @@ export default {
   },
   data () {
     return {
-      inLab: false
     }
   },
   beforeMount () {
@@ -49,20 +48,13 @@ export default {
     sidebar: 'sidebar',
     navbar: 'navbar',
     userVerified: 'userVerified',
-    c: 'companyVerified'
+    c: 'companyVerified',
+    inLab: 'inLab',
+    loadingApi: 'loadingApi'
   })
     // inLab () {
     //   return this.$route.path.startsWith('labs')
     // }
-  },
-  watch: {
-    '$route' (to, from) {
-      if (to.path === '/labs/analytics') {
-        this.inLab = true
-      } else {
-        this.inLab = false
-      }
-    }
   },
   methods: mapActions([
     'toggleDevice',

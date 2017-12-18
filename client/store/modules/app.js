@@ -14,7 +14,9 @@ const state = {
   },
   navbar: {
     show: true
-  }
+  },
+  inLab: false,
+  loadingApi: false
 }
 
 const mutations = {
@@ -41,6 +43,12 @@ const mutations = {
   },
   TOGGLE_NAVBAR (state, show) {
     state.navbar.show = show
+  },
+  SET_IN_LAB (state, inlab) {
+    state.inLab = inlab
+  },
+  SET_LOADING_API (state, loading) {
+    state.loadingApi = loading
   }
 }
 

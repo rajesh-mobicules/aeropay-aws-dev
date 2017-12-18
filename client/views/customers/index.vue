@@ -16,28 +16,8 @@
       </div>
     </div>
     <article class="box">
-      <!--<table class="table is-fullwidth">-->
-        <!--<thead>-->
-        <!--<p class="cus_num">{{cus_num}} Customers</p>-->
-        <!--<tr>-->
-          <!--<th>Id</th>-->
-          <!--<th>Name</th>-->
-          <!--<th>Email</th>-->
-          <!--<th>Merchant</th>-->
-          <!--<th>Amount</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr v-for="(c, i) in customers" :key="i">-->
-          <!--<td><span class="span">{{i + 1}}</span></td>-->
-          <!--<td class="customer"><span class="span"></span>{{c.firstName}} {{c.lastName}}</td>-->
-          <!--<td><span class="span">{{c.email}}</span></td>-->
-          <!--<td><span class="span">{{c.merchant}}</span></td>-->
-          <!--<td><span class="span">{{c.amount}}</span></td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-      <!--</table>-->
-      <p class="cus_num">{{cus_num}} Customers</p>
+      <p class="cus_num">{{`${cus_num}/${totalItems}`}} Customers</p>
+      <p class="total_pages">{{`${page}/${totalPages}`}} pages</p>
       <el-table
         :data="customers"
         style="width: 100%">
@@ -71,10 +51,11 @@
         </el-table-column>
       </el-table>
       <br>
+      <br>
       <div class="columns">
         <div class="column is-offset-4 is-4 has-text-centered">
           <router-link class="button is-primary" :to="`/customers/${page-1}`" v-if="page > 1">previous page</router-link>
-          <router-link class="button is-success" :to="`/customers/${page+1}`">next page</router-link>
+          <router-link class="button is-success" :to="`/customers/${page+1}`" v-if="!onLastPage">next page</router-link>
         </div>
       </div>
     </article>
@@ -93,7 +74,9 @@
     data() {
       return {
         customers: [],
-        keyword: null,
+        paging: {},
+        sorting: {},
+        keyword: '',
         loading: false
       }
     },
@@ -111,7 +94,7 @@
     methods: {
       searchCustomers() {
         const condition = {
-          keyword: this.keyword,
+          keyword: this.keyword.trim(),
           // limit: this.limit,
           page: this.page
         }
@@ -119,6 +102,8 @@
           .then(({ data }) => {
             console.log(data)
             this.customers = data.customers
+            this.paging = data.paging
+            this.sorting = data.sorting
           })
           .catch(err => {
             console.log(err)
@@ -128,7 +113,7 @@
         return `${row.firstName} ${row.lastName}`
       },
       amountFormater(row, col) {
-        return `$${row.amount}`
+        return `$${parseFloat(row.amount).toFixed(2)}`
       }
     },
     computed: {
@@ -138,6 +123,15 @@
       },
       page() {
         return parseInt(this.$route.params.page);
+      },
+      onLastPage() {
+        return this.paging.totalPages === this.page;
+      },
+      totalItems() {
+        return this.paging.totalItems || '';
+      },
+      totalPages() {
+        return this.paging.totalPages || '';
       }
     },
     watch: {
@@ -154,8 +148,12 @@
     margin: 13px 0px 5px 10px;
     font-size: 18px;
     padding-left: 10px;
+    display: inline;
   }
-
+  .total_pages {
+    display: inline;
+    margin-left: 50px;
+  }
   .search-box {
     margin-bottom: 15px;
   }

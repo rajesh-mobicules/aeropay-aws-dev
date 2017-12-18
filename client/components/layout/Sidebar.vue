@@ -175,6 +175,7 @@ export default {
       right: 10px;
       transition: transform 0.377s ease;
     }
+    margin-right: 10px;
   }
 
   .menu-label {

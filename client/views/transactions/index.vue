@@ -48,7 +48,8 @@
   </div>
   <br>
     <article class="box">
-      <p class="trans_num">{{trans_num}} Transactions</p>
+      <p class="trans_num">{{`${trans_num}/${totalItems}`}} Transactions</p>
+      <p class="total_page">{{`${page}/${totalPages}`}} Pages</p>
       <el-table
         :data="totalTrans"
         style="width: 100%">
@@ -87,12 +88,12 @@
           :formatter="othersFormater">
         </el-table-column>
       </el-table>
+      <br>
+      <br>
       <div class="columns">
         <div class="column is-offset-4 is-4 has-text-centered">
-          <!--<button class="button is-primary" :class="{'is-loading': loading}" @click="prevPage" v-if="$router.params.page > 1">previous page</button>-->
-          <!--<button class="button is-success" @click="nextPage" :class="{'is-loading': loading}">next page</button>-->
           <router-link class="button is-primary" :to="`/transactions/${page-1}`" v-if="page > 1">previous page</router-link>
-          <router-link class="button is-success" :to="`/transactions/${page+1}`">next page</router-link>
+          <router-link class="button is-success" :to="`/transactions/${page+1}`" v-if="!onLastPage">next page</router-link>
         </div>
       </div>
     </article>
@@ -116,6 +117,8 @@ export default {
     return {
       transactions: [],
       tempTrans: [],
+      paging: {},
+      sorting: {},
       keyword: "",
       dateRange: null,
       loading: false,
@@ -159,43 +162,15 @@ export default {
     clearDates() {
       this.dateRange = "";
     },
-    nextPage() {
-      this.$router.go(`/transactions/${parseInt(this.$route.params.page) + 1}`)
-      // this.SET_TRANS_PAGE(this.transPage + 1);
-      // this.rawSearch();
-    },
-    prevPage() {
-      this.SET_TRANS_PAGE(this.transPage - 1);
-      this.rawSearch();
-    },
     search() {
       this.SET_TRANS_PAGE(1);
       this.rawSearch();
     },
-    // searchWhenStop() {
-    //   clearTimeout(this.timeout)
-    //   this.timeout = setTimeout(this.autoSearch, 500)
-    // },
-    // autoSearch() {
-    //   getTrasactionsByCondition(
-    //     this.keyword,
-    //     null,
-    //     this.transPage,
-    //     this.transLimit
-    //     )
-    //     .then(trans => {
-    //       console.log(trans);
-    //       this.tempTrans = trans.sort((a, b) => {
-    //         return new Date(b.createdDate) - new Date(a.createdDate);
-    //       });
-    //     })
-    //     .catch(err => console.log(err));
-    // },
     rawSearch() {
       this.tempTrans = [];
       const condition = {
         dateRange: this.dateRange,
-        keyword: this.keyword,
+        keyword: this.keyword.trim(),
         page: this.page,
         limit: this.transLimit
       }
@@ -213,6 +188,8 @@ export default {
             this.transactions = trans.sort((a, b) => {
               return new Date(b.createdDate) - new Date(a.createdDate);
             });
+            this.paging = data.paging;
+            this.sorting = data.sorting;
           } else {
             this.transactions = []
           }
@@ -235,12 +212,6 @@ export default {
     ...mapMutations(["SET_TRANS_PAGE", "SET_TRANS_LIMIT"])
   },
   computed: {
-    // merchantName() {
-    //   if (this.transactions === null || this.transactions.length === 0) {
-    //     return "";
-    //   }
-    //   return this.transactions[0]["merchantName"];
-    // },
     totalTrans() {
       const pending = this.transactions.filter(
         t => t.status.toLowerCase() === "pending"
@@ -249,6 +220,15 @@ export default {
         t => t.status.toLowerCase() === "processed"
       );
       return pending.concat(resolved);
+    },
+    totalItems() {
+      return this.paging.totalItems || '';
+    },
+    totalPages() {
+      return this.paging.totalPages || '';
+    },
+    onLastPage() {
+      return this.paging.totalPages === this.page;
     },
     trans_num() {
       return this.transactions.length;
@@ -297,6 +277,7 @@ export default {
   margin: 13px 0px 5px 10px;
   font-size: 18px;
   padding-left: 10px;
+  display: inline;
 }
 .search-box {
   margin-bottom: 15px;
@@ -316,6 +297,10 @@ export default {
   margin-top: 10px;
   width: 30%;
   z-index: 1000;
+}
+.total_page {
+  display: inline;
+  margin-left: 50px;
 }
 input {
   font-family: "adineue", serif;

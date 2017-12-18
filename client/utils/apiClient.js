@@ -43,6 +43,7 @@ export const withApiClient = (next, store) => {
   if (store.getters.apiClient !== null && store.getters.apiClient !== undefined) {
     next()
   } else {
+    store.commit('SET_LOADING_API', true)
     const idToken = store.getters.idToken
     AWS.config.region = awsRegion // Region
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -75,6 +76,7 @@ export const withApiClient = (next, store) => {
             const merchant = parsePJString(data.merchant)
             store.commit('SET_PROFILE', data.profile)
             store.commit('SET_MERCHANT', merchant)
+            store.commit('SET_LOADING_API', false)
             getAnalatics(apigClient, merchant.merchantId)
               .then(({data}) => store.commit('SET_TRANS_SUMMARY', data.result))
               .catch(err => console.log(err))

@@ -1,5 +1,5 @@
 <template>
-  <section class="app-main">
+  <section :class="mainClassName">
     <div class="container is-fluid is-marginless app-content bg">
       <transition
         mode="out-in"
@@ -13,9 +13,18 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
 export default {
   components: {
+  },
+  computed: {
+    ...mapGetters(['inLab']),
+    mainClassName() {
+      if (!this.inLab) {
+        return 'app-main'
+      }
+      return ''
+    }
   }
 }
 </script>

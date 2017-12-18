@@ -42,8 +42,9 @@ const transLimit = state => state.transactions.limit
 
 export const transSum = state => state.user.transSum
 
-export const cusPage = state => state.customer.page
-export const cusLimit = state => state.customer.limit
+export const inLab = state => state.app.inLab
+
+export const loadingApi = state => state.app.loadingApi
 export {
   pkg,
   app,
