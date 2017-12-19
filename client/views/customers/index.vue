@@ -41,7 +41,7 @@
           prop="merchant"
           label="merchant"
           sortable
-          width="100">
+          width="120">
         </el-table-column>
         <el-table-column
           prop="amount"

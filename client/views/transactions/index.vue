@@ -32,20 +32,20 @@
         </p>
     </div>
   </div>
-  <div class="auto-search-content">
-    <div class="card" v-if="this.tempTrans.length > 0">
-      <div v-for="(t, i) in this.tempTrans" :key="i">
-        <div class="card">
-          <p>
-            {{t.customerName}}
-            <span>{{t.createdDate}}</span>
-          </p>
-          <p :class="statusClass(t)">{{t.amount | renderCents}}</p>
-          <p>{{t.status}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!--<div class="auto-search-content">-->
+    <!--<div class="card" v-if="this.tempTrans.length > 0">-->
+      <!--<div v-for="(t, i) in this.tempTrans" :key="i">-->
+        <!--<div class="card">-->
+          <!--<p>-->
+            <!--{{t.customerName}}-->
+            <!--<span>{{t.createdDate}}</span>-->
+          <!--</p>-->
+          <!--<p :class="statusClass(t)">{{t.amount | renderCents}}</p>-->
+          <!--<p>{{t.status}}</p>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
   <br>
     <article class="box">
       <p class="trans_num">{{`${trans_num}/${totalItems}`}} Transactions</p>
