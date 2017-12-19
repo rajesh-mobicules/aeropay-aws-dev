@@ -175,18 +175,18 @@ export function getBillings(apiClient, merchantId) {
 export function getCustomers(apiClient, merchantId, addParam) {
   return apiWithParam(apiClient, {merchantId}, 'searchCustomersForMerchant', 'GET', {}, addParam)
 }
-
-export function getTransacations(apiClient, merchantId, condition) {
-  if (condition) {
-    if (condition.dateRange && condition.dateRange.includes("to")) {
-      const dates = condition.dateRange.split("to")
-      condition.dateFrom = dates[0].trim()
-      condition.dateTo = dates[1].trim()
-    }
-  }
-  // delete condition.dateRange
-  return apiWithParam(apiClient, {merchantId}, 'searchTransactionsForMerchant', 'GET', {}, condition)
-}
+//
+// export function ggetCustomersetTransacations(apiClient, merchantId, condition) {
+//   if (condition) {
+//     if (condition.dateRange && condition.dateRange.includes("to")) {
+//       const dates = condition.dateRange.split("to")
+//       condition.dateFrom = dates[0].trim()
+//       condition.dateTo = dates[1].trim()
+//     }
+//   }
+//   // delete condition.dateRange
+//   return apiWithParam(apiClient, {merchantId}, 'searchTransactionsForMerchant', 'GET', {}, condition)
+// }
 
 export function getAnalatics(apiClient, merchantId) {
   return apiWithParam(apiClient, {merchantId}, 'analytics/transactionSummary', 'GET', {})

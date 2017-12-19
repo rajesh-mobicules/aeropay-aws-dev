@@ -16,7 +16,7 @@
 
     <div id="navMenu" class="navbar-menu">
       <div class="navbar-end">
-
+        <p class="navbar-item">{{userRole}}</p>
         <router-link v-if="!checkAuth" to="/login" class="navbar-item">login</router-link>
         <a v-if="checkAuth" @click="logoutClick" class="navbar-item">logout</a>
       </div>
@@ -27,6 +27,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import userRolesMap from 'utils/userRolesMap'
 export default {
   components: {
   },
@@ -40,7 +41,8 @@ export default {
       pkginfo: "pkg",
       sidebar: "sidebar",
       checkAuth: "checkAuth",
-      transSum: "transSum"
+      transSum: "transSum",
+      user: "user"
     }),
     thisMonth () {
       const { monthlyAmount } = this.transSum;
@@ -48,6 +50,12 @@ export default {
         return 0;
       }
       return monthlyAmount[monthlyAmount.length - 1].totalAmount
+    },
+    userRole () {
+      if (!this.user) {
+        return '';
+      }
+      return userRolesMap[this.user.level]
     }
   },
   methods: {

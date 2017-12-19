@@ -19,6 +19,7 @@ const user = {
     apiClient: null,
     profile: null,
     merchant: null,
+    user: null,
     mapAPIKey: 'AIzaSyBXMeMOyfE70CibQn4NaxtHKW7lDqWfgUg',
     decoded: {},
     transSum: {}
@@ -55,6 +56,9 @@ const user = {
     },
     SET_MERCHANT: (state, merchant) => {
       state.merchant = merchant
+    },
+    SET_USER: (state, user) => {
+      state.user = user
     },
     SET_TRANS_SUMMARY: (state, transSum) => {
       state.transSum = transSum

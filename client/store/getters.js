@@ -10,6 +10,7 @@ const menuitems = state => state.menu.items
 const idToken = state => state.user.idToken
 export const profile = state => state.user.profile
 export const merchant = state => state.user.merchant
+export const user = state => state.user.user
 const fundingSource = state => state.user.fundingSource
 const mapAPIKey = state => state.user.mapAPIKey
 const email = state => {

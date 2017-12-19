@@ -40,6 +40,7 @@
         <el-table-column
           prop="merchant"
           label="merchant"
+          sortable
           width="100">
         </el-table-column>
         <el-table-column
