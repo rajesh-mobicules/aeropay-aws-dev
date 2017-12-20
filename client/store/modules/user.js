@@ -4,26 +4,28 @@ import { ID_TOKEN } from 'utils/auth_utils'
 import { buildApiClient } from 'utils/apiClient'
 var jwtDecode = require('jwt-decode');
 // var getLocal = window.localStorage.getItem
+const rawState = {
+  email: '',
+  auth: false,
+  // accessToken: window.localStorage.getItem('accessToken'),
+  idToken: window.localStorage.getItem('idToken'),
+  // refreshToken: window.localStorage.getItem('refreshToken'),
+  accountAdded: false,
+  fundingSource: null,
+  userVerified: true,
+  companyVerified: true,
+  apiConfig: {},
+  apiClient: null,
+  profile: null,
+  merchant: null,
+  user: null,
+  locations: [],
+  mapAPIKey: 'AIzaSyBXMeMOyfE70CibQn4NaxtHKW7lDqWfgUg',
+  decoded: {},
+  transSum: {}
+}
 const user = {
-  state: {
-    email: '',
-    auth: false,
-    // accessToken: window.localStorage.getItem('accessToken'),
-    idToken: window.localStorage.getItem('idToken'),
-    // refreshToken: window.localStorage.getItem('refreshToken'),
-    accountAdded: false,
-    fundingSource: null,
-    userVerified: true,
-    companyVerified: true,
-    apiConfig: {},
-    apiClient: null,
-    profile: null,
-    merchant: null,
-    user: null,
-    mapAPIKey: 'AIzaSyBXMeMOyfE70CibQn4NaxtHKW7lDqWfgUg',
-    decoded: {},
-    transSum: {}
-  },
+  state: rawState,
   mutations: {
     SET_EMAIL: (state, email) => {
       state.email = email
@@ -37,6 +39,18 @@ const user = {
     REMOVE_ID_TOKEN: (state) => {
       window.localStorage.removeItem(ID_TOKEN)
       state.idToken = null
+    },
+    LOG_OUT: (state) => {
+      window.localStorage.removeItem(ID_TOKEN)
+      state = rawState
+      state.idToken = null
+      state.apiClient = null
+      state.locations = null
+      state.user = null
+    },
+    REMOVE_ALL: () => {
+      window.localStorage.clear()
+      // this.state = rawState
     },
     // DELETE_TOKEN: (state) => {
     //   state.idToken = null
@@ -59,6 +73,9 @@ const user = {
     },
     SET_USER: (state, user) => {
       state.user = user
+    },
+    SET_LOCATIONS: (state, locations) => {
+      state.locations = locations
     },
     SET_TRANS_SUMMARY: (state, transSum) => {
       state.transSum = transSum
@@ -135,10 +152,14 @@ const user = {
       // })
     },
     logout ({ commit }, router) {
-      commit('REMOVE_ID_TOKEN');
-      commit('SET_API_CLIENT', null);
+      // commit('REMOVE_ID_TOKEN');
+      commit('LOG_OUT');
+      // commit('SET_API_CLIENT', null);
+      //
+      // window.localStorage.clear();
       awsSignout();
       router.push('/login')
+      commit('REMOVE_ALL');
       // return new Promise(resolve => {
       //   commit('DELETE_TOKEN', 'accessToken')
       //   commit('DELETE_TOKEN', 'idToken')

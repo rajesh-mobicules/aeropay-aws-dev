@@ -18,6 +18,6 @@ const ID_TOKEN = 'idToken'
 const AUTH_HEADER = 'requestAuthorization'
 
 export const parsePJString = (pjString) => {
-  return JSON.parse(pjString.replace(/'/g, '"'))
+  return JSON.parse(pjString.replace(/"/g, "").replace(/'/g, '"'))
 }
 export { initHeader, ID_TOKEN, AUTH_HEADER, decodeJwt }

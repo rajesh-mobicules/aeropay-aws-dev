@@ -1,5 +1,5 @@
 import { awsConfig, awsBaseUrl, awsRegion } from './configuration'
-import { getAnalatics, getProfile } from 'utils/aero_functions'
+import { getAnalatics, getLocations, getProfile } from 'utils/aero_functions'
 import { parsePJString } from 'utils/auth_utils'
 
 var apigClientFactory = require('aws-api-gateway-client').default;
@@ -79,6 +79,9 @@ export const withApiClient = (next, store) => {
             store.commit('SET_MERCHANT', merchant)
             store.commit('SET_USER', user)
             store.commit('SET_LOADING_API', false)
+            getLocations(apigClient, merchant.merchantId)
+              .then(({data}) => store.commit('SET_LOCATIONS', data.locations))
+              .catch(err => console.log(err))
             getAnalatics(apigClient, merchant.merchantId)
               .then(({data}) => store.commit('SET_TRANS_SUMMARY', data.result))
               .catch(err => console.log(err))

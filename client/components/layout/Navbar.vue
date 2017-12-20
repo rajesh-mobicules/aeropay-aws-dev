@@ -17,6 +17,7 @@
     <div id="navMenu" class="navbar-menu">
       <div class="navbar-end">
         <p class="navbar-item">{{userRole}}</p>
+        <p class="navbar-item">{{locs}}</p>
         <router-link v-if="!checkAuth" to="/login" class="navbar-item">login</router-link>
         <a v-if="checkAuth" @click="logoutClick" class="navbar-item">logout</a>
       </div>
@@ -42,7 +43,8 @@ export default {
       sidebar: "sidebar",
       checkAuth: "checkAuth",
       transSum: "transSum",
-      user: "user"
+      user: "user",
+      locations: "locations"
     }),
     thisMonth () {
       const { monthlyAmount } = this.transSum;
@@ -56,6 +58,13 @@ export default {
         return '';
       }
       return userRolesMap[this.user.level]
+    },
+    locs () {
+      if (this.userRole === userRolesMap[0]) return '';
+      if (!this.locations || this.locations.length === 0) {
+        return ''
+      }
+      return this.locations.map(loc => loc.merchantLocationId)
     }
   },
   methods: {

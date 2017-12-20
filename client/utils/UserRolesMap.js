@@ -1,8 +1,7 @@
 const userRolesMap = {
-  superAdmin: 'superAdmin',
-  corpAdmin: 'corpAdmin',
-  storeAdmin: 'storeAdmin',
-  storeCashier: 'storeCashier',
-  1: 'Corporate'
+  0: 'Admin',
+  1: 'Corporate',
+  2: 'Manager',
+  3: 'Employee'
 }
 export default userRolesMap
