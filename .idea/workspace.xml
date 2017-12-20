@@ -3,38 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d17bd531-9787-496c-931c-ec4ab1fe60e9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/client/components/layout/Navbar.vue" afterPath="$PROJECT_DIR$/client/components/layout/Navbar.vue" />
-      <change beforePath="$PROJECT_DIR$/client/store/getters.js" afterPath="$PROJECT_DIR$/client/store/getters.js" />
-      <change beforePath="$PROJECT_DIR$/client/store/modules/user.js" afterPath="$PROJECT_DIR$/client/store/modules/user.js" />
-      <change beforePath="$PROJECT_DIR$/client/utils/UserRolesMap.js" afterPath="$PROJECT_DIR$/client/utils/UserRolesMap.js" />
-      <change beforePath="$PROJECT_DIR$/client/utils/apiClient.js" afterPath="$PROJECT_DIR$/client/utils/apiClient.js" />
-      <change beforePath="$PROJECT_DIR$/client/utils/auth_utils.js" afterPath="$PROJECT_DIR$/client/utils/auth_utils.js" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/0.416c89def59ea3216f04.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/0.416c89def59ea3216f04.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/1.fb92708be064540ba671.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/1.fb92708be064540ba671.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/2.519ae1d49634d8fe6b83.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/2.519ae1d49634d8fe6b83.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/3.2056742a0543bdbd8794.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/3.2056742a0543bdbd8794.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/4.f635b7cdbbcfbe55bbde.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/4.f635b7cdbbcfbe55bbde.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/5.9fde1d787095953b359a.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/5.9fde1d787095953b359a.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/6.f27268443f953cfd45ca.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/6.f27268443f953cfd45ca.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/7.a826b4b8a5d244f91f90.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/7.a826b4b8a5d244f91f90.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/8.a0bcb56d40bfeaeee384.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/8.a0bcb56d40bfeaeee384.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/9.faea59010d5beb05a554.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/9.faea59010d5beb05a554.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/app.a1b87f47ebabc2e0cd48.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/app.a1b87f47ebabc2e0cd48.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/manifest.9b2eee3e9f63ce1e8c62.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/manifest.9b2eee3e9f63ce1e8c62.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/vendor.9187a08d498d04d3a6ae.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/vendor.9187a08d498d04d3a6ae.js.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/app.b56f6f6c2d2271175c49.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/app.b56f6f6c2d2271175c49.js.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/manifest.d4eb5b0556f7938da546.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/manifest.d4eb5b0556f7938da546.js.map" afterPath="" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -59,7 +31,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="aws_functions.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="aws_functions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/utils/aws_functions.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="190">
@@ -116,8 +88,18 @@
       <file leaf-file-name="apiClient.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/utils/apiClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+            <state relative-caret-position="95">
+              <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="configuration.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/utils/configuration.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -142,16 +124,6 @@
                 <element signature="n#style#0;n#el-table#0;n#article#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="e#3305#3361#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserRolesMap.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/utils/UserRolesMap.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -369,12 +341,12 @@
       <workItem from="1513608041939" duration="4199000" />
       <workItem from="1513692999522" duration="3792000" />
       <workItem from="1513744701734" duration="66000" />
-      <workItem from="1513782227923" duration="3101000" />
+      <workItem from="1513782227923" duration="4249000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40117000" />
+    <option name="totallyTimeSpent" value="41265000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -412,13 +384,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/views/auth/Login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1729">
-          <caret line="91" column="5" lean-forward="false" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/store/modules/menu/transactions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -794,14 +759,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/utils/apiClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/store/modules/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
@@ -814,6 +771,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/utils/apiClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/utils/configuration.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding />
         </state>
       </provider>
