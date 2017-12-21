@@ -134,23 +134,6 @@ export default {
   },
   beforeMount() {
     this.rawSearch()
-    // const condition = {
-    //   page: this.$route.params.page
-    // }
-    // getTransacations(this.apiClient, this.merchant.merchantId, condition)
-    //   .then(({data}) => {
-    //     console.log(data)
-    //     this.transactions = data.transactions
-    //   })
-    //   .catch(err => console.log(err))
-    // getTransacations(this.apiClient)
-    //   .then(transactions => {
-    //     console.log(transactions);
-    //     this.transactions = transactions.sort((a, b) => {
-    //       return new Date(b.createdDate) - new Date(a.createdDate);
-    //     });
-    //   })
-    //   .catch(err => console.log(err));
   },
   methods: {
     statusClass(t) {
@@ -231,7 +214,7 @@ export default {
       return this.paging.totalPages === this.page;
     },
     trans_num() {
-      return this.transactions.length;
+      return this.transactions.length * this.page;
     },
     page() {
       return parseInt(this.$route.params.page);

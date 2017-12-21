@@ -17,14 +17,15 @@ const awsDevConfig = {
 const awsStagingConfig = {
   UserPoolId: 'us-east-1_ndcMY47H8',
   ClientId: '1plv2dp67uc91ubgkt58gm5ahk',
-  IdentityPoolId: '',
+  // ClientId: '6l5otmd64vbagginhmj8kn8sji',
+  IdentityPoolId: 'us-east-1:de663d17-7b05-4949-a08a-ff2d1bb9b387',
   LoginsId: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_ndcMY47H8'
 }
 
 const awsProdConfig = {
   UserPoolId: 'us-east-1_fWjpODvHX',
   ClientId: '4ho9ffdaapbhgpmdn43tasjtgj',
-  IdentityPoolId: '',
+  IdentityPoolId: 'us-east-1:65218d2b-2b7e-4c89-b63a-f7bbac76a0b1',
   LoginsId: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_fWjpODvHX'
 }
 
@@ -37,7 +38,7 @@ let dwollaEnv = 'sandbox'
 if (stage === 'dev') {
   awsBaseUrl = awsDevBaseUrl
   awsConfig = awsDevConfig
-  searchTransUrl = 'sls/searchTransactionsForMerchant'
+  searchTransUrl = 'searchTransactionsForMerchant'
 } else if (stage === 'staging') {
   awsBaseUrl = awsStagingBaseUrl
   awsConfig = awsStagingConfig
@@ -69,7 +70,7 @@ export const aeroConfig = {
   uploadDocumentForMerchant: awsBaseUrl + 'uploadDocumentForMerchant',
   retryCreateBusiness: awsBaseUrl + 'retryCreateBusiness',
   locationForMerchant: awsBaseUrl + 'locationForMerchant',
-  searchTransactionsForMerchant: awsBaseUrl + searchTransUrl
+  searchTransactionsForMerchant: searchTransUrl
 }
 
 export const documentUploadURL = awsBaseUrl + 'uploadDocumentForMerchant'

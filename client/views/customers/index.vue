@@ -120,7 +120,7 @@
     computed: {
       ...mapGetters(['apiClient', 'merchant']),
       cus_num() {
-        return this.customers.length
+        return this.customers.length * this.page;
       },
       page() {
         return parseInt(this.$route.params.page);
