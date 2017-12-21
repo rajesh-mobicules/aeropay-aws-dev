@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d17bd531-9787-496c-931c-ec4ab1fe60e9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/app.b56f6f6c2d2271175c49.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/app.b56f6f6c2d2271175c49.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/manifest.d4eb5b0556f7938da546.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/js/manifest.d4eb5b0556f7938da546.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
+      <change beforePath="$PROJECT_DIR$/client/utils/aero_functions.js" afterPath="$PROJECT_DIR$/client/utils/aero_functions.js" />
+      <change beforePath="$PROJECT_DIR$/client/utils/configuration.js" afterPath="$PROJECT_DIR$/client/utils/configuration.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,16 +38,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="getters.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/store/getters.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="46" lean-forward="false" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/App.vue">
           <provider selected="true" editor-type-id="text-editor">
@@ -78,8 +65,8 @@
       <file leaf-file-name="aero_functions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/utils/aero_functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-366">
-              <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+            <state relative-caret-position="508">
+              <caret line="188" column="1" lean-forward="false" selection-start-line="188" selection-start-column="1" selection-end-line="188" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -98,8 +85,18 @@
       <file leaf-file-name="configuration.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/utils/configuration.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+            <state relative-caret-position="573">
+              <caret line="72" column="1" lean-forward="true" selection-start-line="72" selection-start-column="1" selection-end-line="72" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-48">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -173,7 +170,6 @@
         <option value="$PROJECT_DIR$/client/App.vue" />
         <option value="$PROJECT_DIR$/client/views/analytics/index.vue" />
         <option value="$PROJECT_DIR$/client/utils/UserRoles.js" />
-        <option value="$PROJECT_DIR$/client/utils/aero_functions.js" />
         <option value="$PROJECT_DIR$/client/views/transactions/index.vue" />
         <option value="$PROJECT_DIR$/client/views/customers/index.vue" />
         <option value="$PROJECT_DIR$/client/utils/UserRolesMap.js" />
@@ -182,6 +178,8 @@
         <option value="$PROJECT_DIR$/client/utils/apiClient.js" />
         <option value="$PROJECT_DIR$/client/components/layout/Navbar.vue" />
         <option value="$PROJECT_DIR$/client/store/modules/user.js" />
+        <option value="$PROJECT_DIR$/client/utils/aero_functions.js" />
+        <option value="$PROJECT_DIR$/client/utils/configuration.js" />
       </list>
     </option>
   </component>
@@ -341,17 +339,17 @@
       <workItem from="1513608041939" duration="4199000" />
       <workItem from="1513692999522" duration="3792000" />
       <workItem from="1513744701734" duration="66000" />
-      <workItem from="1513782227923" duration="4249000" />
+      <workItem from="1513782227923" duration="5290000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41265000" />
+    <option name="totallyTimeSpent" value="42306000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24242425" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18114798" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3555018" sideWeight="0.5179704" order="7" side_tool="true" content_ui="tabs" />
@@ -359,7 +357,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26118502" sideWeight="0.4820296" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2144985" sideWeight="0.4820296" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39903265" sideWeight="0.49753347" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -384,13 +382,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/store/modules/menu/transactions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="20" lean-forward="false" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/store/modules/transactions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -751,14 +742,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/utils/aero_functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-366">
-          <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/store/modules/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
@@ -783,10 +766,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-48">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/utils/aero_functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="188" column="1" lean-forward="false" selection-start-line="188" selection-start-column="1" selection-end-line="188" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/utils/configuration.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        <state relative-caret-position="573">
+          <caret line="72" column="1" lean-forward="true" selection-start-line="72" selection-start-column="1" selection-end-line="72" selection-end-column="1" />
           <folding />
         </state>
       </provider>

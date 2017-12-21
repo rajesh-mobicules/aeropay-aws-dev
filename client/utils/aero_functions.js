@@ -185,7 +185,7 @@ export function getTransacations(apiClient, merchantId, condition) {
     }
   }
   // delete condition.dateRange
-  return apiWithParam(apiClient, {merchantId}, 'searchTransactionsForMerchant', 'GET', {}, condition)
+  return apiWithParam(apiClient, {merchantId}, aeroConfig.searchTransactionsForMerchant, 'GET', {}, condition)
 }
 
 export function getAnalatics(apiClient, merchantId) {

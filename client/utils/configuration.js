@@ -30,19 +30,23 @@ const awsProdConfig = {
 
 let awsBaseUrl
 let awsConfig
+let searchTransUrl
 const stage = process.env.STAGE
 console.log(stage)
 let dwollaEnv = 'sandbox'
 if (stage === 'dev') {
   awsBaseUrl = awsDevBaseUrl
   awsConfig = awsDevConfig
+  searchTransUrl = 'sls/searchTransactionsForMerchant'
 } else if (stage === 'staging') {
   awsBaseUrl = awsStagingBaseUrl
   awsConfig = awsStagingConfig
+  searchTransUrl = 'searchTransactionsForMerchant'
 } else {
   awsBaseUrl = awsProdBaseUrl
   awsConfig = awsProdConfig
   dwollaEnv = 'prod'
+  searchTransUrl = 'searchTransactionsForMerchant'
 }
 
 export { awsConfig, awsBaseUrl }
@@ -65,7 +69,7 @@ export const aeroConfig = {
   uploadDocumentForMerchant: awsBaseUrl + 'uploadDocumentForMerchant',
   retryCreateBusiness: awsBaseUrl + 'retryCreateBusiness',
   locationForMerchant: awsBaseUrl + 'locationForMerchant',
-  searchTransactionsForMerchant: awsBaseUrl + 'sls/searchTransactionsForMerchant'
+  searchTransactionsForMerchant: awsBaseUrl + searchTransUrl
 }
 
 export const documentUploadURL = awsBaseUrl + 'uploadDocumentForMerchant'
