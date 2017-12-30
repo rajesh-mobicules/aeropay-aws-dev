@@ -1,50 +1,50 @@
 <template>
-<div class="register-app content">
-  <div class="has-text-centered">
-    <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
-    <!-- <p class="portal">Register</p> -->
-  </div>
-  <div class="columns is-vcentered">
-    <form @submit.prevent="onSubmit" class="box column is-6 is-offset-3" @keydown="clearErrors($event.target.name)" v-if="!registerSuccess">
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="field-body">
-          <div class="field is-grouped">
-            <p class="control is-expanded">
-              <input class="input" type="text" name="fname" placeholder="First Name" v-model="form.fname" autoComplete="on">
-              <span class="help is-danger" v-if="errors.fname !== null">{{errors.fname}}</span>
-            </p>
-          </div>
-          <div class="field">
-            <p class="control">
-              <input class="input" type="text" name="lname" placeholder="Last Name" v-model="form.lname">
-              <span class="help is-danger" v-if="errors.lname !== null">{{errors.lname}}</span>
-            </p>
+  <div class="register-app content">
+    <div class="has-text-centered">
+      <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
+      <!-- <p class="portal">Register</p> -->
+    </div>
+    <div class="columns is-vcentered">
+      <form @submit.prevent="onSubmit" class="box column is-6 is-offset-3" @keydown="clearErrors($event.target.name)" v-if="!registerSuccess">
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="field-body">
+            <div class="field is-grouped">
+              <p class="control is-expanded">
+                <input class="input" type="text" name="fname" placeholder="First Name" v-model="form.fname" autoComplete="on">
+                <span class="help is-danger" v-if="errors.fname !== null">{{errors.fname}}</span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control">
+                <input class="input" type="text" name="lname" placeholder="Last Name" v-model="form.lname">
+                <span class="help is-danger" v-if="errors.lname !== null">{{errors.lname}}</span>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="field">
-        <label for="email" class="label">Email Address</label>
-        <p class="control">
-          <input type="email" id="email" name="email" class="input" v-model="form.email" >
-        </p>
-        <span class="help is-danger" v-if="errors.email !== null">{{errors.email}}</span>
-      </div>
-      <div class="field">
-        <label class="label">Address</label>
-        <input type="text" class="input" name="address" v-model="form.address" >
-        <p>Address 1</p>
-        <span class="help is-danger" v-if="errors.address !== null">{{errors.address}}</span>
-        <input type="text" class="input" name="address2" v-model="form.address2">
-        <p>Address 2 <span class="extra-info">(optional)</span></p>
-        <input type="text" class="input" name="city" v-model="form.city">
-        <p>City</p>
-        <span class="help is-danger" v-if="errors.city !== null">{{errors.city}}</span>
-      </div>
+        <div class="field">
+          <label for="email" class="label">Email Address</label>
+          <p class="control">
+            <input type="email" id="email" name="email" class="input" v-model="form.email" >
+          </p>
+          <span class="help is-danger" v-if="errors.email !== null">{{errors.email}}</span>
+        </div>
+        <div class="field">
+          <label class="label">Address</label>
+          <input type="text" class="input" name="address" v-model="form.address" >
+          <p>Address 1</p>
+          <span class="help is-danger" v-if="errors.address !== null">{{errors.address}}</span>
+          <input type="text" class="input" name="address2" v-model="form.address2">
+          <p>Address 2 <span class="extra-info">(optional)</span></p>
+          <input type="text" class="input" name="city" v-model="form.city">
+          <p>City</p>
+          <span class="help is-danger" v-if="errors.city !== null">{{errors.city}}</span>
+        </div>
         <!-- <input type="text" class="input" name="state" v-model="form.state"> -->
-      <div class="field is-grouped">
+        <div class="field is-grouped">
 
-        <div class="control ">
+          <div class="control ">
           <span class="select">
             <select name="state" v-model="form.state" @click="clearErrors('state')">
               <option v-for="s in states" :key="s">{{ s }}</option>
@@ -52,220 +52,220 @@
             <span>State</span>
             <span class="help is-danger" v-if="errors.state !== null">{{errors.state}}</span>
           </span>
-        </div>
-        <br>
-        <div class="control">
-          <cleave class="input" :options="{ blocks: [5], numericOnly: true }" name="zipcode" v-model="form.zipcode"></cleave>
-          <span>Zip Code</span>
-          <span class="help is-danger" v-if="errors.zipcode !== null">{{errors.zipcode}}</span>
-        </div>
-        <br>
+          </div>
+          <br>
+          <div class="control">
+            <cleave class="input" :options="{ blocks: [5], numericOnly: true }" name="zipcode" v-model="form.zipcode"></cleave>
+            <span>Zip Code</span>
+            <span class="help is-danger" v-if="errors.zipcode !== null">{{errors.zipcode}}</span>
+          </div>
+          <br>
 
-        <br>
-      </div>
-      <div class="field">
-        <div class="control">
-          <!-- <input type="text" class="input" name="country" v-model="form.country" > -->
-          <span class="select">
+          <br>
+        </div>
+        <div class="field">
+          <div class="control">
+            <!-- <input type="text" class="input" name="country" v-model="form.country" > -->
+            <span class="select">
             <select name="country" v-model="form.country" @click="clearErrors('country')">
               <option v-for="c in countryNames" :key="c">{{ c }}</option>
             </select>
           </span>
-          <p>Country</p>
-          <span class="help is-danger" v-if="errors.country !== null">{{errors.country}}</span>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Date of Birth</label>
-        <span class="help is-danger" v-if="errors.DOB !== null">{{errors.DOB}}</span>
-        <div class="field-body">
-          <div class="field">
-            <p class="control">
-              <cleave class="input" :options="{ blocks: [2], numericOnly: true }" name="Month" v-model="form.Month"></cleave>
-            </p>
-            <span>MM</span>
-          </div>
-          <div class="field">
-            <p class="control">
-              <!-- <input type="text" class="input" name="Day" v-model="form.Day"> -->
-              <cleave class="input" :options="{ blocks: [2], numericOnly: true }" name="Day" v-model="form.Day"></cleave>
-            </p>
-            <span>DD</span>
-          </div>
-          <div class="field">
-            <p class="control">
-              <!-- <input type="text" class="input" name="Year" v-model="form.Year"> -->
-              <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="Year" v-model="form.Year"></cleave>
-            </p>
-            <span>YYYY</span>
+            <p>Country</p>
+            <span class="help is-danger" v-if="errors.country !== null">{{errors.country}}</span>
           </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">Last Four Digits of Social Security</label>
-        <div class="control">
-          <!-- <input type="text" class="input" name="social-security" v-model="form['social-security']"> -->
-          <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="social-security" v-model="form['social-security']"></cleave>
-          <span class="help is-danger" v-if="errors['social-security'] !== null">{{errors['social-security']}}</span>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Phone Number</label>
-        <span class="help is-danger" v-if="errors.phone !== null">{{errors.phone}}</span>
-        <div class="field-body">
-          <div class="field">
-            <p class="control">
-              <cleave class="input" :options="{ blocks: [3], numericOnly: true }" name="phone-area-code" v-model="form['phone-area-code']"></cleave>
-            </p>
-            <span>###</span>
-          </div>
-          <div class="field">
-            <p class="control">
-              <!-- <input type="text" class="input" name="phone-local-prefix" v-model="form['phone-local-prefix']"> -->
-              <cleave class="input" :options="{ blocks: [3], numericOnly: true }" name="phone-local-prefix" v-model="form['phone-local-prefix']"></cleave>
-            </p>
-            <span>###</span>
-          </div>
-          <div class="field">
-            <p class="control">
-              <!-- <input type="text" class="input" name="phone-local-suffix" v-model="form['phone-local-suffix']"> -->
-              <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="phone-local-suffix" v-model="form['phone-local-suffix']"></cleave>
-            </p>
-            <span>####</span>
+        <div class="field">
+          <label class="label">Date of Birth</label>
+          <span class="help is-danger" v-if="errors.DOB !== null">{{errors.DOB}}</span>
+          <div class="field-body">
+            <div class="field">
+              <p class="control">
+                <cleave class="input" :options="{ blocks: [2], numericOnly: true }" name="Month" v-model="form.Month"></cleave>
+              </p>
+              <span>MM</span>
+            </div>
+            <div class="field">
+              <p class="control">
+                <!-- <input type="text" class="input" name="Day" v-model="form.Day"> -->
+                <cleave class="input" :options="{ blocks: [2], numericOnly: true }" name="Day" v-model="form.Day"></cleave>
+              </p>
+              <span>DD</span>
+            </div>
+            <div class="field">
+              <p class="control">
+                <!-- <input type="text" class="input" name="Year" v-model="form.Year"> -->
+                <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="Year" v-model="form.Year"></cleave>
+              </p>
+              <span>YYYY</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">Business Type</label>
-        <p class="control">
+        <div class="field">
+          <label class="label">Last Four Digits of Social Security</label>
+          <div class="control">
+            <!-- <input type="text" class="input" name="social-security" v-model="form['social-security']"> -->
+            <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="social-security" v-model="form['social-security']"></cleave>
+            <span class="help is-danger" v-if="errors['social-security'] !== null">{{errors['social-security']}}</span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Phone Number</label>
+          <span class="help is-danger" v-if="errors.phone !== null">{{errors.phone}}</span>
+          <div class="field-body">
+            <div class="field">
+              <p class="control">
+                <cleave class="input" :options="{ blocks: [3], numericOnly: true }" name="phone-area-code" v-model="form['phone-area-code']"></cleave>
+              </p>
+              <span>###</span>
+            </div>
+            <div class="field">
+              <p class="control">
+                <!-- <input type="text" class="input" name="phone-local-prefix" v-model="form['phone-local-prefix']"> -->
+                <cleave class="input" :options="{ blocks: [3], numericOnly: true }" name="phone-local-prefix" v-model="form['phone-local-prefix']"></cleave>
+              </p>
+              <span>###</span>
+            </div>
+            <div class="field">
+              <p class="control">
+                <!-- <input type="text" class="input" name="phone-local-suffix" v-model="form['phone-local-suffix']"> -->
+                <cleave class="input" :options="{ blocks: [4], numericOnly: true }" name="phone-local-suffix" v-model="form['phone-local-suffix']"></cleave>
+              </p>
+              <span>####</span>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Business Type</label>
+          <p class="control">
           <span class="select">
             <select name="businessType" v-model="form['businessType']" @click="clearErrors('businessType')">
               <option v-for="type in bizTypes" :key="type">{{ type }}</option>
             </select>
             <span class="help is-danger" v-if="errors.businessType !== null">{{errors.businessType}}</span>
           </span>
-        </p>
-      </div>
-      <div class="field">
-        <label class="label">Business Classification</label>
-        <p class="control">
+          </p>
+        </div>
+        <div class="field">
+          <label class="label">Business Classification</label>
+          <p class="control">
           <span class="select">
             <select name="select-business-classification-field" v-model="form['select-business-classification-field']" @click="clearErrors('select-business-classification-field')">
               <option v-for="cla in buizClassifications.buizClassNames" :key="cla">{{ cla }}</option>
             </select>
             <span class="help is-danger" v-if="errors['select-business-classification-field'] !== null">{{errors['select-business-classification-field']}}</span>
           </span>
-        </p>
-      </div>
-      <div class="field">
-        <label class="label">Industry Classification</label>
-        <p class="control">
+          </p>
+        </div>
+        <div class="field">
+          <label class="label">Industry Classification</label>
+          <p class="control">
           <span class="select">
             <select name="select-industry-classification-field" v-model="form['select-industry-classification-field']" @click="clearErrors('select-industry-classification-field')">
               <option v-for="cla in industryClassifications" :key="cla">{{ cla }}</option>
             </select>
             <span class="help is-danger" v-if="errors['select-industry-classification-field'] !== null">{{errors['select-industry-classification-field']}}</span>
           </span>
-        </p>
-      </div>
-      <div class="field">
-        <label class="label">Business Name <span class="extra-info">(official name as listed with state)</span></label>
-        <p class="control">
-          <input type="text" name="business-name" class="input" v-model="form['business-name']">
-          <span class="help is-danger" v-if="errors['business-name'] !== null">{{errors['business-name']}}</span>
-        </p>
-      </div>
-      <div class="field">
-        <label class="label">EIN</label>
-        <p class="control">
-          <!-- <input type="text" name="ein" class="input" v-model="form.ein"> -->
-          <cleave class="input" :options="{ delimiter: '-', blocks: [2, 7], numericOnly: true }" name="ein" v-model="form.ein"></cleave>
-          <span class="help is-danger" v-if="errors.ein !== null">{{errors.ein}}</span>
-        </p>
-        <span>Ex. 12-3456789</span>
-      </div>
-      <div class="field">
-        <label class="label">Doing Business As</label>
-        <p class="control">
-          <input type="text" name="dba" class="input" v-model="form.dba" >
-          <span class="help is-danger" v-if="errors.dba !== null">{{errors.dba}}</span>
-        </p>
-      </div>
-      <div class="field">
-        <label for="password" class="label">Password
-          <div class="tooltip"> ?
-            <span class="tooltiptext">{{passwordErrorMessage}}</span>
-          </div>
-        </label>
-        <p class="control">
-          <input type="password" id="password" name="password" class="input" v-model="form.password" >
-        </p>
-        <span class="help is-danger" v-if="errors.password !== null">{{errors.password}}</span>
-      </div>
-      <div class="field">
-        <label for="passwordConfirmation" class="label">Confim Password</label>
-        <p class="control">
-          <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="input" v-model="form.passwordConfirmation" >
-        </p>
-        <span class="help is-danger" v-if="errors.passwordConfirmation !== null">{{errors.passwordConfirmation}}</span>
-      </div>
-      <br>
-      <br>
-      <div class="field">
-        <p class="control">
-          <label class="checkbox">
-            <input type="checkbox" name="authorized" v-model="form.authorized" @click="clearErrors('authorized')">
-            <span>I hereby authorize and accept the Aero Payments Terms of Service and Privacy Policy agreements. I acknowledge this feature is powered by Dwolla and accept their Terms of Service and Privacy Policy agreements.</span>
-            <p><br><b>For more details, please refer to:</b></p>
-            <p>
-              <a href="https://www.aeropayments.com/terms-of-service">Aero Payments Terms of Service</a>
-            </p>
-            <p>
-              <a href="https://www.aeropayments.com/privacy-policy">Aero Payments Privacy Policy</a>
-            </p>
-            <p>
-              <a href="https://www.dwolla.com/legal/tos/">Dwolla Legal TOS</a>
-            </p>
-            <p>
-              <a href="https://www.dwolla.com/legal/privacy/">Dwolla Privarcy Policy</a>
-            </p>
+          </p>
+        </div>
+        <div class="field">
+          <label class="label">Business Name <span class="extra-info">(official name as listed with state)</span></label>
+          <p class="control">
+            <input type="text" name="business-name" class="input" v-model="form['business-name']">
+            <span class="help is-danger" v-if="errors['business-name'] !== null">{{errors['business-name']}}</span>
+          </p>
+        </div>
+        <div class="field">
+          <label class="label">EIN</label>
+          <p class="control">
+            <!-- <input type="text" name="ein" class="input" v-model="form.ein"> -->
+            <cleave class="input" :options="{ delimiter: '-', blocks: [2, 7], numericOnly: true }" name="ein" v-model="form.ein"></cleave>
+            <span class="help is-danger" v-if="errors.ein !== null">{{errors.ein}}</span>
+          </p>
+          <span>Ex. 12-3456789</span>
+        </div>
+        <div class="field">
+          <label class="label">Doing Business As</label>
+          <p class="control">
+            <input type="text" name="dba" class="input" v-model="form.dba" >
+            <span class="help is-danger" v-if="errors.dba !== null">{{errors.dba}}</span>
+          </p>
+        </div>
+        <div class="field">
+          <label for="password" class="label">Password
+            <div class="tooltip"> ?
+              <span class="tooltiptext">{{passwordErrorMessage}}</span>
+            </div>
+          </label>
+          <p class="control">
+            <input type="password" id="password" name="password" class="input" v-model="form.password" >
+          </p>
+          <span class="help is-danger" v-if="errors.password !== null">{{errors.password}}</span>
+        </div>
+        <div class="field">
+          <label for="passwordConfirmation" class="label">Confim Password</label>
+          <p class="control">
+            <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="input" v-model="form.passwordConfirmation" >
+          </p>
+          <span class="help is-danger" v-if="errors.passwordConfirmation !== null">{{errors.passwordConfirmation}}</span>
+        </div>
+        <br>
+        <br>
+        <div class="field">
+          <p class="control">
+            <label class="checkbox">
+              <input type="checkbox" name="authorized" v-model="form.authorized" @click="clearErrors('authorized')">
+              <span>I hereby authorize and accept the Aero Payments Terms of Service and Privacy Policy agreements. I acknowledge this feature is powered by Dwolla and accept their Terms of Service and Privacy Policy agreements.</span>
+          <p><br><b>For more details, please refer to:</b></p>
+          <p>
+            <a href="https://www.aeropayments.com/terms-of-service">Aero Payments Terms of Service</a>
+          </p>
+          <p>
+            <a href="https://www.aeropayments.com/privacy-policy">Aero Payments Privacy Policy</a>
+          </p>
+          <p>
+            <a href="https://www.dwolla.com/legal/tos/">Dwolla Legal TOS</a>
+          </p>
+          <p>
+            <a href="https://www.dwolla.com/legal/privacy/">Dwolla Privarcy Policy</a>
+          </p>
           </label>
           <span class="help is-danger" v-if="errors.authorized !== null">{{errors.authorized}}</span>
+          </p>
+        </div>
+        <br>
+        <br>
+        <span class="help is-danger" v-if="disabled && errors.overall === null">You have entered invalid values!</span>
+        <span class="help is-danger" v-if="disabled && errors.overall !== null">{{errors.overall}}</span>
+        <input type="submit" v-if="false">
+        <p class="has-text-centered">
+          <a class="button is-primary" id="submit"
+             :disabled="disabled"
+             :class = "{'is-loading' : isLoading}"
+             @click="onSubmit"
+          >Create</a>
         </p>
+      </form>
+      <div class="box column is-6 is-offset-3" v-if="registerSuccess">
+        <p>You have successfully registered!</p>
+        <br>
+        <p>Your usename is: <b>{{form.email}}</b></p>
+        <br>
+        <br>
+        <!-- <div v-html="registerReply"></div> -->
+        <div class="has-text-centered">
+          <router-link to="/iav" class="button is-primary"> Set up your bank account </router-link>
+        </div>
       </div>
-      <br>
-      <br>
-      <span class="help is-danger" v-if="disabled && errors.overall === null">You have entered invalid values!</span>
-      <span class="help is-danger" v-if="disabled && errors.overall !== null">{{errors.overall}}</span>
-      <input type="submit" v-if="false">
-      <p class="has-text-centered">
-        <a class="button is-primary" id="submit"
-          :disabled="disabled"
-          :class = "{'is-loading' : isLoading}"
-          @click="onSubmit"
-        >Create</a>
-      </p>
-    </form>
-    <div class="box column is-6 is-offset-3" v-if="registerSuccess">
-      <p>You have successfully registered!</p>
-      <br>
-      <p>Your usename is: <b>{{form.email}}</b></p>
-      <br>
-      <br>
-      <!-- <div v-html="registerReply"></div> -->
-      <div class="has-text-centered">
-      <router-link to="/iav" class="button is-primary"> Set up your bank account </router-link>
+    </div>
+    <br>
+    <br>
+    <div class="columns">
+      <div class="box has-text-centered column is-6 is-offset-3" v-if="!registerSuccess">
+        Already have an account? <router-link to="/login"> Sign in </router-link>
       </div>
     </div>
   </div>
-  <br>
-  <br>
-  <div class="columns">
-    <div class="box has-text-centered column is-6 is-offset-3" v-if="!registerSuccess">
-      Already have an account? <router-link to="/login"> Sign in </router-link>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>
@@ -377,12 +377,12 @@
           rejectData: this.handleError
         }
         this.loginAndRegMerchant(payLoad)
-          // .then(data => {
-          //   this.resolveData(data)
-          // })
-          // .catch(err => {
-          //   this.handleError(err)
-          // })
+        // .then(data => {
+        //   this.resolveData(data)
+        // })
+        // .catch(err => {
+        //   this.handleError(err)
+        // })
       },
       handleError (err) {
         this.isLoading = false
@@ -399,12 +399,12 @@
             rejectData: this.handleError
           }
           this.loginAndRegMerchant(payLoad)
-            // .then(res => {
-            //   this.resolveData(res)
-            // })
-            // .catch(err => {
-            //   this.handleError(err)
-            // })
+          // .then(res => {
+          //   this.resolveData(res)
+          // })
+          // .catch(err => {
+          //   this.handleError(err)
+          // })
         } else if (error.code === 'InvalidPasswordException') {
           this.errors.password = true
           this.isLoading = false
@@ -572,32 +572,32 @@
   }
 
   .tooltip {
-      position: relative;
-      display: inline-block;
-      border-bottom: 1px dotted black;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
   }
 
   .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 400px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
+    visibility: hidden;
+    width: 400px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
 
-      /* Position the tooltip */
-      position: absolute;
-      z-index: 1;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
   }
 
   .tooltip:hover .tooltiptext {
-      visibility: visible;
+    visibility: visible;
   }
   .extra-info {
     text-transform: capitalize;
   }
   input {
-  font-family: "adineue", serif;
-}
+    font-family: "adineue", serif;
+  }
 </style>

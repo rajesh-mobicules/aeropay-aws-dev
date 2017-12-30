@@ -98,24 +98,12 @@ const user = {
       awsAuthenticate(email, password, resolveL, rejectL)
     },
     checkAuth({ commit, state }) {
-      // const resolveAuth = () => {
-      //   commit('SET_AUTH', true)
-      // }
-      // const rejectAuth = (err) => {
-      //   console.log(err)
-      //   commit('SET_AUTH', false)
-      // }
       const decoded = jwtDecode(state.idToken)
       commit('SET_DECODED', decoded)
     },
     loginAndRegMerchant ({ commit, getters }, {formData, resolveData, rejectData}) {
       const email = formData.email.trim()
       const password = formData.password
-      // function register (token) {
-      //   registerMerchant(token, formData)
-      //     .then(() => resolveData())
-      //     .catch(err => rejectData(err))
-      // }
       function register (apiClient) {
         registerMerchant(apiClient, formData)
           .then(() => resolveData())
@@ -125,49 +113,20 @@ const user = {
         commit('SET_ID_TOKEN', token)
         commit('SET_EMAIL', email)
         // register(token)
-        buildApiClient(commit, getters, register)
+        setTimeout(() => buildApiClient(commit, getters, register), 100)
       }
       function rejectL (err) {
         commit('REMOVE_ID_TOKEN');
         rejectData(err)
       }
       awsAuthenticate(email, password, resolveL, rejectL)
-      // return new Promise((resolve, reject) => {
-          // .then(tokens => {
-          //   // console.log(tokens.idToken)
-          //   commit('SET_TOKEN', tokens)
-          //   commit('SET_EMAIL', email)
-          //   // console.log('token set')
-          //   registerMerchant(formData.data(), tokens.idToken)
-          //     .then(res => {
-          //       resolve(res)
-          //     })
-          //     .catch(err => {
-          //       reject(err)
-          //     })
-          // })
-          // .catch(error => {
-          //   reject(error)
-          // })
-      // })
     },
     logout ({ commit }, router) {
       // commit('REMOVE_ID_TOKEN');
       commit('LOG_OUT');
-      // commit('SET_API_CLIENT', null);
-      //
-      // window.localStorage.clear();
       awsSignout();
       router.push('/login')
       commit('REMOVE_ALL');
-      // return new Promise(resolve => {
-      //   commit('DELETE_TOKEN', 'accessToken')
-      //   commit('DELETE_TOKEN', 'idToken')
-      //   commit('DELETE_TOKEN', 'refreshToken')
-      //   commit('SET_FUNDING_SOURCE', null)
-      //   // window.localStorage.removeItem('JWT')
-      //   resolve()
-      // })
     }
   }
 }

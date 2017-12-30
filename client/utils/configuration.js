@@ -25,7 +25,8 @@ const awsStagingConfig = {
 const awsProdConfig = {
   UserPoolId: 'us-east-1_fWjpODvHX',
   ClientId: '4ho9ffdaapbhgpmdn43tasjtgj',
-  IdentityPoolId: 'us-east-1:65218d2b-2b7e-4c89-b63a-f7bbac76a0b1',
+  IdentityPoolId: 'us-east-1:277ae1ce-f62f-487c-bf67-f71cb223046d',
+  // IdentityPoolId: 'us-east-1:65218d2b-2b7e-4c89-b63a-f7bbac76a0b1',
   LoginsId: 'cognito-idp.us-east-1.amazonaws.com/us-east-1_fWjpODvHX'
 }
 
