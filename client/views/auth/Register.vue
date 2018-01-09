@@ -1,7 +1,7 @@
 <template>
   <div class="register-app content">
     <div class="has-text-centered">
-      <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
+      <img src="~assets/logo_with_ap.png" alt="aeroPay" class="aeroImg">
       <!-- <p class="portal">Register</p> -->
     </div>
     <div class="columns is-vcentered">
@@ -598,6 +598,6 @@
     text-transform: capitalize;
   }
   input {
-    font-family: "adineue", serif;
+    font-family: "AdinueProLite", serif; font-size: 18px;
   }
 </style>

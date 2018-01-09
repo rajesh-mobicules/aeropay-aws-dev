@@ -66,25 +66,25 @@ export default {
 
 <style lang="scss">
 @import '~animate.css';
-@font-face {
-  font-family: "adineue";
-  src: url('./assets/adineuePRO-Regular.otf');
-}
+/*@font-face {*/
+  /*font-family: "adineue";*/
+  /*src: url('./assets/adineuePRO-Regular.otf');*/
+/*}*/
 #app {
-  font-family: "adineue", serif;
+  font-family: "AdinueProLite", serif; font-size: 18px; color: #444444;
   text-transform: lowercase;
 }
 
 body {
-  font-family: "adineue", serif;
+  font-family: "AdinueProLite", serif; font-size: 18px; color: #444444;
 }
 * {
-  font-family: "adineue", serif;
+  font-family: "AdinueProLite", serif; font-size: 18px; color: #444444;
 }
-::-webkit-input-placeholder { font-family: "adineue", serif; }
-::-moz-placeholder { font-family: "adineue", serif; } /* firefox 19+ */
-:-ms-input-placeholder { font-family: "adineue", serif;} /* ie */
-input:-moz-placeholder { font-family: "adineue", serif; }
+::-webkit-input-placeholder { font-family: "AdinueProLite", serif; font-size: 18px; color: #444444; }
+::-moz-placeholder { font-family: "AdinueProLite", serif; font-size: 18px; color: #444444; } /* firefox 19+ */
+:-ms-input-placeholder { font-family: "AdinueProLite", serif; font-size: 18px; color: #444444;} /* ie */
+input:-moz-placeholder { font-family: "AdinueProLite", serif; font-size: 18px; color: #444444; }
 
 .animated {
   animation-duration: .377s;

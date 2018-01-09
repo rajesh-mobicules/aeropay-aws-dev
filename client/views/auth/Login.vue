@@ -1,7 +1,7 @@
 <template>
   <div class='app-login'>
     <div class="has-text-centered">
-      <img src="~assets/AeroPay.png" alt="aeroPay" class="aeroImg">
+      <img src="~assets/logo_with_ap.png" alt="aeroPay" class="aeroImg">
       <!-- <p class="portal">Portal</p> -->
     </div>
     <div class='columns'>
@@ -165,6 +165,6 @@ export default {
   color: $blue;
 }
 input {
-  font-family: "adineue", serif;
+  font-family: "AdinueProLite", serif; font-size: 18px;
 }
 </style>

@@ -26,7 +26,7 @@
           </div>
           </p>
         <p class="column">
-          <a class="button is-info" @click.prevent="search">
+          <a class="button is-primary" @click.prevent="search">
             Search
           </a>
         </p>
@@ -92,8 +92,8 @@
       <br>
       <div class="columns">
         <div class="column is-offset-4 is-4 has-text-centered">
-          <router-link class="button is-primary" :to="`/transactions/${page-1}`" v-if="page > 1">previous page</router-link>
-          <router-link class="button is-success" :to="`/transactions/${page+1}`" v-if="!onLastPage">next page</router-link>
+          <router-link class="button is-success" :to="`/transactions/${page-1}`" v-if="page > 1">previous page</router-link>
+          <router-link class="button is-primary" :to="`/transactions/${page+1}`" v-if="!onLastPage">next page</router-link>
         </div>
       </div>
     </article>
@@ -286,6 +286,6 @@ export default {
   margin-left: 50px;
 }
 input {
-  font-family: "adineue", serif;
+  font-family: "AdinueProLite", serif; font-size: 18px; color: #444444;
 }
 </style>

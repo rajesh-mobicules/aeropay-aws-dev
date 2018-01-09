@@ -18,6 +18,7 @@
       <div class="navbar-end">
         <p class="navbar-item">{{userRole}}</p>
         <p class="navbar-item">{{locs}}</p>
+        <span class="line-spacer">&nbsp;</span>
         <router-link v-if="!checkAuth" to="/login" class="navbar-item">login</router-link>
         <a v-if="checkAuth" @click="logoutClick" class="navbar-item">logout</a>
       </div>
@@ -43,7 +44,7 @@ export default {
       sidebar: "sidebar",
       checkAuth: "checkAuth",
       transSum: "transSum",
-      user: "user",
+      merchant: "merchant",
       locations: "locations"
     }),
     thisMonth () {
@@ -54,10 +55,10 @@ export default {
       return monthlyAmount[monthlyAmount.length - 1].totalAmount
     },
     userRole () {
-      if (!this.user) {
+      if (!this.merchant) {
         return '';
       }
-      return userRolesMap[this.user.level]
+      return userRolesMap[this.merchant.isAuthorized]
     },
     locs () {
       if (this.userRole === userRolesMap[0]) return '';
@@ -148,4 +149,10 @@ export default {
   color: $primary;
   font-size: 25px;
 }
+  .line-spacer {
+    display: block;
+    height: 100%;
+    width: 1px;
+    background-color: grey;
+  }
 </style>

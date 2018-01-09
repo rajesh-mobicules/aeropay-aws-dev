@@ -9,7 +9,7 @@
           </span>
         </p>
         <p class="control">
-          <button class="button is-info" @click.prevent="searchCustomers">
+          <button class="button is-primary" @click.prevent="searchCustomers">
             Search
           </button>
         </p>
@@ -55,8 +55,8 @@
       <br>
       <div class="columns">
         <div class="column is-offset-4 is-4 has-text-centered">
-          <router-link class="button is-primary" :to="`/customers/${page-1}`" v-if="page > 1">previous page</router-link>
-          <router-link class="button is-success" :to="`/customers/${page+1}`" v-if="!onLastPage">next page</router-link>
+          <router-link class="button is-success" :to="`/customers/${page-1}`" v-if="page > 1">previous page</router-link>
+          <router-link class="button is-primary" :to="`/customers/${page+1}`" v-if="!onLastPage">next page</router-link>
         </div>
       </div>
     </article>

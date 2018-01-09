@@ -74,10 +74,10 @@ export const withApiClient = (next, store) => {
           ({ data }) => {
             // if (data.success) {
             const merchant = parsePJString(data.merchant)
-            const user = parsePJString(data.user)
+            // const user = parsePJString(data.user)
             store.commit('SET_PROFILE', data.profile)
             store.commit('SET_MERCHANT', merchant)
-            store.commit('SET_USER', user)
+            // store.commit('SET_USER', user)
             store.commit('SET_LOADING_API', false)
             getLocations(apigClient, merchant.merchantId)
               .then(({data}) => store.commit('SET_LOCATIONS', data.locations))

@@ -598,6 +598,6 @@
     text-transform: capitalize;
   }
   input {
-    font-family: "adineue", serif;
+    font-family: "AdinueProLite", serif; font-size: 18px; color: #444444;
   }
 </style>
