@@ -70,6 +70,10 @@ export default {
   /*font-family: "adineue";*/
   /*src: url('./assets/adineuePRO-Regular.otf');*/
 /*}*/
+@font-face {
+font-family: "AdinueProLite";
+src: url('./assets/AdinueProLite.otf');
+}
 #app {
   font-family: "AdinueProLite", serif; font-size: 18px; color: #444444;
   text-transform: lowercase;
