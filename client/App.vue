@@ -77,6 +77,7 @@ src: url('./assets/AdinueProLite.otf');
 #app {
   font-family: "AdinueProLite", serif; font-size: 18px; color: #444444;
   text-transform: lowercase;
+  letter-spacing: 0.05px;
 }
 
 body {
