@@ -4,6 +4,7 @@
       <a class="navbar-item"  href="/">
         <img src="~assets/AP.png" alt="Aero Payments">
       </a>
+      <p class="navbar-item">{{profile.email}}</p>
       <p v-if="checkAuth" class="navbar-item">
           revenue<span class="aero-number">&nbsp;{{transSum.totalAmount | money}}</span>
           &nbsp;&nbsp;&nbsp;transactions <span class="aero-number">&nbsp;{{transSum.totalCount | count}}</span>
@@ -45,7 +46,8 @@ export default {
       checkAuth: "checkAuth",
       transSum: "transSum",
       merchant: "merchant",
-      locations: "locations"
+      locations: "locations",
+      profile: "profile"
     }),
     thisMonth () {
       const { monthlyAmount } = this.transSum;
