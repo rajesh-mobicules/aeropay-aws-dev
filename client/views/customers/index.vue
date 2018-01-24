@@ -37,12 +37,12 @@
           label="email"
           sortable>
         </el-table-column>
-        <el-table-column
+        <!-- <el-table-column
           prop="merchant"
           label="merchant"
           sortable
           width="120">
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column
           prop="amount"
           label="amount"

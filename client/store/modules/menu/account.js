@@ -20,15 +20,15 @@ export default {
       },
       component: lazyLoading('account/Info')
     },
-    {
-      name: 'Locations',
-      path: 'locations',
-      meta: {
-        link: 'account/Locations.vue',
-        auth: true
-      },
-      component: lazyLoading('account/Locations')
-    },
+    // {
+    //   name: 'Locations',
+    //   path: 'locations',
+    //   meta: {
+    //     link: 'account/Locations.vue',
+    //     auth: true
+    //   },
+    //   component: lazyLoading('account/Locations')
+    // },
     {
       name: 'Billing',
       path: 'billing',

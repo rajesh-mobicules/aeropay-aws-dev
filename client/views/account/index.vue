@@ -38,11 +38,6 @@
             Info
           </span>
         </router-link>
-        <router-link to="/account/locations" class="card-footer-item">
-          <span>
-            Locations
-          </span>
-        </router-link>
         <router-link to="/account/billing" class="card-footer-item">
           <span>
             Billing

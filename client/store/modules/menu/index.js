@@ -5,6 +5,7 @@ import settings from './settings'
 import account from './account'
 import help from './help'
 import labs from './labs'
+import locations from './locations'
 // show: meta.label -> name
 // name: component name
 // meta.label: display label
@@ -32,6 +33,7 @@ const state = {
       },
       component: lazyLoading('customers', true)
     },
+    locations,
     account,
     settings,
     help,
