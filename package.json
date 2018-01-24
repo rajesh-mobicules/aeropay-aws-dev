@@ -59,6 +59,7 @@
     "vue-cleave": "^1.2.2",
     "vue-cognito-auth": "^2.11.0-beta",
     "vue-flatpickr-component": "^4.0.0",
+    "vue-google-autocomplete": "^1.0.14",
     "vue-lory": "0.0.4",
     "vue-nprogress": "0.1.5",
     "vue-peity": "0.5.0",

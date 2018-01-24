@@ -86,11 +86,21 @@
      <form @submit.prevent="addLocationSubmit">
        <div class="field">
          <label class="label">Location Name</label>
-         <p class="control">
+         <!-- <p class="control">
            <input class="input" type="text"
            placeholder="Chicago Store #1" v-model="location.name"
            id="locationAddress"
            />
+         </p> -->
+         <p class="control">
+           <vue-google-autocomplete
+            ref="address"
+            id="map"
+            placeholder="Please type your address"
+            v-model="location.name"
+            v-on:placechanged="getAddressData"
+        >
+        </vue-google-autocomplete>
          </p>
          <label class="label">Address</label>
          <p class="control">
@@ -156,9 +166,11 @@ import { SweetModal } from "sweet-modal-vue";
 import statesHash from "utils/states_hash.json";
 import { mapGetters } from "vuex";
 import { parsePJString } from "utils/auth_utils";
+import VueGoogleAutocomplete from "vue-google-autocomplete";
 export default {
   components: {
-    SweetModal
+    SweetModal,
+    VueGoogleAutocomplete
   },
   data() {
     return {
@@ -170,7 +182,8 @@ export default {
       disabled: false,
       isLoading: false,
       selectedLocationId: "",
-      keyword: ""    
+      keyword: "",
+      address: ""
     };
   },
   beforeMount() {
@@ -186,6 +199,9 @@ export default {
       .catch(err => console.log(err));
   },
   methods: {
+    getAddressData: function(addressData, placeResultData, id) {
+      this.address = addressData;
+    },
     openModalClick() {
       const options = {
         onDone: () => {
