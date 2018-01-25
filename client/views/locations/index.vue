@@ -201,6 +201,26 @@ export default {
   methods: {
     getAddressData: function(addressData, placeResultData, id) {
       this.address = addressData;
+      if (placeResultData.formatted_address) {
+        this.location.address = placeResultData.formatted_address;
+      }
+      if (addressData.country) {
+        this.location.city = addressData.country;
+      }
+      if (addressData.administrative_area_level_1) {
+        this.location.state = addressData.administrative_area_level_1;
+      }
+      if (addressData.postal_code) {
+        this.location.postalCode = addressData.postal_code;
+      }
+
+      // for (var i = 0; i < placeResultData.address_components.length; i++) {
+      //   for (var j = 0; j < placeResultData.address_components[i].types.length; j++) {
+      //     if (placeResultData.address_components[i].types[j] == "postal_code") {
+      //       location.postalCode = placeResultData.address_components[i].long_name;
+      //     }
+      //   }
+      // }
     },
     openModalClick() {
       const options = {
