@@ -86,16 +86,11 @@
      <form @submit.prevent="addLocationSubmit">
        <div class="field">
          <label class="label">Location Name</label>
-         <!-- <p class="control">
-           <input class="input" type="text"
-           placeholder="Chicago Store #1" v-model="location.name"
-           id="locationAddress"
-           />
-         </p> -->
          <p class="control">
            <vue-google-autocomplete
             ref="address"
-            id="map"
+            class="input"
+            id="autoComplete"
             placeholder="Please type your address"
             v-model="location.name"
             v-on:placechanged="getAddressData"

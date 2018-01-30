@@ -14,6 +14,14 @@
 import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
 import { Navbar, Sidebar, AppMain, FooterBar } from 'components/layout'
 import { mapGetters, mapActions } from 'vuex'
+import Vue from "vue"
+import * as VueGoogleMaps from "vue2-google-maps"
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyB7f0tvwKTYOMkvvQiXszu59G22njKjtZg",
+    libraries: "places"
+  }
+});
 export default {
   components: {
     Navbar,
@@ -134,4 +142,52 @@ html {
     }
   }
 }
+.sweet-modal .sweet-title > h2
+{
+    font-weight: 900 !important;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+#delete-modal .button.is-danger{
+  background-color: rgb(63, 63, 63);
+  width: 100%;
+}
+
+#delete-modal .sweet-action-close
+
+{
+  background-color: grey;
+  color: white;
+  border:3px solid white;
+      position: absolute;
+      top: -30px;
+    right: -25px;
+}
+
+#delete-modal .sweet-content
+{
+  padding:0px;
+}
+
+#delete-modal .sweet-modal
+{
+  overflow:inherit;
+}
+
+#delete-modal  .sweet-content-content p
+{
+padding: 20px
+}
+
+#delete-modal .sweet-action-close svg
+{
+  color:white;
+}
+
+.sweet-modal-overlay
+{
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
 </style>
